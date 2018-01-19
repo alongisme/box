@@ -1,0 +1,11 @@
+K 10
+svn:ignore
+V 168
+ALBannerViewController.h
+ALBannerViewController.m
+ALCustomizationViewController.h
+ALCustomizationViewController.m
+ALFastCallViewController.h
+ALFastCallViewController.m
+
+END

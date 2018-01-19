@@ -1,0 +1,237 @@
+//
+//  ALLoginViewController.m
+//  bbxServer
+//
+//  Created by along on 2017/8/25.
+//  Copyright © 2017年 along. All rights reserved.
+//
+
+#import "ALLoginViewController.h"
+#import "ALLoginApi.h"
+#import "ALAccountView.h"
+#import "ALPasswordView.h"
+#import "ALSetPasswordViewController.h"
+#import <JPUSHService.h>
+#import "ALProtocolViewController.h"
+
+@interface ALLoginViewController ()
+@property (nonatomic, strong) ALActionButton *loginBtn;
+@property (nonatomic, strong) ALAccountView *accountView;
+@property (nonatomic, strong) ALPasswordView *passwordView;
+@property (nonatomic, strong) YYLabel *protocolLab;
+@property (nonatomic, strong) ALLoginApi *loginApi;
+@property (nonatomic, strong) UIButton *forgetPasswordBtn;
+@property (nonatomic, strong) UIView *vLineView;
+@property (nonatomic, strong) UIButton *registBtn;
+@end
+
+@implementation ALLoginViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"镖镖服务端";
+    
+    [self initSubviews];
+    [self bindAction];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:@"UITextFieldTextDidChangeNotification" object:nil];
+}
+
+- (void)textFieldTextDidChange:(NSNotification *)notification {
+    UITextField *currentTF = notification.object;
+    if(currentTF == self.accountView.accountTF) {
+        self.accountView.accountLoginEnable = [currentTF.text isVaild];
+    } else if (currentTF == self.passwordView.passwordTF) {
+        self.passwordView.passwordLoginEnable = [currentTF.text isVaild];
+    }
+}
+
+- (void)initSubviews {
+    
+    [self.loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.view);
+        make.left.equalTo(@35);
+        make.right.equalTo(@-35);
+    }];
+    
+    [self.passwordView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@35);
+        make.right.equalTo(@-35);
+        make.bottom.equalTo(self.loginBtn.mas_top).offset(-38);
+        make.height.equalTo(@40);
+    }];
+    
+    [self.accountView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.height.equalTo(self.passwordView);
+        make.bottom.equalTo(self.passwordView.mas_top).offset(-25);
+    }];
+    
+    [self.forgetPasswordBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@45);
+        make.top.equalTo(self.loginBtn.mas_bottom).offset(30);
+    }];
+    
+    [self.vLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.centerY.equalTo(self.forgetPasswordBtn);
+        make.width.equalTo(@0.5);
+        make.height.equalTo(@14);
+    }];
+    
+    [self.registBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(@-45);
+        make.top.equalTo(self.forgetPasswordBtn);
+    }];
+    
+    [self.protocolLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(@-24);
+        make.centerX.equalTo(self.view);
+    }];
+}
+
+- (void)bindAction {
+    
+    AL_WeakSelf(self);
+    [self.forgetPasswordBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        ALSetPasswordViewController *setPasswordVC = [[ALSetPasswordViewController alloc] init];
+        setPasswordVC.title = @"忘记密码";
+        [weakSelf.navigationController pushViewController:setPasswordVC animated:YES];
+    }];
+    
+    [self.registBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        ALSetPasswordViewController *setPasswordVC = [[ALSetPasswordViewController alloc] init];
+        setPasswordVC.title = @"注册";
+        [weakSelf.navigationController pushViewController:setPasswordVC animated:YES];
+    }];
+    
+    [self.accountView addObserverBlockForKeyPath:@"accountLoginEnable" block:^(id  _Nonnull obj, id  _Nonnull oldVal, id  _Nonnull newVal) {
+        BOOL accountAble = ALStringFormat(@"%@", newVal).boolValue;
+        if(accountAble && weakSelf.passwordView.passwordLoginEnable) {
+            weakSelf.loginBtn.enabled = YES;
+        } else {
+            weakSelf.loginBtn.enabled = NO;
+        }
+    }];
+    
+    [self.passwordView addObserverBlockForKeyPath:@"passwordLoginEnable" block:^(id  _Nonnull obj, id  _Nonnull oldVal, id  _Nonnull newVal) {
+        BOOL passwordAble = ALStringFormat(@"%@", newVal).boolValue;
+        if(passwordAble&& weakSelf.accountView.accountLoginEnable) {
+            weakSelf.loginBtn.enabled = YES;
+        } else {
+            weakSelf.loginBtn.enabled = NO;
+        }
+    }];
+    
+    [self.loginBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        
+        weakSelf.loginApi = [[ALLoginApi alloc] initLoginApi:weakSelf.accountView.accountTF.text password:[weakSelf.passwordView.passwordTF.text md5String]];
+        
+        [weakSelf.loginApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+            [weakSelf.view endEditing:YES];
+            //设置用户id数据
+            AL_MyAppDelegate.userModel.idModel = weakSelf.loginApi.idModel;
+            //保存数据
+            [AL_MyAppDelegate.userModel AL_saveLocalWithLocalKey:UserInfo_Default];
+            
+            //设置推送标识
+            [JPUSHService setTags:[NSSet setWithObject:@"serverTag"] alias:AL_MyAppDelegate.userModel.idModel.userId fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+                NSLog(@"%d",iResCode);
+            }];
+            
+            //友盟统计用户登录
+            [MobClick profileSignInWithPUID:AL_MyAppDelegate.userModel.idModel.userId];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:ReSetToMainPageModule object:nil];
+        } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+            
+        }];
+        
+    }];
+    
+    //初始化可点击富文本
+    NSMutableAttributedString *text  = [[NSMutableAttributedString alloc] initWithString: @"点击登录，即表示认同《镖镖服务端协议》"];
+    text.yy_lineSpacing = 0.2;
+    text.yy_font = [UIFont systemFontOfSize:14];
+    text.yy_color = [UIColor colorWithRGBA:0x999999FF];
+    [text yy_setTextHighlightRange:NSMakeRange(10, 9) color:[UIColor colorWithRGBA:0x4B7FEBFF] backgroundColor:[UIColor clearColor] tapAction:^(UIView * _Nonnull containerView, NSAttributedString * _Nonnull text, NSRange range, CGRect rect) {
+        [weakSelf.navigationController pushViewController:[ALProtocolViewController new] animated:YES];
+    }];
+    self.protocolLab.attributedText = text;  //设置富文本
+}
+
+
+#pragma mark lazy load
+- (ALActionButton *)loginBtn {
+    if(!_loginBtn) {
+        _loginBtn = [ALActionButton buttonWithType:UIButtonTypeCustom arc:YES];
+        _loginBtn.enabled = NO;
+        [_loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+        [self.view addSubview:_loginBtn];
+    }
+    return _loginBtn;
+}
+
+- (ALAccountView *)accountView {
+    if(!_accountView) {
+        _accountView = [[ALAccountView alloc] init];
+        [self.view addSubview:_accountView];
+    }
+    return _accountView;
+}
+
+- (ALPasswordView *)passwordView {
+    if(!_passwordView) {
+        _passwordView = [[ALPasswordView alloc] init];
+        [self.view addSubview:_passwordView];
+    }
+    return _passwordView;
+}
+
+- (UIButton *)forgetPasswordBtn {
+    if(!_forgetPasswordBtn) {
+        _forgetPasswordBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_forgetPasswordBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
+        _forgetPasswordBtn.titleLabel.font = ALThemeFont(15);
+        [_forgetPasswordBtn setTitleColor:[UIColor colorWithRGBA:ALMsgTitleColor] forState:UIControlStateNormal];
+        [_forgetPasswordBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        [self.view addSubview:_forgetPasswordBtn];
+    }
+    return _forgetPasswordBtn;
+}
+
+- (UIView *)vLineView {
+    if(!_vLineView) {
+        _vLineView = [[UIView alloc] init];
+        _vLineView.backgroundColor = [UIColor colorWithRGB:0xD8D8D8];
+        [self.view addSubview:_vLineView];
+    }
+    return _vLineView;
+}
+
+- (UIButton *)registBtn {
+    if(!_registBtn) {
+        _registBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_registBtn setTitle:@"立即注册" forState:UIControlStateNormal];
+        _registBtn.titleLabel.font = ALThemeFont(15);
+        [_registBtn setTitleColor:[UIColor colorWithRGBA:ALThemeColor] forState:UIControlStateNormal];
+        [_registBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        [self.view addSubview:_registBtn];
+    }
+    return _registBtn;
+}
+
+- (YYLabel *)protocolLab {
+    if(!_protocolLab) {
+        _protocolLab = [[YYLabel alloc] init];
+        _protocolLab.font = ALThemeFont(13);
+        [self.view addSubview:_protocolLab];
+    }
+    return _protocolLab;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.accountView removeObserverBlocksForKeyPath:@"accountLoginEnable"];
+    [self.passwordView removeObserverBlocksForKeyPath:@"passwordLoginEnable"];
+}
+@end

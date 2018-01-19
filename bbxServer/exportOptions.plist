@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>method</key>
+		<string>development</string>
+		<key>uploadSymbols</key>
+		<true/>
+		<key>com.kuanyinkj.bbx.server</key>
+		<string>bbxServerDevelopmentProvisioning</string>
+	</dict>
+	<key>method</key>
+	<string>development</string>
+	<key>aps-environment</key>
+	<string>bbxServer.entitlements</string>
+	<key>uploadSymbols</key>
+	<true/>
+	<key>com.kuanyinkj.bbx.user</key>
+	<string>bbxServerDevelopmentProvisioning</string>
+</dict>
+</plist>

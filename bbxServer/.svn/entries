@@ -1,0 +1,80 @@
+10
+
+dir
+617
+svn://shixinglong@101.132.114.27/bbx/iOS/bbxServer
+svn://shixinglong@101.132.114.27/bbx
+
+
+
+2017-11-27T06:58:33.114205Z
+617
+shixinglong
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+ac896a5e-7e08-436f-ab4d-b299c0ca7d82
+
+bbxServer
+dir
+
+Podfile
+file
+616
+
+
+
+2017-10-12T03:24:43.000000Z
+5769a5252af41ca46e80431146b852ec
+2017-10-12T03:06:03.308192Z
+285
+shixinglong
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+692
+
+bbxServerUITests
+dir
+
+bbxServerTests
+dir
+
+bbxServer.xcworkspace
+dir
+
+Classes
+dir
+
+bbxServer.xcodeproj
+dir
+

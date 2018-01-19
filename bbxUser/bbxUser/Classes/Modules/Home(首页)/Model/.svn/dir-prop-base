@@ -1,0 +1,11 @@
+K 10
+svn:ignore
+V 128
+ALBannerListModel.h
+ALBannerListModel.m
+ALOptionListModel.h
+ALOptionListModel.m
+ALTimeCouponListModel.h
+ALTimeCouponListModel.m
+
+END

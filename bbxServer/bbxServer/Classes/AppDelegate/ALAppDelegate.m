@@ -1,0 +1,324 @@
+//
+//  ALAppDelegate.m
+//  AnyHelp
+//
+//  Created by along on 2017/7/18.
+//  Copyright © 2017年 along. All rights reserved.
+//
+
+#import "ALAppDelegate.h"
+#import "ALBaseNavigationController.h"
+#import <IQKeyboardManager.h>
+#import <BaiduMapAPI_Base/BMKBaseComponent.h>
+#import "ALAppDelegate+ALJPush.h"
+#import "ALLoginViewController.h"
+#import "ALMainPageViewController.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "ALMainPageViewController.h"
+
+@interface ALAppDelegate () <BMKGeneralDelegate>
+@property (nonatomic, strong) BMKMapManager *mapManager;
+@end
+
+@implementation ALAppDelegate
+
+#pragma mark UIApplicationDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //设置友盟
+    [self ConfigureShareUMmob];
+    
+    //注册激光服务
+    [self registJPushServerWithOptions:launchOptions];
+    
+    //监听网络状态
+    [self ConfigureNetworkStatus];
+    
+    //设置导航栏、标签页
+    [self ConfigureNavigationOrTabbar];
+    
+    //设置统一键盘监听
+    [self ConfigureKeyboardManager];
+    
+    //设置网络参数
+    [self ConfigureNetwWorkOption];
+    
+    //设置百度地图
+    [self ConfigureBaiDuSDK];
+    
+    //注册通知
+    [self ConfigureNotification];
+    
+    //设置rootViewcontroller
+    [self ConfigureRootViewController];
+    return YES;
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+}
+
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+}
+
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+//    [JPUSHService resetBadge];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0]; //清除角标
+    
+    if([self.window.currentViewController isKindOfClass:[ALMainPageViewController class]]) {
+        ALMainPageViewController *mainPageVC = (ALMainPageViewController *)self.window.currentViewController;
+        [mainPageVC loadData];
+    }
+}
+
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+}
+
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark ConfigureSomething
+
+- (void)ConfigureNavigationOrTabbar {
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRGBA:ALThemeColor]] forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                    NSForegroundColorAttributeName : [UIColor colorWithRGBA:ALNavTitleColor],
+                                                    NSFontAttributeName : ALNavTitleFont
+                                                           }];
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{
+                                                           NSFontAttributeName : ALThemeFont(15),NSForegroundColorAttributeName : [UIColor whiteColor]
+                                                           } forState:UIControlStateNormal];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+}
+
+- (void)ConfigureRootViewController {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    sleep(2);
+    self.userModel = [NSObject AL_localObjWithKey:UserInfo_Default];
+    if(_userModel) {
+        self.window.rootViewController = [[ALBaseNavigationController alloc] initWithRootViewController:[[ALMainPageViewController alloc] init]];
+    } else {
+        self.window.rootViewController = [[ALBaseNavigationController alloc] initWithRootViewController:[[ALLoginViewController alloc] init]];
+    }
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
+}
+
+- (void)ConfigureKeyboardManager {
+    [IQKeyboardManager sharedManager].enable = YES;
+    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+}
+
+- (void)ConfigureNetwWorkOption {
+#if DEBUG
+    [YTKNetworkConfig sharedConfig].debugLogEnabled = YES;
+#endif
+    
+    [YTKNetworkConfig sharedConfig].baseUrl = URL_Domain;
+    ALUrlArgumentsFilter *urlFileter = [ALUrlArgumentsFilter filterWithArguments:@{
+                                                                                   @"Device":[UIDevice currentDevice].machineModelName,
+                                                                                   @"System":[UIDevice currentDevice].systemVersion,
+                                                                                   @"Version":ALAppVersion,
+                                                                                   }];
+    [[YTKNetworkConfig sharedConfig] addUrlFilter:urlFileter];
+}
+
+- (void)ConfigureShareUMmob {
+#if DEBUG
+    [MobClick setLogEnabled:YES];
+#endif
+    UMConfigInstance.appKey = UMMobSDKAppKey;
+    UMConfigInstance.channelId = @"App Store";
+    [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
+}
+
+- (void)ConfigureNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reSetToLoginModule:) name:ReSetToLoginModule object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reSetToMainPageModule) name:ReSetToMainPageModule object:nil];
+}
+
+- (void)ConfigureBaiDuSDK {
+    _mapManager = [[BMKMapManager alloc] init];
+    BOOL ret = [_mapManager start:BaiDuAppKey generalDelegate:self];
+    if(!ret) {
+        NSLog(@"manager start failed!");
+    }
+    
+    [[ALBaiduLocation shardInstance] initLocationService];
+}
+
+- (void)ConfigureNetworkStatus {
+    AFNetworkReachabilityManager *networkReachabilityManager = [AFNetworkReachabilityManager sharedManager];
+    [networkReachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        self.netWorkstatus = status;
+        NSLog(@"network status change : %ld",(long)status);
+    }];
+    [networkReachabilityManager startMonitoring];
+}
+
+#pragma mark NotificationCenter Observer
+- (void)reSetToLoginModule:(NSNotification *)notification {
+    NSString *string = notification.object;
+    
+    [UIView transitionWithView:self.window duration:0.5f options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+        BOOL oldState = [UIView areAnimationsEnabled];
+        [UIView setAnimationsEnabled:NO];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.window.rootViewController = [[ALBaseNavigationController alloc] initWithRootViewController:[[ALLoginViewController alloc] init]];
+        });
+        [UIView setAnimationsEnabled:oldState];
+    } completion:^(BOOL finished) {
+        if([string isEqualToString:@"tokenTimeOut"]) {
+            [self.window showHudError:@"身份过期，请重新登录～"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"closeTimer" object:nil];
+            
+            //清空数据
+            [NSObject AL_clearDataWithLocalKey:UserInfo_Default];
+            AL_MyAppDelegate.userModel = nil;
+            
+            //清空推送标识
+            [JPUSHService setTags:[NSSet set] alias:@"" fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+                NSLog(@"%d",iResCode);
+            }];
+            
+            //停止友盟PUID统计
+            [MobClick profileSignOff];
+        }
+    }];
+    
+}
+
+- (void)reSetToMainPageModule {
+    [UIView transitionWithView:self.window duration:0.5f options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+        BOOL oldState = [UIView areAnimationsEnabled];
+        [UIView setAnimationsEnabled:NO];
+        dispatch_async(dispatch_get_main_queue(), ^{
+        self.window.rootViewController = [[ALBaseNavigationController alloc] initWithRootViewController:[[ALMainPageViewController alloc] init]];
+        });
+        [UIView setAnimationsEnabled:oldState];
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+
+#pragma mark pay notification 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    if ([url.host isEqualToString:@"safepay"]) {
+        // 授权跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"defaultService result = %@",resultDic);
+            // 解析 auth code
+            NSString *result = resultDic[@"result"];
+            NSString *authCode = nil;
+            if (result.length>0) {
+                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                for (NSString *subResult in resultArr) {
+                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                        authCode = [subResult substringFromIndex:10];
+                        break;
+                    }
+                }
+            }
+            NSLog(@"授权结果 authCode = %@", authCode?:@"");
+        }];
+    }
+    return YES;
+}
+
+// NOTE: 9.0以后使用新API接口
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
+    if ([url.host isEqualToString:@"safepay"]) {
+        // 授权跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"defaultService==result = %@",resultDic);
+            // 解析 auth code
+            NSString *result = resultDic[@"result"];
+            NSString *authCode = nil;
+            if (result.length>0) {
+                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                for (NSString *subResult in resultArr) {
+                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                        authCode = [subResult substringFromIndex:10];
+                        break;
+                    }
+                }
+            }
+            NSLog(@"授权结果 authCode = %@", authCode?:@"");
+        }];
+
+    }
+    
+    return YES;
+}
+
+- (void)aliPayOrderStatus:(NSUInteger)stauts {
+    switch (stauts) {
+        case 9000: {
+            //            [ALKeyWindow showHudSuccess:@"支付成功～"];
+        }
+            break;
+        case 6001: {
+        
+            [ALKeyWindow showHudSuccess:@"用户中途取消～"];
+            break;
+        }
+        case 8000: {
+         
+            [ALKeyWindow showHudSuccess:@"正在处理～"];
+        }
+            break;
+        case 4000: {
+           
+            [ALKeyWindow showHudSuccess:@"支付失败～"];
+        }
+            break;
+        case 6002: {
+            
+            [ALKeyWindow showHudSuccess:@"网络连接出错～"];
+        }
+            break;
+        case 6004: {
+            
+            [ALKeyWindow showHudSuccess:@"支付结果未知～"];
+        }
+            break;
+        default: {
+            
+            [ALKeyWindow showHudSuccess:@"其他错误～"];
+        }
+            break;
+    }
+    
+}
+
+- (ALAuthModel *)authModel {
+    if(!_authModel) {
+        _authModel = [[ALAuthModel alloc] init];
+    }
+    return _authModel;
+}
+
+- (ALUserModel *)userModel {
+    if(!_userModel) {
+        _userModel = [[ALUserModel alloc] init];
+        _userModel.idModel = [[ALUserIDModel alloc] init];
+        _userModel.userInfoModel = [[ALUserInfoModel alloc] init];
+    }
+    return _userModel;
+}
+@end

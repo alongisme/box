@@ -1,0 +1,37 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, ‘8.0’
+
+target 'bbxUser' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for bbxUser
+
+pod 'Masonry'
+pod 'YTKNetwork'
+pod 'IQKeyboardManager'
+pod 'SDWebImage'
+pod 'JSONModel'
+pod 'MJRefresh'
+pod 'SDCycleScrollView'
+pod 'DZNEmptyDataSet'
+pod 'MBProgressHUD'
+pod 'YYCategories'
+pod 'JPush'
+pod 'BaiduMapKit'
+pod 'YYText'
+pod 'UMengAnalytics-NO-IDFA'
+pod 'SDCycleScrollView'
+pod 'WechatOpenSDK'
+
+  target 'bbxUserTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'bbxUserUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

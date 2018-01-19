@@ -1,0 +1,15 @@
+K 10
+svn:ignore
+V 256
+ALConfirmCustomOrderApi.h
+ALConfirmCustomOrderApi.m
+ALGetTimelimitCouponApi.h
+ALGetTimelimitCouponApi.m
+ALQueryBannerInfoApi.h
+ALQueryBannerInfoApi.m
+ALQueryBannerListApi.h
+ALQueryBannerListApi.m
+ALQueryOrderMinStartTimeApi.h
+ALQueryOrderMinStartTimeApi.m
+
+END

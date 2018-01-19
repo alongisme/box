@@ -1,0 +1,13 @@
+//
+//  ALInstructionsViewController.h
+//  bbxUser
+//
+//  Created by along on 2017/9/21.
+//  Copyright © 2017年 along. All rights reserved.
+//
+
+#import "ALBaseViewController.h"
+
+@interface ALInstructionsViewController : ALBaseViewController
+
+@end
