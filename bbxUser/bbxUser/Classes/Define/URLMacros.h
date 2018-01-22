@@ -12,13 +12,13 @@
 #if DEVELOPMENT
 
 //公网测试环境
-#define URL_Domain @"http://106.14.169.84/"
+#define URL_Domain @"http://test.biaobiaoxia.com/"
 //公网测试环境
-#define URL_Image @"http://106.14.169.84/file/"
+#define URL_Image @"http://test.biaobiaoxia.com/file/"
 //公网测试环境
-#define URL_UpFile @"http://106.14.169.84/mobile/api/system/v1/uploadFile"
+#define URL_UpFile @"http://test.biaobiaoxia.com/mobile/api/system/v1/uploadFile"
 //服务器静态资源
-#define URL_Resources @"http://106.14.169.84/resources/"
+#define URL_Resources @"http://test.biaobiaoxia.com/resources/"
 
 #else
 

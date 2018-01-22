@@ -12,6 +12,10 @@
 		3D080DF31FB003E1009676BA /* ALCustomizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D080DF21FB003E1009676BA /* ALCustomizationViewController.m */; };
 		3D080DF61FB0066B009676BA /* ALCustomNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D080DF51FB0066B009676BA /* ALCustomNavigationView.m */; };
 		3D080DFF1FB2A846009676BA /* ALHudMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D080DFE1FB2A846009676BA /* ALHudMessageView.m */; };
+		3D22E5B22011DB7400584236 /* ALSafeProtectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D22E5B12011DB7400584236 /* ALSafeProtectView.m */; };
+		3D22E5B32011E27A00584236 /* ALCallBBXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3698D32011BD2A009E07CA /* ALCallBBXViewController.m */; };
+		3D22E5B42011E27C00584236 /* ALConsumerInfomationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3698DB2011C70C009E07CA /* ALConsumerInfomationView.m */; };
+		3D22E5B52011E27F00584236 /* ALSafeProtectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D22E5B12011DB7400584236 /* ALSafeProtectView.m */; };
 		3D233DB71FC3CA00001BE395 /* ALDisplayRedEnvelopeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D233DB61FC3CA00001BE395 /* ALDisplayRedEnvelopeView.m */; };
 		3D233DBA1FC54801001BE395 /* ALGetTimelimitCouponApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D233DB91FC54801001BE395 /* ALGetTimelimitCouponApi.m */; };
 		3D233DBD1FC55502001BE395 /* ALTimeCouponListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D233DBC1FC55502001BE395 /* ALTimeCouponListModel.m */; };
@@ -21,6 +25,8 @@
 		3D23B2261FB5506200EE6A80 /* ALQueryBannerInfoApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D23B2251FB5506200EE6A80 /* ALQueryBannerInfoApi.m */; };
 		3D23B2291FB5510500EE6A80 /* ALBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D23B2281FB5510500EE6A80 /* ALBaseWebViewController.m */; };
 		3D23B22C1FB553CB00EE6A80 /* ALBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D23B22B1FB553CB00EE6A80 /* ALBannerViewController.m */; };
+		3D3698D42011BD2A009E07CA /* ALCallBBXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3698D32011BD2A009E07CA /* ALCallBBXViewController.m */; };
+		3D3698DC2011C70C009E07CA /* ALConsumerInfomationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3698DB2011C70C009E07CA /* ALConsumerInfomationView.m */; };
 		3D77FA031FBEB7D70049856B /* ALWXShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D77FA021FBEB7D70049856B /* ALWXShareView.m */; };
 		3DB71C0F1FCE88EF00BB129D /* ALStepOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFEB60B1F30660600A022EA /* ALStepOneViewController.m */; };
 		3DB71C101FCE88EF00BB129D /* ALFeedBackPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF940B281F38689400FC6948 /* ALFeedBackPhotoCollectionViewCell.m */; };
@@ -411,6 +417,8 @@
 		3D080DF51FB0066B009676BA /* ALCustomNavigationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALCustomNavigationView.m; sourceTree = "<group>"; };
 		3D080DFD1FB2A846009676BA /* ALHudMessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALHudMessageView.h; sourceTree = "<group>"; };
 		3D080DFE1FB2A846009676BA /* ALHudMessageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALHudMessageView.m; sourceTree = "<group>"; };
+		3D22E5B02011DB7400584236 /* ALSafeProtectView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALSafeProtectView.h; sourceTree = "<group>"; };
+		3D22E5B12011DB7400584236 /* ALSafeProtectView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALSafeProtectView.m; sourceTree = "<group>"; };
 		3D233DB51FC3CA00001BE395 /* ALDisplayRedEnvelopeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALDisplayRedEnvelopeView.h; sourceTree = "<group>"; };
 		3D233DB61FC3CA00001BE395 /* ALDisplayRedEnvelopeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALDisplayRedEnvelopeView.m; sourceTree = "<group>"; };
 		3D233DB81FC54801001BE395 /* ALGetTimelimitCouponApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALGetTimelimitCouponApi.h; sourceTree = "<group>"; };
@@ -429,6 +437,10 @@
 		3D23B2281FB5510500EE6A80 /* ALBaseWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALBaseWebViewController.m; sourceTree = "<group>"; };
 		3D23B22A1FB553CB00EE6A80 /* ALBannerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALBannerViewController.h; sourceTree = "<group>"; };
 		3D23B22B1FB553CB00EE6A80 /* ALBannerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALBannerViewController.m; sourceTree = "<group>"; };
+		3D3698D22011BD2A009E07CA /* ALCallBBXViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALCallBBXViewController.h; sourceTree = "<group>"; };
+		3D3698D32011BD2A009E07CA /* ALCallBBXViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALCallBBXViewController.m; sourceTree = "<group>"; };
+		3D3698DA2011C70C009E07CA /* ALConsumerInfomationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALConsumerInfomationView.h; sourceTree = "<group>"; };
+		3D3698DB2011C70C009E07CA /* ALConsumerInfomationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALConsumerInfomationView.m; sourceTree = "<group>"; };
 		3D77FA011FBEB7D70049856B /* ALWXShareView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALWXShareView.h; sourceTree = "<group>"; };
 		3D77FA021FBEB7D70049856B /* ALWXShareView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALWXShareView.m; sourceTree = "<group>"; };
 		3DB71CCB1FCE88EF00BB129D /* bbxUser_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bbxUser_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -902,6 +914,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D3698D52011BD2F009E07CA /* 1-2新增 */ = {
+			isa = PBXGroup;
+			children = (
+				3D3698D22011BD2A009E07CA /* ALCallBBXViewController.h */,
+				3D3698D32011BD2A009E07CA /* ALCallBBXViewController.m */,
+				3D3698D92011C633009E07CA /* View */,
+			);
+			path = "1-2新增";
+			sourceTree = "<group>";
+		};
+		3D3698D92011C633009E07CA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3D3698DA2011C70C009E07CA /* ALConsumerInfomationView.h */,
+				3D3698DB2011C70C009E07CA /* ALConsumerInfomationView.m */,
+				3D22E5B02011DB7400584236 /* ALSafeProtectView.h */,
+				3D22E5B12011DB7400584236 /* ALSafeProtectView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		470963FBC730F3217316C01E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1297,6 +1330,7 @@
 				BFFEB60D1F30660600A022EA /* ALPaySuccessViewController.m */,
 				3D23B22A1FB553CB00EE6A80 /* ALBannerViewController.h */,
 				3D23B22B1FB553CB00EE6A80 /* ALBannerViewController.m */,
+				3D3698D52011BD2F009E07CA /* 1-2新增 */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2253,12 +2287,14 @@
 				3DB71C431FCE88EF00BB129D /* ALSecurityInfoViewController.m in Sources */,
 				3DB71C441FCE88EF00BB129D /* ALUpdateMyInfoApi.m in Sources */,
 				3DB71C451FCE88EF00BB129D /* ALCommentContentView.m in Sources */,
+				3D22E5B32011E27A00584236 /* ALCallBBXViewController.m in Sources */,
 				3DB71C461FCE88EF00BB129D /* ALAccountInfoViewController.m in Sources */,
 				3DB71C471FCE88EF00BB129D /* ALDoneOrderListApi.m in Sources */,
 				3DB71C481FCE88EF00BB129D /* ALBaseViewController.m in Sources */,
 				3DB71C491FCE88EF00BB129D /* ALOptionListModel.m in Sources */,
 				3DB71C4A1FCE88EF00BB129D /* NSDataEx.m in Sources */,
 				3DB71C4B1FCE88EF00BB129D /* ALRedEnvelopeViewController.m in Sources */,
+				3D22E5B42011E27C00584236 /* ALConsumerInfomationView.m in Sources */,
 				3DB71C4C1FCE88EF00BB129D /* ALServiceLengthModel.m in Sources */,
 				3DB71C4D1FCE88EF00BB129D /* ALQueryBannerInfoApi.m in Sources */,
 				3DB71C4E1FCE88EF00BB129D /* ALMineViewController.m in Sources */,
@@ -2335,6 +2371,7 @@
 				3DB71C931FCE88EF00BB129D /* ALCreateOrderApi.m in Sources */,
 				3DB71C941FCE88EF00BB129D /* ALBannerListModel.m in Sources */,
 				3DB71C951FCE88EF00BB129D /* ALRealTimePositionViewController.m in Sources */,
+				3D22E5B52011E27F00584236 /* ALSafeProtectView.m in Sources */,
 				3DB71C961FCE88EF00BB129D /* ALSecurityCommentListApi.m in Sources */,
 				3DB71C971FCE88EF00BB129D /* ALMainPageBootPicView.m in Sources */,
 				3DB71C981FCE88EF00BB129D /* ALCancelOrderApi.m in Sources */,
@@ -2419,12 +2456,14 @@
 				BFFEB6FC1F30660600A022EA /* ALUpdateMyInfoApi.m in Sources */,
 				BFD18C8B1F3C5EC400D00293 /* ALCommentContentView.m in Sources */,
 				BFA048CC1F37FA360002927B /* ALAccountInfoViewController.m in Sources */,
+				3D3698D42011BD2A009E07CA /* ALCallBBXViewController.m in Sources */,
 				BFFEB6F31F30660600A022EA /* ALDoneOrderListApi.m in Sources */,
 				BFFEB6D61F30660600A022EA /* ALBaseViewController.m in Sources */,
 				3DD782781F8F58CD0063E626 /* ALOptionListModel.m in Sources */,
 				BFFEB70F1F30660600A022EA /* NSDataEx.m in Sources */,
 				BF0237201F330AB1004BAF37 /* ALRedEnvelopeViewController.m in Sources */,
 				BF6DFD0A1F41A2B00098AC5B /* ALServiceLengthModel.m in Sources */,
+				3D3698DC2011C70C009E07CA /* ALConsumerInfomationView.m in Sources */,
 				3D23B2261FB5506200EE6A80 /* ALQueryBannerInfoApi.m in Sources */,
 				BF4FE3101F34582B00B933AC /* ALMineViewController.m in Sources */,
 				BF6DFD471F43E6790098AC5B /* LJPerson.m in Sources */,
@@ -2501,6 +2540,7 @@
 				BFFEB6DD1F30660600A022EA /* ALCreateOrderApi.m in Sources */,
 				3D23B2231FB54D0E00EE6A80 /* ALBannerListModel.m in Sources */,
 				BF6DFCEC1F3D43B20098AC5B /* ALRealTimePositionViewController.m in Sources */,
+				3D22E5B22011DB7400584236 /* ALSafeProtectView.m in Sources */,
 				BFFEB6F71F30660600A022EA /* ALSecurityCommentListApi.m in Sources */,
 				3DD782CF1F90B0370063E626 /* ALMainPageBootPicView.m in Sources */,
 				BFFEB6D91F30660600A022EA /* ALCancelOrderApi.m in Sources */,

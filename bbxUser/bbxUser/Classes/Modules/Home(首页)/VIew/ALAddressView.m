@@ -12,9 +12,9 @@
 @property (nonatomic, strong) NSMutableArray *itemArray;
 @property (nonatomic, strong) ALLabel *serverAddressLab;
 @property (nonatomic, strong) UIImageView *rightIV;
-@property (nonatomic, strong) ALLabel *telephoneLab;
-@property (nonatomic, strong) UIButton *addContactBtn;
-@property (nonatomic, strong) ALLabel *linkManLab;
+//@property (nonatomic, strong) ALLabel *telephoneLab;
+//@property (nonatomic, strong) UIButton *addContactBtn;
+//@property (nonatomic, strong) ALLabel *linkManLab;
 @end
 
 @implementation ALAddressView
@@ -33,7 +33,7 @@
 }
 
 - (void)backgroundView {
-    int itemCount = 4;
+    int itemCount = 2;
     
     UIView *lastView = nil;
     
@@ -88,47 +88,48 @@
                 make.left.equalTo(self.serverAddressContentTF);
                 make.right.equalTo(@-14);
             }];
-        } else if(i == 2) {
-            [self.telephoneLab mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(item);
-                make.left.equalTo(@16);
-            }];
-            
-            [self.addContactBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(item);
-                make.right.equalTo(@-14);
-                CGFloat width = [self.addContactBtn.titleLabel.text widthForFont:self.addContactBtn.titleLabel.font] + 10;
-                make.width.mas_equalTo(width);
-            }];
-            
-            [self.telephoneContenTF mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(item);
-                make.right.equalTo(self.addContactBtn.mas_left).offset(-10);
-                make.left.equalTo(self.serverAddressContentTF);
-            }];
-        } else if(i == 3) {
-            [self.linkManLab mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(item);
-                make.left.equalTo(@16);
-            }];
-            
-            [self.womanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(item);
-                make.right.equalTo(@-15);
-            }];
-            
-            [self.manBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(item);
-                make.right.equalTo(self.womanBtn.mas_left).offset(-14);
-            }];
-            
-            [self.linkManContenTF mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(item);
-                make.left.equalTo(self.serverAddressContentTF);
-                make.right.equalTo(@-156);
-            }];
         }
-        
+//        else if(i == 2) {
+//            [self.telephoneLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.centerY.equalTo(item);
+//                make.left.equalTo(@16);
+//            }];
+//
+//            [self.addContactBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.centerY.equalTo(item);
+//                make.right.equalTo(@-14);
+//                CGFloat width = [self.addContactBtn.titleLabel.text widthForFont:self.addContactBtn.titleLabel.font] + 10;
+//                make.width.mas_equalTo(width);
+//            }];
+//
+//            [self.telephoneContenTF mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.centerY.equalTo(item);
+//                make.right.equalTo(self.addContactBtn.mas_left).offset(-10);
+//                make.left.equalTo(self.serverAddressContentTF);
+//            }];
+//        } else if(i == 3) {
+//            [self.linkManLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.centerY.equalTo(item);
+//                make.left.equalTo(@16);
+//            }];
+//
+//            [self.womanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.centerY.equalTo(item);
+//                make.right.equalTo(@-15);
+//            }];
+//
+//            [self.manBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.centerY.equalTo(item);
+//                make.right.equalTo(self.womanBtn.mas_left).offset(-14);
+//            }];
+//
+//            [self.linkManContenTF mas_makeConstraints:^(MASConstraintMaker *make) {
+//                make.centerY.equalTo(item);
+//                make.left.equalTo(self.serverAddressContentTF);
+//                make.right.equalTo(@-156);
+//            }];
+//        }
+    
         lastView = item;
         
         if(i != itemCount - 1) {
@@ -169,44 +170,44 @@
         make.right.equalTo(@-14);
     }];
     
-    [self.telephoneLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(_itemArray[2]);
-        make.left.equalTo(@16);
-    }];
+//    [self.telephoneLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(_itemArray[2]);
+//        make.left.equalTo(@16);
+//    }];
+//
+//    [self.addContactBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(_itemArray[2]);
+//        make.right.equalTo(@-12);
+//        make.width.equalTo(@60);
+//        make.height.equalTo(@25);
+//    }];
     
-    [self.addContactBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(_itemArray[2]);
-        make.right.equalTo(@-12);
-        make.width.equalTo(@60);
-        make.height.equalTo(@25);
-    }];
+//    [self.telephoneContenTF mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(_itemArray[2]);
+//        make.left.equalTo(@86);
+//        make.right.equalTo(self.addContactBtn.mas_left).offset(-7);
+//    }];
+//
+//    [self.linkManLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(_itemArray[3]);
+//        make.left.equalTo(@16);
+//    }];
     
-    [self.telephoneContenTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(_itemArray[2]);
-        make.left.equalTo(@86);
-        make.right.equalTo(self.addContactBtn.mas_left).offset(-7);
-    }];
-    
-    [self.linkManLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(_itemArray[3]);
-        make.left.equalTo(@16);
-    }];
-    
-    [self.womanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(_itemArray[3]);
-        make.right.equalTo(@-15);
-    }];
-    
-    [self.manBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(_itemArray[3]);
-        make.right.equalTo(self.womanBtn.mas_left).offset(-14);
-    }];
-    
-    [self.linkManContenTF mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(_itemArray[3]);
-        make.left.equalTo(@86);
-        make.right.equalTo(@-156);
-    }];
+//    [self.womanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(_itemArray[3]);
+//        make.right.equalTo(@-15);
+//    }];
+//
+//    [self.manBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(_itemArray[3]);
+//        make.right.equalTo(self.womanBtn.mas_left).offset(-14);
+//    }];
+//
+//    [self.linkManContenTF mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(_itemArray[3]);
+//        make.left.equalTo(@86);
+//        make.right.equalTo(@-156);
+//    }];
 }
 
 #pragma mark notification 
@@ -225,31 +226,31 @@
 
 #pragma mark Action
 - (void)addressTapAction:(UITapGestureRecognizer *)gestureRecognizer {
-    if([self.delegate respondsToSelector:@selector(addressLineDidSelected:)]) {
-        [self.delegate addressLineDidSelected: ALAddressDidSelectedLoacation];
+    if(_serverAddressClickBlock) {
+        _serverAddressClickBlock();
     }
 }
 
 - (void)addContactButtonAction {
-    if([self.delegate respondsToSelector:@selector(addressLineDidSelected:)]) {
-        [self.delegate addressLineDidSelected:ALAddressDidSelectedContanct];
-    }
+//    if([self.delegate respondsToSelector:@selector(addressLineDidSelected:)]) {
+//        [self.delegate addressLineDidSelected:ALAddressDidSelectedContanct];
+//    }
 
 }
 
-- (void)manButtonAction:(UIButton *)sender {
-    if(!sender.selected) {
-        sender.selected = !sender.selected;
-        self.womanBtn.selected = !sender.selected;
-    }
-}
-
-- (void)womanButtonAction:(UIButton *)sender {
-    if(!sender.selected) {
-        sender.selected = !sender.selected;
-        self.manBtn.selected = !sender.selected;
-    }
-}
+//- (void)manButtonAction:(UIButton *)sender {
+//    if(!sender.selected) {
+//        sender.selected = !sender.selected;
+//        self.womanBtn.selected = !sender.selected;
+//    }
+//}
+//
+//- (void)womanButtonAction:(UIButton *)sender {
+//    if(!sender.selected) {
+//        sender.selected = !sender.selected;
+//        self.manBtn.selected = !sender.selected;
+//    }
+//}
 
 #pragma mark lazy load
 - (NSMutableArray *)itemArray {
@@ -302,87 +303,87 @@
     return _streeTF;
 }
 
-- (ALLabel *)telephoneLab {
-    if(!_telephoneLab) {
-        _telephoneLab = [[ALLabel alloc] init];
-        _telephoneLab.text = @"联系电话";
-        [_itemArray[2] addSubview:_telephoneLab];
-    }
-    return _telephoneLab;
-}
+//- (ALLabel *)telephoneLab {
+//    if(!_telephoneLab) {
+//        _telephoneLab = [[ALLabel alloc] init];
+//        _telephoneLab.text = @"联系电话";
+//        [_itemArray[2] addSubview:_telephoneLab];
+//    }
+//    return _telephoneLab;
+//}
 
-- (UITextField *)telephoneContenTF {
-    if(!_telephoneContenTF) {
-        _telephoneContenTF = [[UITextField alloc] init];
-        _telephoneContenTF.placeholder = @"手机号码";
-        _telephoneContenTF.keyboardType = UIKeyboardTypePhonePad;
-        _telephoneContenTF.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _telephoneContenTF.textColor = [UIColor colorWithRGBA:ALMsgTitleColor];
-        _telephoneContenTF.font = ALThemeFont(14);
-        [_itemArray[2] addSubview:_telephoneContenTF];
-    }
-    return _telephoneContenTF;
-}
-
-- (ALLabel *)linkManLab {
-    if(!_linkManLab) {
-        _linkManLab = [[ALLabel alloc] init];
-        _linkManLab.text = @"联系人";
-        [_itemArray[3] addSubview:_linkManLab];
-    }
-    return _linkManLab;
-}
-
-- (UITextField *)linkManContenTF {
-    if(!_linkManContenTF) {
-        _linkManContenTF = [[UITextField alloc] init];
-        _linkManContenTF.placeholder = @"姓名";
-        _linkManContenTF.textColor = [UIColor colorWithRGBA:ALMsgTitleColor];
-        _linkManContenTF.font = ALThemeFont(14);
-        _linkManContenTF.clearButtonMode = UITextFieldViewModeWhileEditing;
-        [_itemArray[3] addSubview:_linkManContenTF];
-    }
-    return _linkManContenTF;
-}
-
-- (UIButton *)addContactBtn {
-    if(!_addContactBtn) {
-        _addContactBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_addContactBtn setTitleColor:[UIColor colorWithRGBA:ALThemeColor] forState:UIControlStateNormal];
-        [_addContactBtn setTitle:@"＋通讯录" forState:UIControlStateNormal];
-        _addContactBtn.titleLabel.font = ALThemeFont(13);
-        [_addContactBtn addTarget:self action:@selector(addContactButtonAction) forControlEvents:UIControlEventTouchUpInside];
-        [_itemArray[2] addSubview:_addContactBtn];
-    }
-    return _addContactBtn;
-}
-
-- (UIButton *)manBtn {
-    if(!_manBtn) {
-        _manBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_manBtn setBackgroundImage:[UIImage imageNamed:@"icon_man_not selected"] forState:UIControlStateNormal];
-        [_manBtn setBackgroundImage:[UIImage imageNamed:@"icon_man_not selected copy"] forState:UIControlStateSelected];
-        _manBtn.adjustsImageWhenHighlighted = NO;
-        _manBtn.selected = YES;
-        [_manBtn addTarget:self action:@selector(manButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        [_itemArray[3] addSubview:_manBtn];
-    }
-    return _manBtn;
-}
-
-- (UIButton *)womanBtn {
-    if(!_womanBtn) {
-        _womanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_womanBtn setBackgroundImage:[UIImage imageNamed:@"icon_woman_selected copy"] forState:UIControlStateNormal];
-        [_womanBtn setBackgroundImage:[UIImage imageNamed:@"icon_woman_selected"] forState:UIControlStateSelected];
-        _womanBtn.adjustsImageWhenHighlighted = NO;;
-        _womanBtn.selected = NO;
-        [_womanBtn addTarget:self action:@selector(womanButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-
-        [_itemArray[3] addSubview:_womanBtn];
-    }
-    return _womanBtn;
-}
+//- (UITextField *)telephoneContenTF {
+//    if(!_telephoneContenTF) {
+//        _telephoneContenTF = [[UITextField alloc] init];
+//        _telephoneContenTF.placeholder = @"手机号码";
+//        _telephoneContenTF.keyboardType = UIKeyboardTypePhonePad;
+//        _telephoneContenTF.clearButtonMode = UITextFieldViewModeWhileEditing;
+//        _telephoneContenTF.textColor = [UIColor colorWithRGBA:ALMsgTitleColor];
+//        _telephoneContenTF.font = ALThemeFont(14);
+//        [_itemArray[2] addSubview:_telephoneContenTF];
+//    }
+//    return _telephoneContenTF;
+//}
+//
+//- (ALLabel *)linkManLab {
+//    if(!_linkManLab) {
+//        _linkManLab = [[ALLabel alloc] init];
+//        _linkManLab.text = @"联系人";
+//        [_itemArray[3] addSubview:_linkManLab];
+//    }
+//    return _linkManLab;
+//}
+//
+//- (UITextField *)linkManContenTF {
+//    if(!_linkManContenTF) {
+//        _linkManContenTF = [[UITextField alloc] init];
+//        _linkManContenTF.placeholder = @"姓名";
+//        _linkManContenTF.textColor = [UIColor colorWithRGBA:ALMsgTitleColor];
+//        _linkManContenTF.font = ALThemeFont(14);
+//        _linkManContenTF.clearButtonMode = UITextFieldViewModeWhileEditing;
+//        [_itemArray[3] addSubview:_linkManContenTF];
+//    }
+//    return _linkManContenTF;
+//}
+//
+//- (UIButton *)addContactBtn {
+//    if(!_addContactBtn) {
+//        _addContactBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [_addContactBtn setTitleColor:[UIColor colorWithRGBA:ALThemeColor] forState:UIControlStateNormal];
+//        [_addContactBtn setTitle:@"＋通讯录" forState:UIControlStateNormal];
+//        _addContactBtn.titleLabel.font = ALThemeFont(13);
+//        [_addContactBtn addTarget:self action:@selector(addContactButtonAction) forControlEvents:UIControlEventTouchUpInside];
+//        [_itemArray[2] addSubview:_addContactBtn];
+//    }
+//    return _addContactBtn;
+//}
+//
+//- (UIButton *)manBtn {
+//    if(!_manBtn) {
+//        _manBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [_manBtn setBackgroundImage:[UIImage imageNamed:@"icon_man_not selected"] forState:UIControlStateNormal];
+//        [_manBtn setBackgroundImage:[UIImage imageNamed:@"icon_man_not selected copy"] forState:UIControlStateSelected];
+//        _manBtn.adjustsImageWhenHighlighted = NO;
+//        _manBtn.selected = YES;
+//        [_manBtn addTarget:self action:@selector(manButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [_itemArray[3] addSubview:_manBtn];
+//    }
+//    return _manBtn;
+//}
+//
+//- (UIButton *)womanBtn {
+//    if(!_womanBtn) {
+//        _womanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [_womanBtn setBackgroundImage:[UIImage imageNamed:@"icon_woman_selected copy"] forState:UIControlStateNormal];
+//        [_womanBtn setBackgroundImage:[UIImage imageNamed:@"icon_woman_selected"] forState:UIControlStateSelected];
+//        _womanBtn.adjustsImageWhenHighlighted = NO;;
+//        _womanBtn.selected = NO;
+//        [_womanBtn addTarget:self action:@selector(womanButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//
+//        [_itemArray[3] addSubview:_womanBtn];
+//    }
+//    return _womanBtn;
+//}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

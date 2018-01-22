@@ -7,7 +7,7 @@
 //
 
 #import "ALFastCallViewController.h"
-#import "ALStepOneViewController.h"
+#import "ALCallBBXViewController.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import <APAuthV2Info.h>
 #import "RSADataSigner.h"
@@ -49,6 +49,8 @@
     [super viewDidAppear:animated];
     //加载轮播图数据
     [self loadBannerData];
+    self.orderWorkingNumBtn.hidden = NO;
+    [self.orderWorkingNumBtn setTitle:ALStringFormat(@"等待服务开始") forState:UIControlStateNormal];
 }
 
 - (void)loadBannerData {
@@ -71,9 +73,9 @@
         } else {
             weakSelf.sdcycleScrollView.hidden = YES;
         }
-        [weakSelf loadOrderNumberDoing];
+//        [weakSelf loadOrderNumberDoing];
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
-        [weakSelf loadOrderNumberDoing];
+//        [weakSelf loadOrderNumberDoing];
     }];
 }
 
@@ -147,9 +149,9 @@
 - (void)emergencyCallAction {
     if(AL_MyAppDelegate.userModel.idModel.userId) {
         [MobClick event:ALMobEventID_B2];
-        ALStepOneViewController *stepOneVC = [[ALStepOneViewController alloc] init];
-        stepOneVC.poiInfoModel = self.firstPoiModel;
-        [ALKeyWindow.currentViewController.navigationController pushViewController:stepOneVC animated:YES];
+        ALCallBBXViewController *callBBxVC = [[ALCallBBXViewController alloc] init];
+        callBBxVC.poiInfoModel = self.firstPoiModel;
+        [ALKeyWindow.currentViewController.navigationController pushViewController:callBBxVC animated:YES];
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:ReSetToLoginModule object:nil];
     }
@@ -189,13 +191,14 @@
 - (UIButton *)orderWorkingNumBtn {
     if(!_orderWorkingNumBtn) {
         _orderWorkingNumBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_orderWorkingNumBtn setTitleColor:[UIColor colorWithRGBA:ALThemeColor] forState:UIControlStateNormal];
-        _orderWorkingNumBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 15);
+        [_orderWorkingNumBtn setTitleColor:[UIColor colorWithRGBA:ALLabelTextColor] forState:UIControlStateNormal];
+        _orderWorkingNumBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -2, 0, 5);
+        [_orderWorkingNumBtn setImage:[UIImage imageNamed:@"select_sel"] forState:UIControlStateNormal];
+        [_orderWorkingNumBtn setBackgroundImage:[UIImage imageNamed:@"paidanzhuangtai"] forState:UIControlStateNormal];
         _orderWorkingNumBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         _orderWorkingNumBtn.titleLabel.font = ALThemeFont(12);
         _orderWorkingNumBtn.titleLabel.numberOfLines = 0;
         _orderWorkingNumBtn.adjustsImageWhenHighlighted = NO;
-        [_orderWorkingNumBtn setBackgroundImage:[UIImage imageNamed:@"paidanzhuangtai"] forState:UIControlStateNormal];
         [_orderWorkingNumBtn addTarget:self action:@selector(orderWorkingNumButtonAction) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:_orderWorkingNumBtn];
         

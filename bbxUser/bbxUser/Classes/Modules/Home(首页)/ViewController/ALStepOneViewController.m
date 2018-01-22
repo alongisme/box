@@ -13,7 +13,7 @@
 #import "ALChoseAddressViewController.h"
 #import "LJContactManager.h"
 
-@interface ALStepOneViewController () <ALAddressDelegate,ALChoseAddressDelegate>
+@interface ALStepOneViewController () <ALChoseAddressDelegate>
 @property (nonatomic, strong) ALStepView *stepView;
 @property (nonatomic, strong) ALAddressView *addressView;
 @property (nonatomic, strong) ALActionButton *saveAddressBtn;
@@ -50,7 +50,7 @@
         make.left.equalTo(@15);
         make.right.equalTo(@-15);
         make.top.equalTo(self.stepView.mas_bottom).offset(19);
-        make.height.equalTo(@180);
+        make.height.equalTo(@91);
     }];
     
     [self.saveAddressBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -61,21 +61,21 @@
 }
 
 #pragma mark ALAddressDelegate
-- (void)addressLineDidSelected:(ALAddressDidSelected)type {
-    if(type == ALAddressDidSelectedLoacation) {
-        [MobClick event:ALMobEventID_C1];
-        ALChoseAddressViewController *choseAddressVC = [[ALChoseAddressViewController alloc] init];
-        choseAddressVC.choseAddressDelegate = self;
-        [self.navigationController pushViewController:choseAddressVC animated:YES];
-    } else {
-        AL_WeakSelf(self);
-        [MobClick event:ALMobEventID_C2];
-        [[LJContactManager sharedInstance] selectContactAtController:self complection:^(NSString *name, NSString *phone) {
-            weakSelf.addressView.telephoneContenTF.text = phone;
-            weakSelf.addressView.linkManContenTF.text = name;
-        }];
-    }
-}
+//- (void)addressLineDidSelected:(ALAddressDidSelected)type {
+//    if(type == ALAddressDidSelectedLoacation) {
+//        [MobClick event:ALMobEventID_C1];
+//        ALChoseAddressViewController *choseAddressVC = [[ALChoseAddressViewController alloc] init];
+//        choseAddressVC.choseAddressDelegate = self;
+//        [self.navigationController pushViewController:choseAddressVC animated:YES];
+//    } else {
+//        AL_WeakSelf(self);
+//        [MobClick event:ALMobEventID_C2];
+//        [[LJContactManager sharedInstance] selectContactAtController:self complection:^(NSString *name, NSString *phone) {
+//            weakSelf.addressView.telephoneContenTF.text = phone;
+//            weakSelf.addressView.linkManContenTF.text = name;
+//        }];
+//    }
+//}
 
 #pragma mark ALChoseAddressDelegate
 - (void)getServerAddressInLocation:(BMKPoiInfo *)model {
@@ -86,23 +86,23 @@
 
 #pragma mark Action
 - (void)nextStepAction {
-    if(![self.addressView.streeTF.text isVaild] || ![self.addressView.serverAddressContentTF.text isVaild] || ![self.addressView.telephoneContenTF.text isVaild] || ![self.addressView.linkManContenTF.text isVaild]) {
-        [ALKeyWindow showHudError:@"请补全相关信息~"];
-        return;
-    }
-    
-    if(![self.addressView.telephoneContenTF.text mobileVerifty]) {
-        [ALKeyWindow showHudError:@"请输入正确的手机号~"];
-        return;
-    }
-    [MobClick event:ALMobEventID_C3];
-    ALStepTwoViewController *stepTwoVC = [[ALStepTwoViewController alloc] init];
-    stepTwoVC.serviceAddress = [self.addressView.serverAddressContentTF.text stringByAppendingString:self.addressView.streeTF.text];
-    stepTwoVC.contactsPhone = self.addressView.telephoneContenTF.text;
-    stepTwoVC.contactsName = self.addressView.linkManContenTF.text;
-    stepTwoVC.contactsSex = self.addressView.manBtn.selected ? @0 : @1;
-    stepTwoVC.pt = self.pt;
-    [self.navigationController pushViewController:stepTwoVC animated:YES];
+//    if(![self.addressView.streeTF.text isVaild] || ![self.addressView.serverAddressContentTF.text isVaild] || ![self.addressView.telephoneContenTF.text isVaild] || ![self.addressView.linkManContenTF.text isVaild]) {
+//        [ALKeyWindow showHudError:@"请补全相关信息~"];
+//        return;
+//    }
+//
+//    if(![self.addressView.telephoneContenTF.text mobileVerifty]) {
+//        [ALKeyWindow showHudError:@"请输入正确的手机号~"];
+//        return;
+//    }
+//    [MobClick event:ALMobEventID_C3];
+//    ALStepTwoViewController *stepTwoVC = [[ALStepTwoViewController alloc] init];
+//    stepTwoVC.serviceAddress = [self.addressView.serverAddressContentTF.text stringByAppendingString:self.addressView.streeTF.text];
+//    stepTwoVC.contactsPhone = self.addressView.telephoneContenTF.text;
+//    stepTwoVC.contactsName = self.addressView.linkManContenTF.text;
+//    stepTwoVC.contactsSex = self.addressView.manBtn.selected ? @0 : @1;
+//    stepTwoVC.pt = self.pt;
+//    [self.navigationController pushViewController:stepTwoVC animated:YES];
 }
 
 #pragma mark lazy load
@@ -117,11 +117,11 @@
 - (ALAddressView *)addressView {
     if(!_addressView) {
         _addressView = [[ALAddressView alloc] init];
-        _addressView.delegate = self;
+//        _addressView.delegate = self;
         [self.view addSubview:_addressView];
         
-        _addressView.telephoneContenTF.text = AL_MyAppDelegate.userModel.userInfoModel.phone;
-        _addressView.linkManContenTF.text = AL_MyAppDelegate.userModel.userInfoModel.nickName;
+//        _addressView.telephoneContenTF.text = AL_MyAppDelegate.userModel.userInfoModel.phone;
+//        _addressView.linkManContenTF.text = AL_MyAppDelegate.userModel.userInfoModel.nickName;
     }
     return _addressView;
 }
