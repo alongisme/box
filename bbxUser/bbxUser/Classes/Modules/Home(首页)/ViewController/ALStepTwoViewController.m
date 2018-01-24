@@ -302,29 +302,29 @@
         preStartTime = [preStartTime stringByReplacingOccurrencesOfString:@"月" withString:@"-"];
         preStartTime = [preStartTime stringByReplacingOccurrencesOfString:@"日" withString:@""];
     }
-    ALCreateOrderApi *createOrderApi = [[ALCreateOrderApi alloc] initWithCreateOrderApi:self.serviceAddress contactsPhone:self.contactsPhone contactsName:self.contactsName contactsSex:self.contactsSex securityNum:[self.serverNumberView.contentString stringByReplacingOccurrencesOfString:@"人" withString:@""] serviceLength:self.choseServerView.currentLength serviceAddressPoint:ALStringFormat(@"%lf,%lf",weakSelf.pt.longitude,weakSelf.pt.latitude) preStartTime:preStartTime orderMessage:self.commentView.textString];
+//    ALCreateOrderApi *createOrderApi = [[ALCreateOrderApi alloc] initWithCreateOrderApi:self.serviceAddress contactsPhone:self.contactsPhone contactsName:self.contactsName contactsSex:self.contactsSex securityNum:[self.serverNumberView.contentString stringByReplacingOccurrencesOfString:@"人" withString:@""] serviceLength:self.choseServerView.currentLength serviceAddressPoint:ALStringFormat(@"%lf,%lf",weakSelf.pt.longitude,weakSelf.pt.latitude) preStartTime:preStartTime orderMessage:self.commentView.textString];
     
     if([self.commentView.textString isVaild]) {
         [MobClick event:ALMobEventID_D5];
     }
     
-    [createOrderApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-        ALOrderModel *orderModel = [[ALOrderModel alloc] init];
-        orderModel.orderStatus = OrderStautsNew;
-        orderModel.orderId = createOrderApi.data[@"orderId"];
-        orderModel.hasAvaCoupon = createOrderApi.data[@"hasAvaCoupon"];
-        orderModel.orderPrice = [weakSelf.priceLab.text substringFromIndex:3];
-        orderModel.expireInterval = createOrderApi.data[@"expireInterval"];
-        
-        ALOrderInfoViewController *stepThreeVC = [[ALOrderInfoViewController alloc]init];
-        stepThreeVC.orderModel = orderModel;
-        [MobClick event:ALMobEventID_D7];
-        [ALKeyWindow.rootViewController presentViewController:[[ALBaseNavigationController alloc] initWithRootViewController:stepThreeVC] animated:YES completion:^{
-            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-        }];
-    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
-        [ALKeyWindow showHudError:@"订单创建失败～"];
-    }];
+//    [createOrderApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+//        ALOrderModel *orderModel = [[ALOrderModel alloc] init];
+//        orderModel.orderStatus = OrderStautsNew;
+//        orderModel.orderId = createOrderApi.data[@"orderId"];
+//        orderModel.hasAvaCoupon = createOrderApi.data[@"hasAvaCoupon"];
+//        orderModel.orderPrice = [weakSelf.priceLab.text substringFromIndex:3];
+//        orderModel.expireInterval = createOrderApi.data[@"expireInterval"];
+//        
+//        ALOrderInfoViewController *stepThreeVC = [[ALOrderInfoViewController alloc]init];
+//        stepThreeVC.orderModel = orderModel;
+//        [MobClick event:ALMobEventID_D7];
+//        [ALKeyWindow.rootViewController presentViewController:[[ALBaseNavigationController alloc] initWithRootViewController:stepThreeVC] animated:YES completion:^{
+//            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+//        }];
+//    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+//        [ALKeyWindow showHudError:@"订单创建失败～"];
+//    }];
 }
 
 //设置开始时间

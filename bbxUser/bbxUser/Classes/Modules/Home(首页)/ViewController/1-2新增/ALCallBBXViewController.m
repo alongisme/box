@@ -22,6 +22,7 @@
 #import "LJContactManager.h"
 #import "ALConsumerInfomationView.h"
 #import "ALSafeProtectView.h"
+#import "ALConfirmationOrderViewController.h"
 
 @interface ALCallBBXViewController ()<ALAddressDelegate,ALChoseAddressDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -40,8 +41,6 @@
 //备注
 @property (nonatomic, strong) ALShadowView *commentView;
 
-//提示文字
-@property (nonatomic, strong) ALLabel *mesLab;
 //底部view
 @property (nonatomic, strong) ALShadowView *shadowView;
 @property (nonatomic, strong) ALLabel *priceLab;
@@ -52,6 +51,10 @@
 
 @property (nonatomic, strong) ALAddressView *addressView;
 @property (nonatomic) CLLocationCoordinate2D pt;
+
+//
+@property (nonatomic, strong) NSString *firstPrice;
+@property (nonatomic, strong) NSString *secondPrice;
 @end
 
 @implementation ALCallBBXViewController
@@ -116,7 +119,7 @@
     ALOrderEstimatedPriceApi *orderEstimatedPriceApi = [[ALOrderEstimatedPriceApi alloc] initWithOrderEstimatedPriceApi:[people stringByReplacingOccurrencesOfString:@"人" withString:@""] serviceLength:length];
     
     [orderEstimatedPriceApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-        NSString *estimatedPrice = orderEstimatedPriceApi.data[@"estimatedPrice"];
+        NSString *estimatedPrice = orderEstimatedPriceApi.data[@"firstPrice"];
         NSMutableAttributedString *priceAttString = [[NSMutableAttributedString alloc] initWithString:ALStringFormat(@"预付：¥%@",estimatedPrice)];
         priceAttString.yy_font = ALMediumTitleFont(24);
         priceAttString.yy_color = [UIColor colorWithRGB:0xF8504F];
@@ -124,7 +127,8 @@
         [priceAttString yy_setFont:ALThemeFont(16) range:NSMakeRange(0, 3)];
         
         weakSelf.priceLab.attributedText = priceAttString;
-        
+        weakSelf.firstPrice = estimatedPrice;
+        weakSelf.secondPrice = orderEstimatedPriceApi.data[@"secondPrice"];
         [weakSelf setStartTimeConetent];
         
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
@@ -193,12 +197,7 @@
         make.height.equalTo(@90);
         make.leading.right.equalTo(self.consumerInfomationView);
     }];
-    
-    [self.mesLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.scrollView);
-        make.top.equalTo(self.commentView.mas_bottom).offset(15);
-    }];
-    
+
     [self.shadowView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(self.view);
         make.centerX.equalTo(self.view);
@@ -218,7 +217,7 @@
     }];
     
     [self.view layoutIfNeeded];
-    self.scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.mesLab.frame) + 15);
+    self.scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.commentView.frame) + 15);
 }
 
 - (void)bindAction {
@@ -282,11 +281,21 @@
 
 #pragma mark Action
 - (void)nextStepAction {
+    
+    if(![[self.addressView.serverAddressContentTF.text stringByAppendingString:self.addressView.streeTF.text] isVaild]) {
+        [self.view showHudError:@"请完善地址信息～"];
+        return;
+    }
+
+    if(![self.consumerInfomationView.serverNumberContentTF.text isVaild] || ![self.consumerInfomationView.linkManContenTF.text isVaild] || ![self.consumerInfomationView.startTimeContentTF.text isVaild] || ![self.consumerInfomationView.telephoneContenTF.text isVaild]) {
+        [self.view showHudError:@"请完善订单信息～"];
+        return;
+    }
 
     AL_WeakSelf(self);
-    NSString *preStartTime = self.startTimeView.contentString;
+    NSString *preStartTime = self.consumerInfomationView.startTimeContentTF.text;
     //创建订单
-    if([self.startTimeView.contentString containsString:@"今天"]) {
+    if([self.consumerInfomationView.startTimeContentTF.text containsString:@"今天"]) {
         NSString *ymdString = [[NSDate date] stringWithFormat:@"yyyy-MM-dd"];
         preStartTime = [preStartTime stringByReplacingOccurrencesOfString:@"今天" withString:ymdString];
     } else {
@@ -294,27 +303,31 @@
         preStartTime = [preStartTime stringByReplacingOccurrencesOfString:@"月" withString:@"-"];
         preStartTime = [preStartTime stringByReplacingOccurrencesOfString:@"日" withString:@""];
     }
-    ALCreateOrderApi *createOrderApi = [ALCreateOrderApi new];
-//    [[ALCreateOrderApi alloc] initWithCreateOrderApi:[self.addressView.serverAddressContentTF.text stringByAppendingString:self.addressView.streeTF.text] contactsPhone:self.addressView.telephoneContenTF.text contactsName:self.addressView.linkManContenTF.text contactsSex:self.addressView.manBtn.selected ? @0 : @1 securityNum:[self.serverNumberView.contentString stringByReplacingOccurrencesOfString:@"人" withString:@""] serviceLength:self.choseServerView.currentLength serviceAddressPoint:ALStringFormat(@"%lf,%lf",weakSelf.pt.longitude,weakSelf.pt.latitude) preStartTime:preStartTime orderMessage:self.commentView.textString];
-    
+
+    ALCreateOrderApi *createOrderApi = [[ALCreateOrderApi alloc] initWithCreateOrderApi:[self.addressView.serverAddressContentTF.text stringByAppendingString:self.addressView.streeTF.text] contactsPhone:self.consumerInfomationView.telephoneContenTF.text contactsName:self.consumerInfomationView.linkManContenTF.text contactsSex:self.consumerInfomationView.manBtn.selected ? @0 : @1 securityNum:[self.serverNumberView.contentString stringByReplacingOccurrencesOfString:@"人" withString:@""] serviceLength:self.choseServerView.currentLength serviceAddressPoint:ALStringFormat(@"%lf,%lf",weakSelf.pt.longitude,weakSelf.pt.latitude) preStartTime:preStartTime orderMessage:self.commentView.textString isInsuranced:self.safeProtectView.isOn];
+
     if([self.commentView.textString isVaild]) {
         [MobClick event:ALMobEventID_D5];
     }
-    
+
     [createOrderApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         ALOrderModel *orderModel = [[ALOrderModel alloc] init];
         orderModel.orderStatus = OrderStautsNew;
         orderModel.orderId = createOrderApi.data[@"orderId"];
-        orderModel.hasAvaCoupon = createOrderApi.data[@"hasAvaCoupon"];
-        orderModel.orderPrice = [weakSelf.priceLab.text substringFromIndex:3];
-        orderModel.expireInterval = createOrderApi.data[@"expireInterval"];
-        
-        ALOrderInfoViewController *stepThreeVC = [[ALOrderInfoViewController alloc]init];
-        stepThreeVC.orderModel = orderModel;
+        orderModel.preStartTime = weakSelf.consumerInfomationView.startTimeContentTF.text;
+        orderModel.contactsPhone = weakSelf.consumerInfomationView.telephoneContenTF.text;
+        orderModel.contactsName = weakSelf.consumerInfomationView.linkManContenTF.text;
+        orderModel.seviceAddress = [weakSelf.addressView.serverAddressContentTF.text stringByAppendingString:weakSelf.addressView.streeTF.text];
+        orderModel.serviceLength = weakSelf.consumerInfomationView.serverNumberContentTF.text;
+        orderModel.content = weakSelf.commentView.textString;
+        orderModel.firstPrice = weakSelf.firstPrice;
+        orderModel.secondPrice = weakSelf.secondPrice;
         [MobClick event:ALMobEventID_D7];
-        [ALKeyWindow.rootViewController presentViewController:[[ALBaseNavigationController alloc] initWithRootViewController:stepThreeVC] animated:YES completion:^{
-            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-        }];
+        
+        ALConfirmationOrderViewController *confirmationOrderVC = [[ALConfirmationOrderViewController alloc] init];
+        confirmationOrderVC.orderModel = orderModel;
+        [weakSelf.navigationController pushViewController:confirmationOrderVC animated:YES];
+
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
         [ALKeyWindow showHudError:@"订单创建失败～"];
     }];
@@ -379,8 +392,8 @@
         };
     } else {
         [[LJContactManager sharedInstance] selectContactAtController:self complection:^(NSString *name, NSString *phone) {
-            //            weakSelf.addressView.telephoneContenTF.text = phone;
-            //            weakSelf.addressView.linkManContenTF.text = name;
+            weakSelf.consumerInfomationView.telephoneContenTF.text = phone;
+            weakSelf.consumerInfomationView.linkManContenTF.text = name;
         }];
     }
 }
@@ -417,6 +430,8 @@
         _consumerInfomationView.delegate = self;
         [self.scrollView addSubview:_consumerInfomationView];
         _consumerInfomationView.serverNumberContentTF.text = @"1人";
+        _consumerInfomationView.telephoneContenTF.text = AL_MyAppDelegate.userModel.userInfoModel.phone;
+        _consumerInfomationView.linkManContenTF.text = AL_MyAppDelegate.userModel.userInfoModel.nickName;
     }
     return _consumerInfomationView;
 }
@@ -466,17 +481,6 @@
         [self.scrollView addSubview:_startTimeView];
     }
     return _startTimeView;
-}
-
-- (ALLabel *)mesLab {
-    if(!_mesLab) {
-        _mesLab = [[ALLabel alloc] init];
-        _mesLab.text = @" 呼叫镖镖：最早开始服务时间为当前下单时间2小时后";
-        _mesLab.textColor = [UIColor colorWithRGBA:0x999999FF];
-        _mesLab.font = ALThemeFont(13);
-        [self.scrollView addSubview:_mesLab];
-    }
-    return _mesLab;
 }
 
 - (ALShadowView *)shadowView {

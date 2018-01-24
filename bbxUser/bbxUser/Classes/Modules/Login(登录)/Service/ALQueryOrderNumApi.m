@@ -22,17 +22,13 @@
 }
 
 - (NSString *)requestUrl {
-    return URL_QueryUserDoingOrderNum;
+    return URL_QueryLastOrder;
 }
 
 - (id)requestArgument {
     return @{
              UserID_CommonParams
              };
-}
-
-- (NSString *)doingNumber {
-    return self.data[@"num"];
 }
 
 @end

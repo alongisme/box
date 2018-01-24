@@ -50,7 +50,7 @@
     for (NSDictionary *dic in self.data[@"optionList"]) {
         ALOptionListModel *model = [[ALOptionListModel alloc] init];
         model.serviceLength = dic[@"serviceLength"];
-        model.limitPrice = dic[@"limitPrice"];
+        model.limitPrice = dic[@"firstPrice"];
         model.orglPrice = dic[@"orglPrice"];
         [arr addObject:model];
     }

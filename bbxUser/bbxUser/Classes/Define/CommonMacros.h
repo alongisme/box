@@ -17,10 +17,13 @@ typedef NS_ENUM(NSUInteger,ALPayType) {
 #define OrderStautsNew @"N" //新订单
 #define OrderStatusWaitPay @"I" //初始状态等待支付
 #define OrderStatusTimeOut @"P_C" //交易取消 超时
+#define OrderStatusWaitAllocating @"A" //等待派单 //1.2新增
 #define OrderStautsAllocating @"P" //派单中 已支付 等待后台分派保安
 #define OrderStatusAllocatingWaitStart @"S" //派单中 已分配 等待保安开始订单
 #define OrderStatusWorking @"D" //订单进行中
 #define OrderStatusFinished @"E" //订单已完成
+#define OrderStatusZ @"Z" //余额支付 //1.2新增
+#define OrderStatusPS @"P_S" //已支付首款
 #define OrderStatusCancel @"C" //订单已取消
 
 #define OrderStautsCustom @"Custom"//个性定制

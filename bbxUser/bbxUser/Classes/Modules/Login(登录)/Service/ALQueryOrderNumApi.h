@@ -10,8 +10,6 @@
 
 @interface ALQueryOrderNumApi : ALHttpRequest
 
-@property (nonatomic, strong) NSString *doingNumber;
-
 /**
  查询用户正在进行中的订单数量接口
 

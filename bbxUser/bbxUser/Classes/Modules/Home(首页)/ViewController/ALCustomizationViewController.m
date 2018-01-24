@@ -153,13 +153,14 @@
         _telephoneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_telephoneBtn setBackgroundImage:[UIImage imageNamed:@"tel"] forState:UIControlStateNormal];
         [self.view addSubview:_telephoneBtn];
+        [_telephoneBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+            [MobClick event:ALMobEventID_B1];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://4001066964"]];
+            });
+        }];
     }
-    [_telephoneBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [MobClick event:ALMobEventID_B1];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://4001066964"]];
-        });
-    }];
+
     return _telephoneBtn;
 }
 

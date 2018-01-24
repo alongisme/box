@@ -17,16 +17,19 @@
 #import <SDCycleScrollView.h>
 #import "ALQueryBannerListApi.h"
 #import "ALBannerViewController.h"
+#import "ALDynamicsViewController.h"
 
 @interface ALFastCallViewController ()
 @property (nonatomic, strong) UIButton *orderWorkingNumBtn;
-@property (nonatomic, strong) UIButton *orderWorkingNumTopBtn;
+//@property (nonatomic, strong) UIButton *orderWorkingNumTopBtn;
 @property (nonatomic, strong) ALActionButton *emergencyCallBtn;
 @property (nonatomic, strong) BMKPoiInfo *firstPoiModel;
 @property (nonatomic, strong) ALQueryOrderNumApi *queryOrderNumApi;
 @property (nonatomic, strong) ALQueryBannerListApi *queryBannerListApi;
 @property (nonatomic, strong) UIButton *telephoneBtn;
 @property (nonatomic, strong) SDCycleScrollView *sdcycleScrollView;
+
+@property (nonatomic, strong) NSDictionary *lastOrderDic;
 @end
 
 @implementation ALFastCallViewController
@@ -40,17 +43,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self customLocationAccuracyCircle:YES];
     //初始化子界面
     [self initSubviews];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccessToDynamics) name:@"paySuccessToDynamics" object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     //加载轮播图数据
     [self loadBannerData];
-    self.orderWorkingNumBtn.hidden = NO;
-    [self.orderWorkingNumBtn setTitle:ALStringFormat(@"等待服务开始") forState:UIControlStateNormal];
+    [self loadOrderNumberDoing];
+}
+
+- (void)paySuccessToDynamics {
+    [self orderWorkingNumButtonAction];
 }
 
 - (void)loadBannerData {
@@ -73,9 +80,8 @@
         } else {
             weakSelf.sdcycleScrollView.hidden = YES;
         }
-//        [weakSelf loadOrderNumberDoing];
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
-//        [weakSelf loadOrderNumberDoing];
+
     }];
 }
 
@@ -86,34 +92,10 @@
     }
     if([AL_MyAppDelegate.userModel.idModel.userId isVaild]) {
         [self.queryOrderNumApi ALStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-            NSString *num = weakSelf.queryOrderNumApi.doingNumber;
-            if([num integerValue] > 0) {
-                if(weakSelf.sdcycleScrollView.imageURLStringsGroup.count > 0) {
-                    weakSelf.orderWorkingNumBtn.hidden = NO;
-                    [weakSelf.orderWorkingNumBtn setTitle:ALStringFormat(@"%@个订单正在派单...",num) forState:UIControlStateNormal];
-                } else {
-                    weakSelf.orderWorkingNumTopBtn.hidden = NO;
-                    [weakSelf.orderWorkingNumTopBtn setTitle:ALStringFormat(@"您有%@个订单正在派单中~~",num) forState:UIControlStateNormal];
-                    [weakSelf.view layoutIfNeeded];
-                    [UIView animateWithDuration:0.6 animations:^{
-                        [weakSelf.orderWorkingNumTopBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-                            make.top.mas_equalTo(ALNavigationBarHeight + 42);
-                        }];
-                        [weakSelf.view layoutIfNeeded];
-                    }];
-                }
-            } else {
-                if(weakSelf.sdcycleScrollView.imageURLStringsGroup.count > 0) {
-                    if(weakSelf.orderWorkingNumBtn) {
-                        weakSelf.orderWorkingNumBtn.hidden = YES;
-                    }
-                } else {
-                    if(weakSelf.orderWorkingNumTopBtn) {
-                        weakSelf.orderWorkingNumTopBtn.hidden = YES;
-                    }
-                }
-            }
-            
+            NSString *lastOrderStatus = weakSelf.queryOrderNumApi.data[@"lastOrderStatus"];
+            weakSelf.lastOrderDic = weakSelf.queryOrderNumApi.data;
+            if([weakSelf.queryOrderNumApi.data[@"statusDes"] isVaild])
+                [weakSelf showLeftTagWith:weakSelf.queryOrderNumApi.data[@"statusDes"]];
         } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
             
         }];
@@ -124,6 +106,17 @@
         }
     }
 
+}
+
+- (void)showLeftTagWith:(NSString *)text {
+    self.orderWorkingNumBtn.hidden = NO;
+    [self.orderWorkingNumBtn setTitle:text forState:UIControlStateNormal];
+    [self.orderWorkingNumBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@-22);
+        make.bottom.equalTo(@-75);
+        CGFloat wid = [self.orderWorkingNumBtn.currentTitle widthForFont:self.orderWorkingNumBtn.titleLabel.font] + 52/2.0 + 30 + 15 + 5 ;
+        make.size.mas_equalTo(CGSizeMake(wid, 52));
+    }];
 }
 
 //停止定位后获取定位信息
@@ -141,17 +134,33 @@
 
 #pragma mark Action
 - (void)orderWorkingNumButtonAction {
-    ALOrderViewController *orderVC = [ALOrderViewController new];
-    orderVC.closePopGestureRecognizerEnabled = YES;
-    [ALKeyWindow.currentViewController.navigationController pushViewController:orderVC animated:YES];
+    ALDynamicsViewController *dynamicsVC = [ALDynamicsViewController new];
+    dynamicsVC.orderId = self.lastOrderDic[@"orderId"];
+    dynamicsVC.orderStatus = self.lastOrderDic[@"lastOrderStatus"];
+    [self.navigationController pushViewController:dynamicsVC animated:YES];
 }
 
 - (void)emergencyCallAction {
+    AL_WeakSelf(self);
     if(AL_MyAppDelegate.userModel.idModel.userId) {
-        [MobClick event:ALMobEventID_B2];
-        ALCallBBXViewController *callBBxVC = [[ALCallBBXViewController alloc] init];
-        callBBxVC.poiInfoModel = self.firstPoiModel;
-        [ALKeyWindow.currentViewController.navigationController pushViewController:callBBxVC animated:YES];
+        if([self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWaitAllocating] ||[self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusPS] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusAllocatingWaitStart] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWorking]) {
+            [ALAlertViewController showAlertOnlyCancelButton:self title:nil message:self.lastOrderDic[@"tips"] style:UIAlertControllerStyleAlert Destructive:@"查看镖师动态" clickBlock:^{
+                [weakSelf paySuccessToDynamics];
+            }];
+        } else if([self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWaitPay]) {
+            [ALAlertViewController showAlertOnlyCancelButton:self title:nil message:self.lastOrderDic[@"tips"] style:UIAlertControllerStyleAlert Destructive:@"前往" clickBlock:^{
+                
+            }];
+        } else if([self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusZ]) {
+            [ALAlertViewController showAlertOnlyCancelButton:self title:nil message:self.lastOrderDic[@"tips"] style:UIAlertControllerStyleAlert Destructive:@"去支付" clickBlock:^{
+                
+            }];
+        } else {
+            [MobClick event:ALMobEventID_B2];
+            ALCallBBXViewController *callBBxVC = [[ALCallBBXViewController alloc] init];
+            callBBxVC.poiInfoModel = self.firstPoiModel;
+            [ALKeyWindow.currentViewController.navigationController pushViewController:callBBxVC animated:YES];
+        }
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:ReSetToLoginModule object:nil];
     }
@@ -192,44 +201,41 @@
     if(!_orderWorkingNumBtn) {
         _orderWorkingNumBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_orderWorkingNumBtn setTitleColor:[UIColor colorWithRGBA:ALLabelTextColor] forState:UIControlStateNormal];
-        _orderWorkingNumBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -2, 0, 5);
-        [_orderWorkingNumBtn setImage:[UIImage imageNamed:@"select_sel"] forState:UIControlStateNormal];
-        [_orderWorkingNumBtn setBackgroundImage:[UIImage imageNamed:@"paidanzhuangtai"] forState:UIControlStateNormal];
+        _orderWorkingNumBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 5);
+        [_orderWorkingNumBtn setImage:[UIImage imageNamed:@"biaobiao"] forState:UIControlStateNormal];
+        [_orderWorkingNumBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
         _orderWorkingNumBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         _orderWorkingNumBtn.titleLabel.font = ALThemeFont(12);
         _orderWorkingNumBtn.titleLabel.numberOfLines = 0;
         _orderWorkingNumBtn.adjustsImageWhenHighlighted = NO;
         [_orderWorkingNumBtn addTarget:self action:@selector(orderWorkingNumButtonAction) forControlEvents:UIControlEventTouchUpInside];
+        _orderWorkingNumBtn.backgroundColor = [UIColor whiteColor];
+        _orderWorkingNumBtn.layer.cornerRadius = 52/2.0;
+        [_orderWorkingNumBtn.layer setLayerShadow:[UIColor colorWithRGBA:ALViewShadowColor] offset:CGSizeZero radius:1];
         [self.view addSubview:_orderWorkingNumBtn];
-        
-        [_orderWorkingNumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(@0);
-            make.bottom.equalTo(@-75);
-            make.size.mas_equalTo(CGSizeMake(176/2, 96/2));
-        }];
     }
     return _orderWorkingNumBtn;
 }
 
-- (UIButton *)orderWorkingNumTopBtn {
-    if(!_orderWorkingNumTopBtn) {
-        _orderWorkingNumTopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _orderWorkingNumTopBtn.titleLabel.font = ALThemeFont(14);
-        _orderWorkingNumTopBtn.backgroundColor = [UIColor colorWithRed:75/255.0 green:128/255.0 blue:235/255.0 alpha:0.8/1.0];
-        _orderWorkingNumTopBtn.titleLabel.textColor = [UIColor whiteColor];
-        _orderWorkingNumTopBtn.adjustsImageWhenHighlighted = NO;
-        [_orderWorkingNumTopBtn addTarget:self action:@selector(orderWorkingNumButtonAction) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_orderWorkingNumTopBtn];
-        
-        [_orderWorkingNumTopBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(ALNavigationBarHeight - 26 + 42);
-            make.width.equalTo(self.view);
-            make.centerX.equalTo(self.view);
-            make.height.equalTo(@26);
-        }];
-    }
-    return _orderWorkingNumTopBtn;
-}
+//- (UIButton *)orderWorkingNumTopBtn {
+//    if(!_orderWorkingNumTopBtn) {
+//        _orderWorkingNumTopBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _orderWorkingNumTopBtn.titleLabel.font = ALThemeFont(14);
+//        _orderWorkingNumTopBtn.backgroundColor = [UIColor colorWithRed:75/255.0 green:128/255.0 blue:235/255.0 alpha:0.8/1.0];
+//        _orderWorkingNumTopBtn.titleLabel.textColor = [UIColor whiteColor];
+//        _orderWorkingNumTopBtn.adjustsImageWhenHighlighted = NO;
+//        [_orderWorkingNumTopBtn addTarget:self action:@selector(orderWorkingNumButtonAction) forControlEvents:UIControlEventTouchUpInside];
+//        [self.view addSubview:_orderWorkingNumTopBtn];
+//
+//        [_orderWorkingNumTopBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.mas_equalTo(ALNavigationBarHeight - 26 + 42);
+//            make.width.equalTo(self.view);
+//            make.centerX.equalTo(self.view);
+//            make.height.equalTo(@26);
+//        }];
+//    }
+//    return _orderWorkingNumTopBtn;
+//}
 
 - (ALActionButton *)emergencyCallBtn {
     if(!_emergencyCallBtn) {

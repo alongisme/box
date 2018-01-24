@@ -30,14 +30,23 @@
     
     _model = model;
     self.orderStautsLab.text = model.orderStatusDes;
-    if([model.orderStatus isEqualToString:OrderStatusWaitPay]) {
-        self.actionButton.hidden = NO;
-        [self.actionButton setBackgroundImage:[UIImage imageNamed:@"btn_zhifu"] forState:UIControlStateNormal];
-        [self.actionButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.priceLab);
-            make.right.equalTo(@-18);
-        }];
+    self.jjOrderLab.text = _model.orderTypeDes;
+    NSString *moneyType = @"金额";
+    NSString *money = @"";
+    if([model.orderStatus isEqualToString:OrderStatusWaitPay] || [model.orderStatus isEqualToString:OrderStatusCancel] || [model.orderStatus isEqualToString:OrderStatusTimeOut]) {
+        if([model.orderStatus isEqualToString:OrderStatusWaitPay]) {
+            self.actionButton.hidden = NO;
+            [self.actionButton setBackgroundImage:[UIImage imageNamed:@"btn_zhifu"] forState:UIControlStateNormal];
+            [self.actionButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(self.priceLab);
+                make.right.equalTo(@-18);
+            }];
+        }
+        moneyType = @"预支付";
+        money = _model.firstPrice;
     } else if([model.orderStatus isEqualToString:OrderStatusFinished]) {
+        moneyType = @"总金额";
+        money = [NSString stringWithFormat:@"%lf",[_model.firstPrice doubleValue] + [_model.secondPrice doubleValue]];
         self.actionButton.hidden = NO;
         if([model.isCommented integerValue] == 0) {
             [self.actionButton setBackgroundImage:[UIImage imageNamed:@"btn_pingjia"] forState:UIControlStateNormal];
@@ -49,18 +58,29 @@
         } else {
             self.actionButton.hidden = YES;
         }
+    } else if([model.orderStatus isEqualToString:OrderStatusZ]) {
+        moneyType = @"余额支付";
+        money = _model.secondPrice;
+        self.actionButton.hidden = NO;
+        [self.actionButton setBackgroundImage:[UIImage imageNamed:@"btn_zhifu"] forState:UIControlStateNormal];
+        [self.actionButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.priceLab);
+            make.right.equalTo(@-18);
+        }];
     } else {
+        moneyType = @"预支付";
+        money = _model.firstPrice;
         self.actionButton.hidden = YES;
     }
     
     self.timeLab.text = model.preStartTime;
     self.addressLab.text = model.seviceAddress;
     
-    NSMutableAttributedString *priceAttString = [[NSMutableAttributedString alloc] initWithString:ALStringFormat(@"金额：¥%@",model.orderPrice)];
+    NSMutableAttributedString *priceAttString = [[NSMutableAttributedString alloc] initWithString:ALStringFormat(@"%@：¥%@",moneyType,money)];
     priceAttString.yy_font = ALThemeFont(14);
     priceAttString.yy_color = [UIColor colorWithRGBA:ALLabelTextColor];
-    [priceAttString yy_setColor:[UIColor colorWithRGBA:ALLabelTitleColor] range:NSMakeRange(3, priceAttString.length - 3)];
-    [priceAttString yy_setFont:ALMediumTitleFont(14) range:NSMakeRange(3, priceAttString.length - 3)];
+    [priceAttString yy_setColor:[UIColor colorWithRGBA:ALLabelTitleColor] range:NSMakeRange(moneyType.length + 1, priceAttString.length - (moneyType.length + 1))];
+    [priceAttString yy_setFont:ALMediumTitleFont(14) range:NSMakeRange(moneyType.length + 1, priceAttString.length - (moneyType.length + 1))];
     self.priceLab.attributedText = priceAttString;
 }
 

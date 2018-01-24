@@ -12,13 +12,15 @@
     NSString *_orderId;
     NSString *_payType;
     NSString *_couponId;
+    NSString *_payChannel;
 }
 
-- (instancetype)initWithCreateAppPayApi:(NSString *)orderId PayType:(NSString *)payType couponId:(NSString *)couponId {
+- (instancetype)initWithCreateAppPayApi:(NSString *)orderId PayType:(NSString *)payType couponId:(NSString *)couponId payChannel:(NSString *)payChannel {
     if(self = [super init]) {
         _orderId = orderId;
         _payType = payType;
         _couponId = couponId;
+        _payChannel = payChannel;
     }
     return self;
 }
@@ -28,12 +30,22 @@
 }
 
 - (id)requestArgument {
-    return @{
-             UserID_CommonParams
-             @"orderId" : _orderId,
-             @"payType" : _payType,
-             @"couponId" : _couponId,
-             };
+    if([_couponId isVaild]) {
+        return @{
+                 UserID_CommonParams
+                 @"orderId" : _orderId,
+                 @"payType" : _payType,
+                 @"couponId" : _couponId,
+                 @"payChannel" : _payChannel,
+                 };
+    } else {
+        return @{
+                 UserID_CommonParams
+                 @"orderId" : _orderId,
+                 @"payType" : _payType,
+                 @"payChannel" : _payChannel,
+                 };
+    }
 }
 
 @end

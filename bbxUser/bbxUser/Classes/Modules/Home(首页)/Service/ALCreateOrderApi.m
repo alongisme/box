@@ -18,6 +18,7 @@
     NSString *_serviceAddressPoint;
     NSString *_preStartTime;
     NSString *_orderMessage;
+    NSString *_isInsuranced;
 }
 
 - (instancetype)initWithCreateOrderApi:(NSString *)serviceAddress
@@ -28,7 +29,8 @@
                          serviceLength:(NSString *)serviceLength
                    serviceAddressPoint:(NSString *)serviceAddressPoint
                           preStartTime:(NSString *)preStartTime
-                          orderMessage:(NSString *)orderMessage {
+                          orderMessage:(NSString *)orderMessage
+                          isInsuranced:(NSString *)isInsuranced {
     if(self = [super init]) {
         _serviceAddress = serviceAddress;
         _contactsPhone = contactsPhone;
@@ -39,6 +41,7 @@
         _serviceAddressPoint = serviceAddressPoint;
         _preStartTime = preStartTime;
         _orderMessage = orderMessage;
+        _isInsuranced = isInsuranced;
     }
     return self;
 }
@@ -60,6 +63,7 @@
                                     @"serviceLength" : _serviceLength,
                                     @"serviceAddressPoint" : _serviceAddressPoint,
                                     @"preStartTime" : _preStartTime,
+                                    @"isInsuranced" : _isInsuranced,
                                     }];
     
     

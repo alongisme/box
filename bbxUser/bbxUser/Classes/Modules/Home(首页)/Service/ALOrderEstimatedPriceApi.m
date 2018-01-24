@@ -26,7 +26,8 @@
 }
 
 - (NSString *)requestUrl {
-    return URL_Two_OrderEstimatedPrice;
+    //1.2更改
+    return URL_QueryOrderFirstPrice;
 }
 
 - (id)requestArgument {

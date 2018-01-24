@@ -19,6 +19,7 @@
  @param contactsSex 联系人性别
  @param securityNum 服务人数
  @param serviceAddressPoint 服务地址经纬度
+ @param isInsuranced 是否使用安全保 //1.2新增
  @return self
  */
 - (instancetype)initWithCreateOrderApi:(NSString *)serviceAddress
@@ -29,5 +30,6 @@
                        serviceLength:(NSString *)serviceLength
                    serviceAddressPoint:(NSString *)serviceAddressPoint
                           preStartTime:(NSString *)preStartTime
-                          orderMessage:(NSString *)orderMessage;
+                          orderMessage:(NSString *)orderMessage
+                          isInsuranced:(NSString *)isInsuranced;
 @end

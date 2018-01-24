@@ -38,7 +38,7 @@
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if([viewController isKindOfClass:NSClassFromString(@"ALMainPageViewController")]) {
         [self showCustomView];
-    } else if([viewController isKindOfClass:NSClassFromString(@"ALStepOneViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALInstructionsViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALOrderViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALCallBBXViewController")] ) {
+    } else if([viewController isKindOfClass:NSClassFromString(@"ALStepOneViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALInstructionsViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALOrderViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALCallBBXViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALDynamicsViewController")]) {
         [self hideCustomView];
     }
 }

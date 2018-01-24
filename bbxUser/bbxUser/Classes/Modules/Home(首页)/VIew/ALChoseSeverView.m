@@ -24,15 +24,15 @@
         
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        flowLayout.itemSize = CGSizeMake(116,139);
+        flowLayout.itemSize = CGSizeMake(252/2.0, 288/2.0);
         flowLayout.minimumLineSpacing = 27;
         
         if(array.count == 1){
-            flowLayout.sectionInset = UIEdgeInsetsMake(0, (ALScreenWidth - 116) / 2.0, 0, 11);
+            flowLayout.sectionInset = UIEdgeInsetsMake(0, (ALScreenWidth - 252/2.0) / 2.0, 0, 11);
         }else if(array.count == 2) {
-            flowLayout.sectionInset = UIEdgeInsetsMake(0, (ALScreenWidth - 2 * 116 - 27) / 2.0, 0, 11);
+            flowLayout.sectionInset = UIEdgeInsetsMake(0, (ALScreenWidth - 2 * 252/2.0 - 27) / 2.0, 0, 11);
         } else if(array.count == 3) {
-            flowLayout.sectionInset = UIEdgeInsetsMake(0, (ALScreenWidth - 3 * 116 - 27 * 2) / 2.0, 0, 11);
+            flowLayout.sectionInset = UIEdgeInsetsMake(0, (ALScreenWidth - 3 * 252/2.0 - 27 * 2) / 2.0, 0, 11);
         } else {
             flowLayout.sectionInset = UIEdgeInsetsMake(0, 11, 0, 11);
         }

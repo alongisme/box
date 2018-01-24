@@ -18,6 +18,7 @@
 @property (nonatomic, strong) BMKMapView *mapView;
 @property (nonatomic, strong) BMKLocationService *locationService;
 @property (nonatomic, strong) UIButton *locationBtn;
+//@property (nonatomic, assign) int flag; // 1 镖师动态匹配镖师 2镖师动态等待受理
 
 //定位停止调用
 - (void)loacationStopWithcoor:(CLLocationCoordinate2D)coor;

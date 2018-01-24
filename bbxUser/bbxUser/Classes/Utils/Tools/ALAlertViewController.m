@@ -41,14 +41,36 @@
         }
     }];
     
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
-    
-    if(![destructive isEqualToString:@"退出"]) {
+    if([destructive isEqualToString:@"确认放弃"]) {
         [alertAction setValue:[UIColor colorWithRGB:0x999999] forKey:@"titleTextColor"];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"再考虑下" style:UIAlertActionStyleDefault handler:nil];
+        [cancelAction setValue:[UIColor colorWithRGBA:ALThemeColor] forKey:@"titleTextColor"];
+        [alertController addAction:alertAction];
+        [alertController addAction:cancelAction];
+    } else if([destructive isEqualToString:@"查看镖师动态"] || [destructive isEqualToString:@"前往"] || [destructive isEqualToString:@"去支付"]){
+        [alertAction setValue:[UIColor colorWithRGBA:ALThemeColor] forKey:@"titleTextColor"];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        [cancelAction setValue:[UIColor colorWithRGB:0x999999] forKey:@"titleTextColor"];
+        [alertController addAction:cancelAction];
+        [alertController addAction:alertAction];
+    } else if([destructive isEqualToString:@"取消订单"]){
+        [alertAction setValue:[UIColor colorWithRGB:0x999999] forKey:@"titleTextColor"];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"继续等待" style:UIAlertActionStyleDefault handler:nil];
+        [cancelAction setValue:[UIColor colorWithRGBA:ALThemeColor] forKey:@"titleTextColor"];
+        [alertController addAction:alertAction];
+        [alertController addAction:cancelAction];
+    } else {
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        
+        if(![destructive isEqualToString:@"退出"]) {
+            [alertAction setValue:[UIColor colorWithRGB:0x999999] forKey:@"titleTextColor"];
+        }
+        
+        [alertController addAction:alertAction];
+        [alertController addAction:cancelAction];
     }
     
-    [alertController addAction:alertAction];
-    [alertController addAction:cancelAction];
+    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [delegate presentViewController:alertController animated:YES completion:nil];

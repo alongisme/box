@@ -40,6 +40,15 @@
         make.bottom.equalTo(@-16);
     }];
     
+    [self.safeProtocolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.titleLab);
+        make.left.equalTo(self.titleLab.mas_right).offset(10);
+        make.size.mas_equalTo(CGSizeMake(14, 14));
+    }];
+}
+
+- (NSString *)isOn {
+    return [NSString stringWithFormat:@"%d",self.safeSwitch.on];
 }
 
 #pragma mark lazy load
@@ -65,7 +74,19 @@
 
 - (UIButton *)safeProtocolBtn {
     if(!_safeProtocolBtn) {
+        _safeProtocolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _safeProtocolBtn.titleLabel.font = ALThemeFont(9);
+        [_safeProtocolBtn setTitle:@"?" forState:UIControlStateNormal];
+        [_safeProtocolBtn setTitleColor:[UIColor colorWithRGB:0x999999] forState:UIControlStateNormal];
+        [self addSubview:_safeProtocolBtn];
+        _safeProtocolBtn.layer.masksToBounds = YES;
+        _safeProtocolBtn.layer.cornerRadius = 14/2.0;
+        _safeProtocolBtn.layer.borderColor = [UIColor colorWithRGB:0x999999].CGColor;
+        _safeProtocolBtn.layer.borderWidth = 1.0;
         
+        [_safeProtocolBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+            NSLog(@"安全保协议");
+        }];
     }
     return _safeProtocolBtn;
 }

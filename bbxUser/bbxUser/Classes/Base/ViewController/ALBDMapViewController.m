@@ -30,9 +30,7 @@
     }];
     
     //开始定位
-    [self startLocation];
-    
-    [self customLocationAccuracyCircle:YES];
+    [self startLocation];    
 }
 
 - (void)viewWillAppear:(BOOL)animated {

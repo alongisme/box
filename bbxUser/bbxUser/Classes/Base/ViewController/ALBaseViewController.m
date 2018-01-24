@@ -7,9 +7,11 @@
 //
 
 #import "ALBaseViewController.h"
+#import <IQKeyboardReturnKeyHandler.h>
 
 @interface ALBaseViewController ()
 @property (nonatomic, strong) ALRequestStatusView *requestStatusView;
+@property (nonatomic, strong) IQKeyboardReturnKeyHandler *returnKeyHandler;
 @end
 
 @implementation ALBaseViewController
@@ -37,6 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _returnKeyHandler = [[IQKeyboardReturnKeyHandler alloc] initWithViewController:self];
     self.view.backgroundColor = [UIColor colorWithRGBA:ALVCbgColor];
     if(self.navigationController.viewControllers.count > 1) {
         self.navigationItem.leftBarButtonItem = [self createButtonItemWithImageName:@"Back Chevron" selector:@selector(backAction)];

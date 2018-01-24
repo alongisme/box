@@ -9,5 +9,5 @@
 #import "ALShadowView.h"
 
 @interface ALSafeProtectView : ALShadowView
-
+@property (nonatomic, copy) NSString *isOn;
 @end

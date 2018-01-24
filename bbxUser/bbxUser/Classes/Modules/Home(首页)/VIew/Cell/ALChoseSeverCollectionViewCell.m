@@ -31,7 +31,7 @@
         
         [self.currentPrice mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.contentView);
-            make.centerY.equalTo(self.contentView).offset(10);
+            make.centerY.equalTo(self.contentView).offset(15);
         }];
         
         [self.msgLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -51,17 +51,17 @@
     _optionListModel = optionListModel;
     
     if(optionListModel.selected) {
-        self.bgIV.image = [UIImage imageNamed:@"xuanzhong"];
+        self.bgIV.image = [UIImage imageNamed:@"fuwuxuanze-xuanzhong"];
     } else {
-        self.bgIV.image = [UIImage imageNamed:@"weixuanzhong"];
+        self.bgIV.image = [UIImage imageNamed:@"fuwuxuanze-weixuanze"];
     }
     
-    self.lengthLab.text = ALStringFormat(@"%@小时服务",optionListModel.serviceLength);
+    self.lengthLab.text = ALStringFormat(@"单人%@小时",optionListModel.serviceLength);
     
     NSMutableAttributedString *currentPriceStr = [[NSMutableAttributedString alloc] initWithString:ALStringFormat(@"¥%@",optionListModel.limitPrice)];
     
-    [currentPriceStr yy_setFont:ALThemeFont(12) range:NSMakeRange(0, 1)];
-    [currentPriceStr yy_setFont:ALMediumTitleFont(35) range:NSMakeRange(1, currentPriceStr.length - 1)];
+    [currentPriceStr yy_setFont:ALThemeFont(16) range:NSMakeRange(0, 1)];
+    [currentPriceStr yy_setFont:ALMediumTitleFont(40) range:NSMakeRange(1, currentPriceStr.length - 1)];
     self.currentPrice.attributedText = currentPriceStr;
     
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:ALStringFormat(@"(原价¥%@)",optionListModel.orglPrice) attributes:@{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)}];
@@ -70,7 +70,7 @@
 
 - (UIImageView *)bgIV {
     if(!_bgIV) {
-        _bgIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"weixuanzhong"]];
+        _bgIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fuwuxuanze-weixuanze"]];
         [self.contentView addSubview:_bgIV];
     }
     return _bgIV;
@@ -79,7 +79,9 @@
 - (ALLabel *)msgLab {
     if(!_msgLab) {
         _msgLab = [[ALLabel alloc] initWithFrameAndMedium:CGRectZero];
-        _msgLab.text = @"优惠价";
+        _msgLab.font = ALMediumTitleFont(16);
+        _msgLab.textColor = [UIColor colorWithRGB:0x666666];
+        _msgLab.text = @"预付价";
         [self.contentView addSubview:_msgLab];
     }
     return _msgLab;
@@ -88,6 +90,7 @@
 - (ALLabel *)lengthLab {
     if(!_lengthLab) {
         _lengthLab = [[ALLabel alloc] init];
+        _lengthLab.font = ALThemeFont(16);
         _lengthLab.textColor = [UIColor whiteColor];
         [self.contentView addSubview:_lengthLab];
     }
@@ -97,7 +100,7 @@
 - (ALLabel *)currentPrice {
     if(!_currentPrice) {
         _currentPrice = [[ALLabel alloc] init];
-        _currentPrice.textColor = [UIColor colorWithRGB:0xF8504F];
+        _currentPrice.textColor = [UIColor colorWithRGB:0xFF4E4E];
         [self.contentView addSubview:_currentPrice];
     }
     return _currentPrice;

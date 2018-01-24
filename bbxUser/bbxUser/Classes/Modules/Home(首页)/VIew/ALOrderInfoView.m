@@ -482,7 +482,15 @@
 - (ALLabel *)payMoneyLab {
     if(!_payMoneyLab) {
         _payMoneyLab = [[ALLabel alloc] init];
-        _payMoneyLab.text = @"支付金额";
+        if([_model.orderStatus isEqualToString:OrderStatusWaitPay] || [_model.orderStatus isEqualToString:OrderStatusCancel] || [_model.orderStatus isEqualToString:OrderStatusTimeOut]) {
+            _payMoneyLab.text = @"预支付";
+        } else if([_model.orderStatus isEqualToString:OrderStatusFinished]) {
+            _payMoneyLab.text = @"总金额";
+        } else if([_model.orderStatus isEqualToString:OrderStatusZ]) {
+            _payMoneyLab.text = @"余额支付";
+        } else {
+            _payMoneyLab.text = @"预支付";
+        }
         [self addSubview:_payMoneyLab];
     }
     return _payMoneyLab;
@@ -492,8 +500,16 @@
     if(!_moneyLab) {
         _moneyLab = [[ALLabel alloc] init];
         [self addSubview:_moneyLab];
-        
-        [self initMoney:_model.orderPrice];
+        if([_model.orderStatus isEqualToString:OrderStatusWaitPay] || [_model.orderStatus isEqualToString:OrderStatusCancel] || [_model.orderStatus isEqualToString:OrderStatusTimeOut]) {
+            [self initMoney:_model.firstPrice];
+        } else if([_model.orderStatus isEqualToString:OrderStatusFinished]) {
+            _payMoneyLab.text = @"总金额";
+            [self initMoney:[NSString stringWithFormat:@"%lf",[_model.firstPrice doubleValue] + [_model.secondPrice doubleValue]]];
+        } else if([_model.orderStatus isEqualToString:OrderStatusZ]) {
+            [self initMoney:_model.secondPrice];
+        } else {
+            [self initMoney:_model.firstPrice];
+        }
     }
     return _moneyLab;
 }

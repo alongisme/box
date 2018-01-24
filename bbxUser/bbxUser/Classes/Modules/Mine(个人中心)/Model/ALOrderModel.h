@@ -12,6 +12,9 @@
 @end
 
 @interface ALOrderModel : JSONModel
+@property (nonatomic, copy) NSString<Optional> *content;
+@property (nonatomic, copy) NSString<Optional> *firstPrice;
+@property (nonatomic, copy) NSString<Optional> *secondPrice;
 @property (nonatomic, copy) NSString<Optional> *orderId;
 @property (nonatomic, copy) NSString<Optional> *orderStatus;
 @property (nonatomic, strong) NSNumber<Optional> *hasAvaCoupon;
@@ -33,6 +36,7 @@
 @end
 
 @interface ALSecurityModel : JSONModel
+@property (nonatomic, copy) NSString<Optional> *phone;
 @property (nonatomic, copy) NSString<Optional> *realName;
 @property (nonatomic, copy) NSNumber<Optional> *isLeader;
 @property (nonatomic, copy) NSNumber<Optional> *isLeaderDes;

@@ -28,6 +28,14 @@
 		3D3698D42011BD2A009E07CA /* ALCallBBXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3698D32011BD2A009E07CA /* ALCallBBXViewController.m */; };
 		3D3698DC2011C70C009E07CA /* ALConsumerInfomationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3698DB2011C70C009E07CA /* ALConsumerInfomationView.m */; };
 		3D77FA031FBEB7D70049856B /* ALWXShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D77FA021FBEB7D70049856B /* ALWXShareView.m */; };
+		3D90CA3A2015B1E8004856F5 /* ALDynamicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D90CA392015B1E8004856F5 /* ALDynamicsViewController.m */; };
+		3D90CA3B2015B43F004856F5 /* ALDynamicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D90CA392015B1E8004856F5 /* ALDynamicsViewController.m */; };
+		3D90CA3E2015B975004856F5 /* ALConfirmationOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D90CA3D2015B975004856F5 /* ALConfirmationOrderViewController.m */; };
+		3D90CA3F2015BBF3004856F5 /* ALConfirmationOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D90CA3D2015B975004856F5 /* ALConfirmationOrderViewController.m */; };
+		3D90CA422015BD0B004856F5 /* ALConfirmationInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D90CA412015BD0B004856F5 /* ALConfirmationInfoView.m */; };
+		3D90CA432015C046004856F5 /* ALConfirmationInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D90CA412015BD0B004856F5 /* ALConfirmationInfoView.m */; };
+		3D90CA462015CBF9004856F5 /* ALConfirLinkManInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D90CA452015CBF9004856F5 /* ALConfirLinkManInfoView.m */; };
+		3D90CA472015CFA8004856F5 /* ALConfirLinkManInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D90CA452015CBF9004856F5 /* ALConfirLinkManInfoView.m */; };
 		3DB71C0F1FCE88EF00BB129D /* ALStepOneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFEB60B1F30660600A022EA /* ALStepOneViewController.m */; };
 		3DB71C101FCE88EF00BB129D /* ALFeedBackPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF940B281F38689400FC6948 /* ALFeedBackPhotoCollectionViewCell.m */; };
 		3DB71C111FCE88EF00BB129D /* ALStepView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFEB6041F30660600A022EA /* ALStepView.m */; };
@@ -110,7 +118,6 @@
 		3DB71C5E1FCE88EF00BB129D /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFEB6B11F30660600A022EA /* base64.m */; };
 		3DB71C5F1FCE88EF00BB129D /* UITableViewCell+ALBindModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0237261F331CFB004BAF37 /* UITableViewCell+ALBindModel.m */; };
 		3DB71C601FCE88EF00BB129D /* UIFont+ALFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = BF28495C1F4BE13F002965FD /* UIFont+ALFontSize.m */; };
-		3DB71C611FCE88EF00BB129D /* ALFastCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D080DEF1FB003A9009676BA /* ALFastCallViewController.m */; };
 		3DB71C621FCE88EF00BB129D /* ALMyMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF3DE831F381FF900E81E6E /* ALMyMessageModel.m */; };
 		3DB71C631FCE88EF00BB129D /* ALBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D23B2281FB5510500EE6A80 /* ALBaseWebViewController.m */; };
 		3DB71C641FCE88EF00BB129D /* ALChoseToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF02371C1F32E53B004BAF37 /* ALChoseToolView.m */; };
@@ -214,12 +221,25 @@
 		3DD7827B1F8F621B0063E626 /* ALAdditionalDemandView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7827A1F8F621B0063E626 /* ALAdditionalDemandView.m */; };
 		3DD7827E1F905FB80063E626 /* ALQueryOrderMinStartTimeApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD7827D1F905FB80063E626 /* ALQueryOrderMinStartTimeApi.m */; };
 		3DD782CF1F90B0370063E626 /* ALMainPageBootPicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD782CE1F90B0370063E626 /* ALMainPageBootPicView.m */; };
+		3DE0242420185D6100A4E921 /* ALNewSecurityLListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0242320185D6100A4E921 /* ALNewSecurityLListView.m */; };
+		3DE0242520185E2A00A4E921 /* ALNewSecurityLListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0242320185D6100A4E921 /* ALNewSecurityLListView.m */; };
+		3DE02428201871E600A4E921 /* ALDynamicsBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE02427201871E600A4E921 /* ALDynamicsBottomView.m */; };
+		3DE024292018754200A4E921 /* ALDynamicsBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE02427201871E600A4E921 /* ALDynamicsBottomView.m */; };
+		3DE0242C20187FED00A4E921 /* ALSencondPayInitApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0242B20187FED00A4E921 /* ALSencondPayInitApi.m */; };
+		3DE0242D20187FED00A4E921 /* ALSencondPayInitApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0242B20187FED00A4E921 /* ALSencondPayInitApi.m */; };
 		3DEEDD361FD7C477000DDA5C /* ALOpenPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088ED1FD692FF001DCEFA /* ALOpenPageView.m */; };
 		3DEEDD371FD7C491000DDA5C /* ALQueryOpenPageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088EA1FD63916001DCEFA /* ALQueryOpenPageApi.m */; };
 		3DF088E31FD4FC21001DCEFA /* ALPushInfomationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088E21FD4FC21001DCEFA /* ALPushInfomationViewController.m */; };
 		3DF088E71FD528B3001DCEFA /* ALPushInfomationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088E21FD4FC21001DCEFA /* ALPushInfomationViewController.m */; };
 		3DF088EB1FD63916001DCEFA /* ALQueryOpenPageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088EA1FD63916001DCEFA /* ALQueryOpenPageApi.m */; };
 		3DF088EE1FD692FF001DCEFA /* ALOpenPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088ED1FD692FF001DCEFA /* ALOpenPageView.m */; };
+		3DFF97A42015D91B005E1FC6 /* ALConfirContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97A32015D91B005E1FC6 /* ALConfirContentView.m */; };
+		3DFF97A52015DF99005E1FC6 /* ALConfirContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97A32015D91B005E1FC6 /* ALConfirContentView.m */; };
+		3DFF97A82015F1C3005E1FC6 /* ALPayPresentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97A72015F1C3005E1FC6 /* ALPayPresentView.m */; };
+		3DFF97A92016CF2C005E1FC6 /* ALPayPresentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97A72015F1C3005E1FC6 /* ALPayPresentView.m */; };
+		3DFF97AC20171864005E1FC6 /* ALRefreshOrderDetailApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97AB20171864005E1FC6 /* ALRefreshOrderDetailApi.m */; };
+		3DFF97AE20171E47005E1FC6 /* ALRefreshOrderDetailApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97AB20171864005E1FC6 /* ALRefreshOrderDetailApi.m */; };
+		3DFF97AF20172180005E1FC6 /* ALFastCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D080DEF1FB003A9009676BA /* ALFastCallViewController.m */; };
 		B5C64018CCEA22267958CF0C /* libPods-bbxUserTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A678BD03AB4504D931DB6E78 /* libPods-bbxUserTests.a */; };
 		BF02371A1F319EEA004BAF37 /* ALBDMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0237191F319EEA004BAF37 /* ALBDMapViewController.m */; };
 		BF02371D1F32E53B004BAF37 /* ALChoseToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF02371C1F32E53B004BAF37 /* ALChoseToolView.m */; };
@@ -443,6 +463,14 @@
 		3D3698DB2011C70C009E07CA /* ALConsumerInfomationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALConsumerInfomationView.m; sourceTree = "<group>"; };
 		3D77FA011FBEB7D70049856B /* ALWXShareView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALWXShareView.h; sourceTree = "<group>"; };
 		3D77FA021FBEB7D70049856B /* ALWXShareView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALWXShareView.m; sourceTree = "<group>"; };
+		3D90CA382015B1E8004856F5 /* ALDynamicsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALDynamicsViewController.h; sourceTree = "<group>"; };
+		3D90CA392015B1E8004856F5 /* ALDynamicsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALDynamicsViewController.m; sourceTree = "<group>"; };
+		3D90CA3C2015B975004856F5 /* ALConfirmationOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALConfirmationOrderViewController.h; sourceTree = "<group>"; };
+		3D90CA3D2015B975004856F5 /* ALConfirmationOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALConfirmationOrderViewController.m; sourceTree = "<group>"; };
+		3D90CA402015BD0B004856F5 /* ALConfirmationInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALConfirmationInfoView.h; sourceTree = "<group>"; };
+		3D90CA412015BD0B004856F5 /* ALConfirmationInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALConfirmationInfoView.m; sourceTree = "<group>"; };
+		3D90CA442015CBF9004856F5 /* ALConfirLinkManInfoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALConfirLinkManInfoView.h; sourceTree = "<group>"; };
+		3D90CA452015CBF9004856F5 /* ALConfirLinkManInfoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALConfirLinkManInfoView.m; sourceTree = "<group>"; };
 		3DB71CCB1FCE88EF00BB129D /* bbxUser_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bbxUser_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB71CCD1FCE906000BB129D /* bbxUserTest-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "bbxUserTest-Info.plist"; sourceTree = "<group>"; };
 		3DD782761F8F58CD0063E626 /* ALOptionListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALOptionListModel.h; sourceTree = "<group>"; };
@@ -453,12 +481,24 @@
 		3DD7827D1F905FB80063E626 /* ALQueryOrderMinStartTimeApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALQueryOrderMinStartTimeApi.m; sourceTree = "<group>"; };
 		3DD782CD1F90B0370063E626 /* ALMainPageBootPicView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALMainPageBootPicView.h; sourceTree = "<group>"; };
 		3DD782CE1F90B0370063E626 /* ALMainPageBootPicView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALMainPageBootPicView.m; sourceTree = "<group>"; };
+		3DE0242220185D6100A4E921 /* ALNewSecurityLListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALNewSecurityLListView.h; sourceTree = "<group>"; };
+		3DE0242320185D6100A4E921 /* ALNewSecurityLListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALNewSecurityLListView.m; sourceTree = "<group>"; };
+		3DE02426201871E600A4E921 /* ALDynamicsBottomView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALDynamicsBottomView.h; sourceTree = "<group>"; };
+		3DE02427201871E600A4E921 /* ALDynamicsBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALDynamicsBottomView.m; sourceTree = "<group>"; };
+		3DE0242A20187FED00A4E921 /* ALSencondPayInitApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALSencondPayInitApi.h; sourceTree = "<group>"; };
+		3DE0242B20187FED00A4E921 /* ALSencondPayInitApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALSencondPayInitApi.m; sourceTree = "<group>"; };
 		3DF088E11FD4FC21001DCEFA /* ALPushInfomationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALPushInfomationViewController.h; sourceTree = "<group>"; };
 		3DF088E21FD4FC21001DCEFA /* ALPushInfomationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALPushInfomationViewController.m; sourceTree = "<group>"; };
 		3DF088E91FD63916001DCEFA /* ALQueryOpenPageApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALQueryOpenPageApi.h; sourceTree = "<group>"; };
 		3DF088EA1FD63916001DCEFA /* ALQueryOpenPageApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALQueryOpenPageApi.m; sourceTree = "<group>"; };
 		3DF088EC1FD692FF001DCEFA /* ALOpenPageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALOpenPageView.h; sourceTree = "<group>"; };
 		3DF088ED1FD692FF001DCEFA /* ALOpenPageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALOpenPageView.m; sourceTree = "<group>"; };
+		3DFF97A22015D91B005E1FC6 /* ALConfirContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALConfirContentView.h; sourceTree = "<group>"; };
+		3DFF97A32015D91B005E1FC6 /* ALConfirContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALConfirContentView.m; sourceTree = "<group>"; };
+		3DFF97A62015F1C3005E1FC6 /* ALPayPresentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALPayPresentView.h; sourceTree = "<group>"; };
+		3DFF97A72015F1C3005E1FC6 /* ALPayPresentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALPayPresentView.m; sourceTree = "<group>"; };
+		3DFF97AA20171864005E1FC6 /* ALRefreshOrderDetailApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALRefreshOrderDetailApi.h; sourceTree = "<group>"; };
+		3DFF97AB20171864005E1FC6 /* ALRefreshOrderDetailApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALRefreshOrderDetailApi.m; sourceTree = "<group>"; };
 		6E252167642AFA858A526F74 /* Pods-bbxUserTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbxUserTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bbxUserTests/Pods-bbxUserTests.debug.xcconfig"; sourceTree = "<group>"; };
 		801A7A039A548A05A1E2F02D /* libPods-bbxUser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bbxUser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8091C481F26C931B0E8FABF6 /* Pods-bbxUserTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbxUserTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-bbxUserTests/Pods-bbxUserTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -919,7 +959,12 @@
 			children = (
 				3D3698D22011BD2A009E07CA /* ALCallBBXViewController.h */,
 				3D3698D32011BD2A009E07CA /* ALCallBBXViewController.m */,
+				3D90CA3C2015B975004856F5 /* ALConfirmationOrderViewController.h */,
+				3D90CA3D2015B975004856F5 /* ALConfirmationOrderViewController.m */,
+				3D90CA382015B1E8004856F5 /* ALDynamicsViewController.h */,
+				3D90CA392015B1E8004856F5 /* ALDynamicsViewController.m */,
 				3D3698D92011C633009E07CA /* View */,
+				3DFF97AD20171868005E1FC6 /* Service */,
 			);
 			path = "1-2新增";
 			sourceTree = "<group>";
@@ -931,8 +976,31 @@
 				3D3698DB2011C70C009E07CA /* ALConsumerInfomationView.m */,
 				3D22E5B02011DB7400584236 /* ALSafeProtectView.h */,
 				3D22E5B12011DB7400584236 /* ALSafeProtectView.m */,
+				3D90CA402015BD0B004856F5 /* ALConfirmationInfoView.h */,
+				3D90CA412015BD0B004856F5 /* ALConfirmationInfoView.m */,
+				3D90CA442015CBF9004856F5 /* ALConfirLinkManInfoView.h */,
+				3D90CA452015CBF9004856F5 /* ALConfirLinkManInfoView.m */,
+				3DFF97A22015D91B005E1FC6 /* ALConfirContentView.h */,
+				3DFF97A32015D91B005E1FC6 /* ALConfirContentView.m */,
+				3DFF97A62015F1C3005E1FC6 /* ALPayPresentView.h */,
+				3DFF97A72015F1C3005E1FC6 /* ALPayPresentView.m */,
+				3DE0242220185D6100A4E921 /* ALNewSecurityLListView.h */,
+				3DE0242320185D6100A4E921 /* ALNewSecurityLListView.m */,
+				3DE02426201871E600A4E921 /* ALDynamicsBottomView.h */,
+				3DE02427201871E600A4E921 /* ALDynamicsBottomView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3DFF97AD20171868005E1FC6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3DFF97AA20171864005E1FC6 /* ALRefreshOrderDetailApi.h */,
+				3DFF97AB20171864005E1FC6 /* ALRefreshOrderDetailApi.m */,
+				3DE0242A20187FED00A4E921 /* ALSencondPayInitApi.h */,
+				3DE0242B20187FED00A4E921 /* ALSencondPayInitApi.m */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		470963FBC730F3217316C01E /* Frameworks */ = {
@@ -2247,8 +2315,10 @@
 				3DB71C1C1FCE88EF00BB129D /* ALNewsDetailViewController.m in Sources */,
 				3DB71C1D1FCE88EF00BB129D /* WXApiManager.m in Sources */,
 				3DB71C1E1FCE88EF00BB129D /* ALFeedBackPhotoView.m in Sources */,
+				3DFF97A52015DF99005E1FC6 /* ALConfirContentView.m in Sources */,
 				3DB71C1F1FCE88EF00BB129D /* ALServerTagViewController.m in Sources */,
 				3DB71C201FCE88EF00BB129D /* ALAboutUsViewController.m in Sources */,
+				3DFF97AE20171E47005E1FC6 /* ALRefreshOrderDetailApi.m in Sources */,
 				3DB71C211FCE88EF00BB129D /* ALNoResultView.m in Sources */,
 				3DB71C221FCE88EF00BB129D /* ALBDMapViewController.m in Sources */,
 				3DB71C231FCE88EF00BB129D /* ALCreateAppPayApi.m in Sources */,
@@ -2279,6 +2349,7 @@
 				3DB71C3C1FCE88EF00BB129D /* ALCustomTagView.m in Sources */,
 				3DB71C3D1FCE88EF00BB129D /* ALPaySuccessView.m in Sources */,
 				3DB71C3E1FCE88EF00BB129D /* ALGoodBusinessView.m in Sources */,
+				3D90CA3B2015B43F004856F5 /* ALDynamicsViewController.m in Sources */,
 				3DB71C3F1FCE88EF00BB129D /* ALEvaluateListViewController.m in Sources */,
 				3DB71C401FCE88EF00BB129D /* ALInitOrderInfoApi.m in Sources */,
 				3DEEDD361FD7C477000DDA5C /* ALOpenPageView.m in Sources */,
@@ -2287,6 +2358,7 @@
 				3DB71C431FCE88EF00BB129D /* ALSecurityInfoViewController.m in Sources */,
 				3DB71C441FCE88EF00BB129D /* ALUpdateMyInfoApi.m in Sources */,
 				3DB71C451FCE88EF00BB129D /* ALCommentContentView.m in Sources */,
+				3DE024292018754200A4E921 /* ALDynamicsBottomView.m in Sources */,
 				3D22E5B32011E27A00584236 /* ALCallBBXViewController.m in Sources */,
 				3DB71C461FCE88EF00BB129D /* ALAccountInfoViewController.m in Sources */,
 				3DB71C471FCE88EF00BB129D /* ALDoneOrderListApi.m in Sources */,
@@ -2317,12 +2389,12 @@
 				3DB71C5F1FCE88EF00BB129D /* UITableViewCell+ALBindModel.m in Sources */,
 				3DB71C601FCE88EF00BB129D /* UIFont+ALFontSize.m in Sources */,
 				3DF088E71FD528B3001DCEFA /* ALPushInfomationViewController.m in Sources */,
-				3DB71C611FCE88EF00BB129D /* ALFastCallViewController.m in Sources */,
 				3DB71C621FCE88EF00BB129D /* ALMyMessageModel.m in Sources */,
 				3DB71C631FCE88EF00BB129D /* ALBaseWebViewController.m in Sources */,
 				3DB71C641FCE88EF00BB129D /* ALChoseToolView.m in Sources */,
 				3DB71C651FCE88EF00BB129D /* ALAboutUsApi.m in Sources */,
 				3DB71C661FCE88EF00BB129D /* ALFeedBackViewController.m in Sources */,
+				3DE0242D20187FED00A4E921 /* ALSencondPayInitApi.m in Sources */,
 				3DB71C671FCE88EF00BB129D /* ALEvaluateViewController.m in Sources */,
 				3DB71C681FCE88EF00BB129D /* ALActionButton.m in Sources */,
 				3DB71C691FCE88EF00BB129D /* ALFeedBackApi.m in Sources */,
@@ -2335,7 +2407,9 @@
 				3DB71C701FCE88EF00BB129D /* Order.m in Sources */,
 				3DB71C711FCE88EF00BB129D /* ALSubmitOrderCommentApi.m in Sources */,
 				3DB71C721FCE88EF00BB129D /* ALNoReusltTableView.m in Sources */,
+				3D90CA472015CFA8004856F5 /* ALConfirLinkManInfoView.m in Sources */,
 				3DB71C731FCE88EF00BB129D /* ALCommentTagModel.m in Sources */,
+				3DFF97AF20172180005E1FC6 /* ALFastCallViewController.m in Sources */,
 				3DB71C741FCE88EF00BB129D /* ALMoneyInfoView.m in Sources */,
 				3DB71C751FCE88EF00BB129D /* ALOrderViewController.m in Sources */,
 				3DB71C761FCE88EF00BB129D /* ALRedEnvelopeTableViewCell.m in Sources */,
@@ -2348,6 +2422,7 @@
 				3DB71C7D1FCE88EF00BB129D /* ALConfirmCustomOrderApi.m in Sources */,
 				3DB71C7E1FCE88EF00BB129D /* RSADataVerifier.m in Sources */,
 				3DB71C7F1FCE88EF00BB129D /* ALSubmitOrderApi.m in Sources */,
+				3DFF97A92016CF2C005E1FC6 /* ALPayPresentView.m in Sources */,
 				3DB71C801FCE88EF00BB129D /* ALMyDoneOrderList.m in Sources */,
 				3DB71C811FCE88EF00BB129D /* ALOrderListModel.m in Sources */,
 				3DB71C821FCE88EF00BB129D /* ALAvailableCouponListApi.m in Sources */,
@@ -2365,11 +2440,14 @@
 				3DB71C8D1FCE88EF00BB129D /* ALSecurityInfoModel.m in Sources */,
 				3DB71C8E1FCE88EF00BB129D /* NSObject+CheckOutSomething.m in Sources */,
 				3DB71C8F1FCE88EF00BB129D /* NSObject+ALUserDefault.m in Sources */,
+				3DE0242520185E2A00A4E921 /* ALNewSecurityLListView.m in Sources */,
 				3DB71C901FCE88EF00BB129D /* ALRedEnvelopoModel.m in Sources */,
 				3DB71C911FCE88EF00BB129D /* ALOrderSecurityLocationApi.m in Sources */,
 				3DB71C921FCE88EF00BB129D /* ALMobilePayService.m in Sources */,
 				3DB71C931FCE88EF00BB129D /* ALCreateOrderApi.m in Sources */,
+				3D90CA3F2015BBF3004856F5 /* ALConfirmationOrderViewController.m in Sources */,
 				3DB71C941FCE88EF00BB129D /* ALBannerListModel.m in Sources */,
+				3D90CA432015C046004856F5 /* ALConfirmationInfoView.m in Sources */,
 				3DB71C951FCE88EF00BB129D /* ALRealTimePositionViewController.m in Sources */,
 				3D22E5B52011E27F00584236 /* ALSafeProtectView.m in Sources */,
 				3DB71C961FCE88EF00BB129D /* ALSecurityCommentListApi.m in Sources */,
@@ -2416,8 +2494,10 @@
 				BF6DFD041F418E440098AC5B /* ALNewsDetailViewController.m in Sources */,
 				BFFEB7011F30660600A022EA /* WXApiManager.m in Sources */,
 				BF940B261F38674D00FC6948 /* ALFeedBackPhotoView.m in Sources */,
+				3DFF97A42015D91B005E1FC6 /* ALConfirContentView.m in Sources */,
 				BFE525301F7233E5000BF9D3 /* ALServerTagViewController.m in Sources */,
 				BFF3DE8A1F383BFE00E81E6E /* ALAboutUsViewController.m in Sources */,
+				3DFF97AC20171864005E1FC6 /* ALRefreshOrderDetailApi.m in Sources */,
 				BFFEB6DF1F30660600A022EA /* ALNoResultView.m in Sources */,
 				BF02371A1F319EEA004BAF37 /* ALBDMapViewController.m in Sources */,
 				BFFEB6DA1F30660600A022EA /* ALCreateAppPayApi.m in Sources */,
@@ -2448,6 +2528,7 @@
 				BF8C79511F7CE52E008D7E01 /* ALCustomTagView.m in Sources */,
 				BFFEB6E11F30660600A022EA /* ALPaySuccessView.m in Sources */,
 				BFD18C8E1F3C604400D00293 /* ALGoodBusinessView.m in Sources */,
+				3D90CA3A2015B1E8004856F5 /* ALDynamicsViewController.m in Sources */,
 				BF7676CC1F3C64EC000EE85F /* ALEvaluateListViewController.m in Sources */,
 				BF6DFD071F419D7B0098AC5B /* ALInitOrderInfoApi.m in Sources */,
 				BFFEB6F61F30660600A022EA /* ALOrderDetailApi.m in Sources */,
@@ -2456,6 +2537,7 @@
 				BFFEB6FC1F30660600A022EA /* ALUpdateMyInfoApi.m in Sources */,
 				BFD18C8B1F3C5EC400D00293 /* ALCommentContentView.m in Sources */,
 				BFA048CC1F37FA360002927B /* ALAccountInfoViewController.m in Sources */,
+				3DE02428201871E600A4E921 /* ALDynamicsBottomView.m in Sources */,
 				3D3698D42011BD2A009E07CA /* ALCallBBXViewController.m in Sources */,
 				BFFEB6F31F30660600A022EA /* ALDoneOrderListApi.m in Sources */,
 				BFFEB6D61F30660600A022EA /* ALBaseViewController.m in Sources */,
@@ -2491,6 +2573,7 @@
 				BF02371D1F32E53B004BAF37 /* ALChoseToolView.m in Sources */,
 				BFFEB6F21F30660600A022EA /* ALAboutUsApi.m in Sources */,
 				BF29B2D51F385AEC009CC1BB /* ALFeedBackViewController.m in Sources */,
+				3DE0242C20187FED00A4E921 /* ALSencondPayInitApi.m in Sources */,
 				BF6DF8551F39CBBD00AEE130 /* ALEvaluateViewController.m in Sources */,
 				BFFEB6D01F30660600A022EA /* ALActionButton.m in Sources */,
 				BF6DFCFB1F413D570098AC5B /* ALFeedBackApi.m in Sources */,
@@ -2504,6 +2587,7 @@
 				BFF1F3DB1F4584E700DCF94A /* ALSubmitOrderCommentApi.m in Sources */,
 				BF6DFD4B1F44165B0098AC5B /* ALNoReusltTableView.m in Sources */,
 				BFF1F3D81F4560B400DCF94A /* ALCommentTagModel.m in Sources */,
+				3D90CA462015CBF9004856F5 /* ALConfirLinkManInfoView.m in Sources */,
 				BFE525541F74A439000BF9D3 /* ALMoneyInfoView.m in Sources */,
 				BF940B2C1F3955F100FC6948 /* ALOrderViewController.m in Sources */,
 				BF0237241F331B86004BAF37 /* ALRedEnvelopeTableViewCell.m in Sources */,
@@ -2517,6 +2601,7 @@
 				BFFEB7121F30660600A022EA /* RSADataVerifier.m in Sources */,
 				BFFEB6FA1F30660600A022EA /* ALSubmitOrderApi.m in Sources */,
 				BF6DFD101F429D100098AC5B /* ALMyDoneOrderList.m in Sources */,
+				3DFF97A82015F1C3005E1FC6 /* ALPayPresentView.m in Sources */,
 				BF6DFD131F429FBA0098AC5B /* ALOrderListModel.m in Sources */,
 				BFFEB6D81F30660600A022EA /* ALAvailableCouponListApi.m in Sources */,
 				BFFEB7071F30660600A022EA /* main.m in Sources */,
@@ -2534,11 +2619,14 @@
 				BF2849541F4A8025002965FD /* ALSecurityInfoModel.m in Sources */,
 				BF6DFCF81F3DAF7E0098AC5B /* NSObject+CheckOutSomething.m in Sources */,
 				BFFEB7171F30660600A022EA /* NSObject+ALUserDefault.m in Sources */,
+				3DE0242420185D6100A4E921 /* ALNewSecurityLListView.m in Sources */,
 				BF02372A1F331D53004BAF37 /* ALRedEnvelopoModel.m in Sources */,
 				BFE5EDDA1F5E7DF500229458 /* ALOrderSecurityLocationApi.m in Sources */,
 				BFFEB6FD1F30660600A022EA /* ALMobilePayService.m in Sources */,
 				BFFEB6DD1F30660600A022EA /* ALCreateOrderApi.m in Sources */,
+				3D90CA3E2015B975004856F5 /* ALConfirmationOrderViewController.m in Sources */,
 				3D23B2231FB54D0E00EE6A80 /* ALBannerListModel.m in Sources */,
+				3D90CA422015BD0B004856F5 /* ALConfirmationInfoView.m in Sources */,
 				BF6DFCEC1F3D43B20098AC5B /* ALRealTimePositionViewController.m in Sources */,
 				3D22E5B22011DB7400584236 /* ALSafeProtectView.m in Sources */,
 				BFFEB6F71F30660600A022EA /* ALSecurityCommentListApi.m in Sources */,
