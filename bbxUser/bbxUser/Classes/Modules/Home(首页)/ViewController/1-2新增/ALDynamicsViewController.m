@@ -95,7 +95,7 @@
                     make.right.left.bottom.equalTo(@0);
                     make.height.equalTo(@200);
                 }];
-            } else {
+            } else if([model.orderStatus isEqualToString:OrderStatusWaitAllocating] || [model.orderStatus isEqualToString:OrderStatusPS]) {
                 weakSelf.dynamicsBottomView = [[ALDynamicsBottomView alloc] initWithFrame:CGRectZero flag:0 expireInterval:model.expireInterval];
                 [weakSelf.mapView addSubview:weakSelf.dynamicsBottomView];
                 [weakSelf.dynamicsBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
