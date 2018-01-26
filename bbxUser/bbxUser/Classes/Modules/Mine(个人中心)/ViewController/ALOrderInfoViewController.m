@@ -19,6 +19,8 @@
 #import "ALSecurityInfoViewController.h"
 #import "ALRealTimePositionViewController.h"
 #import "ALPayPresentView.h"
+#import "ALDynamicsViewController.h"
+#import "ALSencondPayInitApi.h"
 
 @interface ALOrderInfoViewController () <ALRedEnvelopeDelegate, ALPaySuccessDelegate, ALEvaluateDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -34,6 +36,11 @@
 //支付
 @property (nonatomic, strong) ALOrderInfoView *orderPayView;
 @property (nonatomic, strong) ALPayPresentView *payPresentView;
+@property (nonatomic, strong) ALSencondPayInitApi *sencondPayInitApi;
+@property (nonatomic, strong) NSDictionary *sencondPayDic;
+@property (nonatomic, strong) NSString *couponId;
+//红包选择行数标记
+@property (nonatomic, assign) int selectedIndex;
 //支付时间
 //@property (nonatomic, strong) YYLabel *payTimeLab;
 //支付时间下面的提示文字
@@ -52,8 +59,6 @@
 @property (nonatomic, strong) ALCancelOrderApi *cancelOrderApi;
 //创建支付接口
 @property (nonatomic, strong) ALCreateAppPayApi *createAppPayApi;
-//红包选择行数标记
-@property (nonatomic, assign) int selectedIndex;
 //时间计时器
 //@property (nonatomic, strong) NSTimer *timer;
 //当前选择的红包数据模型
@@ -249,7 +254,7 @@
         }];
         
         [self.view layoutIfNeeded];
-        self.scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.payBtn.frame) + 10);
+        self.scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.orderPayView.frame) + 54);
     } else if([_orderModel.orderStatus isEqualToString:OrderStatusWorking] || [_orderModel.orderStatus isEqualToString:OrderStatusAllocatingWaitStart]) {
 //        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消订单" style:UIBarButtonItemStylePlain target:self action:@selector(cancelOrderAction)];
         [self.orderSecurityView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -274,6 +279,15 @@
         [self.view layoutIfNeeded];
         
         self.scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.reminderLab .frame) + 10);
+    } else if([_orderModel.orderStatus isEqualToString:OrderStatusZ]) {
+        [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(self.view);
+            make.height.equalTo(@44);
+            make.left.bottom.equalTo(@0);
+        }];
+        
+        [self.view layoutIfNeeded];
+        self.scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.orderIdView.frame) + 54);
     }
 }
 
@@ -322,9 +336,13 @@
     
     _orderSecurityView.itemDidSelectedAtIndex = ^(NSUInteger index) {
         if(index == 999) {
-            ALRealTimePositionViewController *realTimePositionVC = [[ALRealTimePositionViewController alloc] init];
-            realTimePositionVC.orderId = weakSelf.orderModel.orderId;
-            [weakSelf.navigationController pushViewController:realTimePositionVC animated:YES];
+            ALDynamicsViewController *dynamicsVC = [ALDynamicsViewController new];
+            dynamicsVC.orderId = weakSelf.orderModel.orderId;
+            dynamicsVC.orderStatus = weakSelf.orderModel.orderStatus;
+            [weakSelf.navigationController pushViewController:dynamicsVC animated:YES];
+//            ALRealTimePositionViewController *realTimePositionVC = [[ALRealTimePositionViewController alloc] init];
+//            realTimePositionVC.orderId = weakSelf.orderModel.orderId;
+//            [weakSelf.navigationController pushViewController:realTimePositionVC animated:YES];
         } else {
             ALSecurityInfoViewController *securityInfoVC = [[ALSecurityInfoViewController alloc] init];
             ALSecurityModel *securityModel = weakSelf.orderDetailApi.orderModel.securityList[index];
@@ -344,13 +362,12 @@
 - (void)didSelectedWithIndex:(int)index model:(ALRedEnvelopoModel *)model {
     _selectedIndex = index;
     if(model) {
-        self.orderRedView.disCount = model.discount;
-        self.orderIdView.redPrice = model.discount;
+        self.payPresentView.disCount = model.discount;
+        self.couponId = model.couponId;
     } else {
-        self.orderRedView.disCount = ALStringFormat(@"%d",index);
-        self.orderIdView.redPrice = @"0";
+        self.payPresentView.disCount = @"-1";
+        self.couponId = @"";
     }
-    self.selectedRedEnvModel = model;
 }
 
 #pragma mark ALPaySuccessDelegate
@@ -407,7 +424,22 @@
 }
 
 - (void)payAction {
-    [self.payPresentView show];
+    if([_orderModel.orderStatus isEqualToString:OrderStatusZ]) {
+        AL_WeakSelf(self);
+        weakSelf.sencondPayInitApi = [[ALSencondPayInitApi alloc] initSencondPayInitApi:weakSelf.orderModel.orderId];
+        [weakSelf.sencondPayInitApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+            weakSelf.sencondPayDic = weakSelf.sencondPayInitApi.data;
+            weakSelf.couponId = @"";
+            weakSelf.selectedIndex = 0;
+            [weakSelf.payPresentView removeFromSuperview];
+            weakSelf.payPresentView = nil;
+            [weakSelf.payPresentView showToViewController:weakSelf];
+        } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+            
+        }];
+    } else {
+        [self.payPresentView show];
+    }
 }
 
 //- (void)startTimeWithSecound:(int)secound {
@@ -572,13 +604,23 @@
 
 - (ALPayPresentView *)payPresentView {
     if(!_payPresentView) {
+        AL_WeakSelf(self);
+
         if([_orderModel.orderStatus isEqualToString:OrderStatusZ]) {
-            _payPresentView = [[ALPayPresentView alloc] initWithFrame:CGRectZero orderModel:_orderModel first:NO dic:nil];
+            _payPresentView = [[ALPayPresentView alloc] initWithFrame:CGRectZero orderModel:_orderModel first:NO dic:self.sencondPayDic];
+            
+            _payPresentView.toRedEnv = ^{
+                [MobClick event:ALMobEventID_E1];
+                ALRedEnvelopeViewController *redEnvelopeVC = [[ALRedEnvelopeViewController alloc] init];
+                redEnvelopeVC.orderId = weakSelf.orderModel.orderId;
+                redEnvelopeVC.redEvelopeDelegate = weakSelf;
+                redEnvelopeVC.selectedIndex = weakSelf.selectedIndex;
+                [weakSelf.navigationController pushViewController:redEnvelopeVC animated:YES];
+            };
         } else if([_orderModel.orderStatus isEqualToString:OrderStatusWaitPay]) {
             _payPresentView = [[ALPayPresentView alloc] initWithFrame:CGRectZero orderModel:_orderModel first:YES dic:nil];
         }
         
-        AL_WeakSelf(self);
         _payPresentView.toPayBlock = ^(ALPayType payType) {
             if(payType == ALPayTypeAliPay) {
                 
@@ -609,8 +651,8 @@
             if(handel == ALPayHandleSuceess) {
                 [weakSelf.payPresentView removeFromSuperview];
                 weakSelf.payPresentView = nil;
-                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"paySuccessToDynamics" object:nil];
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+                [[NSNotificationCenter defaultCenter] postNotificationName:ChangeListIndexStatus object:@{@"index" : @(weakSelf.indexPath),@"commond" : @"secondPaySuccess"}];
             }
         };
     }

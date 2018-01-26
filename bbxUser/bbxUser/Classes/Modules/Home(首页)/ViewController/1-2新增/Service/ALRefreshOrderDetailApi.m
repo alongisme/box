@@ -36,4 +36,17 @@
     }
     return _orderModel;
 }
+
+- (NSArray<ALSecurityLocationModel *> *)poiListArray {
+    if(!_poiListArray) {
+        NSMutableArray *arr = [NSMutableArray array];
+        
+        for (NSDictionary *dic in self.data[@"poiList"]) {
+            ALSecurityLocationModel *model = [[ALSecurityLocationModel alloc] initWithDictionary:dic error:nil];
+            [arr addObject:model];
+        }
+        _poiListArray = arr;
+    }
+    return _poiListArray;
+}
 @end

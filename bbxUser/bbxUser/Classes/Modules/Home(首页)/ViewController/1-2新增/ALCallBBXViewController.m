@@ -304,7 +304,7 @@
         preStartTime = [preStartTime stringByReplacingOccurrencesOfString:@"日" withString:@""];
     }
 
-    ALCreateOrderApi *createOrderApi = [[ALCreateOrderApi alloc] initWithCreateOrderApi:[self.addressView.serverAddressContentTF.text stringByAppendingString:self.addressView.streeTF.text] contactsPhone:self.consumerInfomationView.telephoneContenTF.text contactsName:self.consumerInfomationView.linkManContenTF.text contactsSex:self.consumerInfomationView.manBtn.selected ? @0 : @1 securityNum:[self.serverNumberView.contentString stringByReplacingOccurrencesOfString:@"人" withString:@""] serviceLength:self.choseServerView.currentLength serviceAddressPoint:ALStringFormat(@"%lf,%lf",weakSelf.pt.longitude,weakSelf.pt.latitude) preStartTime:preStartTime orderMessage:self.commentView.textString isInsuranced:self.safeProtectView.isOn];
+    ALCreateOrderApi *createOrderApi = [[ALCreateOrderApi alloc] initWithCreateOrderApi:[self.addressView.serverAddressContentTF.text stringByAppendingString:self.addressView.streeTF.text] contactsPhone:self.consumerInfomationView.telephoneContenTF.text contactsName:self.consumerInfomationView.linkManContenTF.text contactsSex:self.consumerInfomationView.manBtn.selected ? @0 : @1 securityNum:[self.consumerInfomationView.serverNumberContentTF.text stringByReplacingOccurrencesOfString:@"人" withString:@""] serviceLength:self.choseServerView.currentLength serviceAddressPoint:ALStringFormat(@"%lf,%lf",weakSelf.pt.longitude,weakSelf.pt.latitude) preStartTime:preStartTime orderMessage:self.commentView.textString isInsuranced:self.safeProtectView.isOn];
 
     if([self.commentView.textString isVaild]) {
         [MobClick event:ALMobEventID_D5];

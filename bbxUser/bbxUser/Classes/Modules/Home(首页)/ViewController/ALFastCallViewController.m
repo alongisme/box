@@ -18,6 +18,7 @@
 #import "ALQueryBannerListApi.h"
 #import "ALBannerViewController.h"
 #import "ALDynamicsViewController.h"
+#import "ALCheckVersionApi.h"
 
 @interface ALFastCallViewController ()
 @property (nonatomic, strong) UIButton *orderWorkingNumBtn;
@@ -30,6 +31,7 @@
 @property (nonatomic, strong) SDCycleScrollView *sdcycleScrollView;
 
 @property (nonatomic, strong) NSDictionary *lastOrderDic;
+@property (nonatomic, strong) ALCheckVersionApi *checkVersionApi;
 @end
 
 @implementation ALFastCallViewController
@@ -54,6 +56,58 @@
     //加载轮播图数据
     [self loadBannerData];
     [self loadOrderNumberDoing];
+    [self checkVersion];
+}
+
+- (void)checkVersion {
+    _checkVersionApi = [[ALCheckVersionApi alloc] initWithCheckVersionApi];
+    AL_WeakSelf(self);
+    [_checkVersionApi ALStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+        if(![weakSelf.checkVersionApi.data[@"iOSVersion"] isEqualToString:ALAppVersion]) {
+            UIView *bgView = [[UIView alloc] init];
+            bgView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+            [ALKeyWindow addSubview:bgView];
+            
+            [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(@0);
+            }];
+            
+            UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"newVersion"]];
+            [bgView addSubview:iv];
+            
+            [iv mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.center.equalTo(ALKeyWindow);
+                make.size.mas_equalTo(CGSizeMake(540/2.0, 594/2.0));
+            }];
+            
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setBackgroundImage:[UIImage imageNamed:@"btn-update"] forState:UIControlStateNormal];
+            [bgView addSubview:btn];
+            
+            [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(ALKeyWindow);
+                make.bottom.equalTo(iv.mas_bottom).offset(-28);
+            }];
+            
+            [btn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/cn/app/id1273047690?mt=8"]];
+            }];
+            
+            ALLabel *label = [[ALLabel alloc] init];
+            label.text = @"发现新版本，升级后体验更流畅！不升级当前版本不可使用~";
+            label.numberOfLines = 0;
+            label.textColor = [UIColor colorWithRGB:0x444444];
+            [bgView addSubview:label];
+            
+            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(ALKeyWindow);
+                make.bottom.equalTo(btn.mas_top).offset(-17);
+                make.width.equalTo(iv).offset(-28);
+            }];
+        }
+    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+        
+    }];
 }
 
 - (void)paySuccessToDynamics {
@@ -92,10 +146,14 @@
     }
     if([AL_MyAppDelegate.userModel.idModel.userId isVaild]) {
         [self.queryOrderNumApi ALStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-            NSString *lastOrderStatus = weakSelf.queryOrderNumApi.data[@"lastOrderStatus"];
+//            NSString *lastOrderStatus = weakSelf.queryOrderNumApi.data[@"lastOrderStatus"];
             weakSelf.lastOrderDic = weakSelf.queryOrderNumApi.data;
-            if([weakSelf.queryOrderNumApi.data[@"statusDes"] isVaild])
+            if([weakSelf.queryOrderNumApi.data[@"statusDes"] isVaild]) {
                 [weakSelf showLeftTagWith:weakSelf.queryOrderNumApi.data[@"statusDes"]];
+                weakSelf.orderWorkingNumBtn.hidden = NO;
+            } else {
+                weakSelf.orderWorkingNumBtn.hidden = YES;
+            }
         } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
             
         }];
@@ -143,7 +201,7 @@
 - (void)emergencyCallAction {
     AL_WeakSelf(self);
     if(AL_MyAppDelegate.userModel.idModel.userId) {
-        if([self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWaitAllocating] ||[self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusPS] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusAllocatingWaitStart] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWorking]) {
+        if([self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWaitAllocating] ||[self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusPS] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusAllocatingWaitStart] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWorking] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusZ]) {
             [ALAlertViewController showAlertOnlyCancelButton:self title:nil message:self.lastOrderDic[@"tips"] style:UIAlertControllerStyleAlert Destructive:@"查看镖师动态" clickBlock:^{
                 [weakSelf paySuccessToDynamics];
             }];

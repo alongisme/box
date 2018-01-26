@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "ALOrderModel.h"
+#import "ALSecurityLocationModel.h"
 
 @interface ALRefreshOrderDetailApi : ALHttpRequest
+@property (nonatomic, strong) NSArray <ALSecurityLocationModel *> *poiListArray;
 @property (nonatomic, strong) ALOrderModel *orderModel;
 - (instancetype)initWithRefreshOrderDetailApi:(NSString *)orderId;
 @end

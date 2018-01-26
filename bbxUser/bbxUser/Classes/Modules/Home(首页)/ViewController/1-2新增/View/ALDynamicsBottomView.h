@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ALDynamicsBottomView : UIView
+@property (nonatomic, weak) UIButton *waitFinished;
 @property (nonatomic, copy) void (^payBlock)();
+@property (nonatomic, copy) void (^toEvaluateBlock)();
 - (instancetype)initWithFrame:(CGRect)frame flag:(int)flag expireInterval:(NSNumber *)expireInterval;
+- (void)show;
 @end

@@ -16,6 +16,11 @@
 #import "ALCreateAppPayApi.h"
 #import "ALSencondPayInitApi.h"
 #import "ALRedEnvelopeViewController.h"
+#import "ALNewManySecutityListView.h"
+#import "ALSecurityLocationModel.h"
+#import "ALRealTImePositionAnnotationView.h"
+#import "ALSecurityInfoViewController.h"
+#import "ALEvaluateViewController.h"
 
 @interface ALDynamicsViewController ()<ALRedEnvelopeDelegate>
 @property (nonatomic, strong) UIButton *orderStatusView;
@@ -31,6 +36,8 @@
 @property (nonatomic, strong) NSString *couponId;
 //红包选择行数标记
 @property (nonatomic, assign) int selectedIndex;
+@property (nonatomic, strong) ALNewManySecutityListView *neManySecutityListView;
+@property (nonatomic, strong) ALNewManySecutityListView *windowManySecutityListView;
 @end
 
 @implementation ALDynamicsViewController
@@ -47,7 +54,77 @@
     AL_WeakSelf(self);
     [_refreshOrderDetailApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         ALOrderModel *model = weakSelf.refreshOrderDetailApi.orderModel;
-        if([model.orderStatus isEqualToString:OrderStatusWorking]) {
+        if([model.orderStatus isEqualToString:OrderStatusFinished]) {
+            weakSelf.dynamicsBottomView = [[ALDynamicsBottomView alloc] initWithFrame:CGRectZero flag:300 expireInterval:model.expireInterval];
+            
+            weakSelf.dynamicsBottomView.toEvaluateBlock = ^{
+                [weakSelf.dynamicsBottomView removeFromSuperview];
+                weakSelf.dynamicsBottomView = nil;
+                ALEvaluateViewController *evaluateVC = [[ALEvaluateViewController alloc] init];
+                ALOrderModel *evaOrderModel = [[ALOrderModel alloc] init];
+                evaOrderModel.orderId = weakSelf.orderId;
+                evaOrderModel.securityList = model.securityList;
+                evaluateVC.orderModel = evaOrderModel;
+                evaluateVC.indexPath = 9999;
+                [weakSelf.navigationController pushViewController:evaluateVC animated:YES];
+            };
+        }
+        
+        if([model.orderStatus isEqualToString:OrderStatusWorking] || [model.orderStatus isEqualToString:OrderStatusZ] || [model.orderStatus isEqualToString:OrderStatusAllocatingWaitStart]) {
+            
+            [weakSelf.mapView removeAnnotations:weakSelf.mapView.annotations];
+
+            for (ALSecurityLocationModel *securityLocationModel in weakSelf.refreshOrderDetailApi.poiListArray) {
+                BMKPointAnnotation *animatedAnnotation = [[BMKPointAnnotation alloc]init];
+                animatedAnnotation.coordinate = CLLocationCoordinate2DMake([securityLocationModel.latitude floatValue], [securityLocationModel.longitude floatValue]);
+                animatedAnnotation.subtitle = securityLocationModel.securityId;
+                [weakSelf.mapView addAnnotation:animatedAnnotation];
+            }
+            
+            if([model.orderStatus isEqualToString:OrderStatusAllocatingWaitStart]) {
+                weakSelf.dynamicsBottomView = [[ALDynamicsBottomView alloc] initWithFrame:CGRectZero flag:100 expireInterval:model.expireInterval];
+                [weakSelf.mapView addSubview:weakSelf.dynamicsBottomView];
+                [weakSelf.dynamicsBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.left.bottom.equalTo(@0);
+                    make.height.equalTo(@155);
+                }];
+            } else if([model.orderStatus isEqualToString:OrderStatusZ]) {
+                weakSelf.dynamicsBottomView = [[ALDynamicsBottomView alloc] initWithFrame:CGRectZero flag:200 expireInterval:model.expireInterval];
+                [weakSelf.mapView addSubview:weakSelf.dynamicsBottomView];
+                [weakSelf.dynamicsBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.left.bottom.equalTo(@0);
+                    make.height.equalTo(@200);
+                }];
+            } else {
+                weakSelf.dynamicsBottomView = [[ALDynamicsBottomView alloc] initWithFrame:CGRectZero flag:0 expireInterval:model.expireInterval];
+                [weakSelf.mapView addSubview:weakSelf.dynamicsBottomView];
+                [weakSelf.dynamicsBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.left.bottom.equalTo(@0);
+                    make.height.equalTo(@155);
+                }];
+            }
+            
+            if([weakSelf.orderStatus isEqualToString:OrderStatusZ]) {
+                weakSelf.dynamicsBottomView.waitFinished.enabled = NO;
+            } else {
+                weakSelf.dynamicsBottomView.waitFinished.enabled = YES;
+            }
+        
+            weakSelf.dynamicsBottomView.payBlock = ^{
+                weakSelf.sencondPayInitApi = [[ALSencondPayInitApi alloc] initSencondPayInitApi:weakSelf.orderId];
+                [weakSelf.sencondPayInitApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+                    weakSelf.sencondPayDic = weakSelf.sencondPayInitApi.data;
+                    weakSelf.couponId = @"";
+                    weakSelf.selectedIndex = 0;
+                    [weakSelf.payPresentView removeFromSuperview];
+                    weakSelf.payPresentView = nil;
+                    [weakSelf.payPresentView showToViewController:weakSelf];
+                } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+                    
+                }];
+                
+            };
+            
             if(model.securityList.count == 1) {
                 weakSelf.neSecurityListOnlyOneView = [[ALNewSecurityLListView alloc] initWithFrame:CGRectZero onlyOne:model.securityList.lastObject];
                 [weakSelf.mapView addSubview:weakSelf.neSecurityListOnlyOneView];
@@ -58,27 +135,57 @@
                     make.height.equalTo(@94);
                 }];
                 
-                weakSelf.dynamicsBottomView = [[ALDynamicsBottomView alloc] initWithFrame:CGRectZero flag:0 expireInterval:model.expireInterval];
-                [weakSelf.mapView addSubview:weakSelf.dynamicsBottomView];
+            } else {
+                weakSelf.neManySecutityListView = [[ALNewManySecutityListView alloc] initWithFrame:CGRectZero arr:model.securityList];
+                [self.mapView addSubview:weakSelf.neManySecutityListView];
                 
-                [weakSelf.dynamicsBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.right.left.bottom.equalTo(@0);
-                    make.height.equalTo(@155);
+                [weakSelf.neManySecutityListView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(@10);
+                    make.left.equalTo(@14);
+                    make.right.equalTo(@-14);
+                    make.height.equalTo(@(85 + 45));
                 }];
                 
-                weakSelf.dynamicsBottomView.payBlock = ^{
-                    weakSelf.sencondPayInitApi = [[ALSencondPayInitApi alloc] initSencondPayInitApi:weakSelf.orderId];
-                    [weakSelf.sencondPayInitApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-                        weakSelf.sencondPayDic = weakSelf.sencondPayInitApi.data;
-                        weakSelf.couponId = @"";
-                        weakSelf.selectedIndex = 0;
-                        [weakSelf.payPresentView removeFromSuperview];
-                        weakSelf.payPresentView = nil;
-                        [weakSelf.payPresentView showToViewController:weakSelf];
-                    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+                weakSelf.neManySecutityListView.itemDidSelectedAtIndex = ^(NSUInteger index) {
+                    if(index == 0) {
                         
-                    }];
-                    
+                        weakSelf.windowManySecutityListView = [[ALNewManySecutityListView alloc] initWithFrame:CGRectZero arr:model.securityList];
+                        UIView *bgView = [[UIView alloc] init];
+                        [ALKeyWindow addSubview:bgView];
+                        
+                        [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.edges.equalTo(@0);
+                        }];
+                        
+                        [bgView addSubview:weakSelf.windowManySecutityListView];
+                        
+                        [weakSelf.windowManySecutityListView mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.top.equalTo(@(ALNavigationBarHeight + 10));
+                            make.left.equalTo(@14);
+                            make.right.equalTo(@-14);
+                            make.height.equalTo(@(85 * model.securityList.count + 45));
+                        }];
+                        
+                        [UIView animateWithDuration:0.3 animations:^{
+                            bgView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+                        }];
+                        
+                        [ALKeyWindow layoutIfNeeded];
+                        
+                        [weakSelf.windowManySecutityListView lookManyAction];
+                        
+                        weakSelf.windowManySecutityListView.itemDidSelectedAtIndex = ^(NSUInteger index) {
+                            if(index == 1) {
+                                [weakSelf.neManySecutityListView lookManyAction];
+                                [UIView animateWithDuration:0.3 animations:^{
+                                    bgView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.0];
+                                } completion:^(BOOL finished) {
+                                    [bgView removeFromSuperview];
+                                }];
+                            }
+                        };
+                        
+                    }
                 };
             }
         }
@@ -89,7 +196,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self refreshOrderDetailAction];
 }
 
 - (void)viewDidLoad {
@@ -111,6 +217,9 @@
         self.title = @"镖师动态";
         [self customLocationAccuracyCircle:NO];
     }
+    
+    [self refreshOrderDetailAction];
+
 }
 
 - (void)cancelOrder {
@@ -138,39 +247,66 @@
 }
 
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation {
-    BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
     
-    //设置标注的颜色
-    newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
-    
-    //设置标注的动画效果
-    newAnnotationView.animatesDrop = NO;
-    newAnnotationView.selected = YES;
-    //自定义标注的图像
-    newAnnotationView.image = [UIImage imageNamed:@"dizhi"];
-    
-    newAnnotationView.annotation = annotation;
-    
-    UIView *paopaoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 316/2.0, 92/2.0)];
-    UIImageView *xuanfuIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"xuanfu"]];
-    [paopaoView addSubview:xuanfuIV];
-    
-    UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 316/2.0 - 10, 92/2.0 - 10)];
-    timeLab.text = @"已等候 00:02:26";
-    timeLab.font = ALThemeFont(15);
-    timeLab.textAlignment = NSTextAlignmentCenter;
-    timeLab.textColor = [UIColor blueColor];
-    [paopaoView addSubview:timeLab];
-    
-    BMKActionPaopaoView *pView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
-    pView.frame = CGRectMake(0, 0, 316/2.0, 92/2.0);
-    
-    ((BMKPinAnnotationView *)newAnnotationView).paopaoView = pView;
-    return newAnnotationView;
+    if([annotation isKindOfClass:[BMKPointAnnotation class]]) {
+        NSString *AnnotationViewID = @"AnimatedAnnotation";
+        ALRealTImePositionAnnotationView *annotationView = nil;
+        if (annotationView == nil) {
+            annotationView = [[ALRealTImePositionAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
+            annotationView.canShowCallout = NO;
+        }
+        for (ALSecurityLocationModel *model in self.refreshOrderDetailApi.poiListArray) {
+            if([model.securityId isEqualToString:annotation.subtitle]) {
+                [annotationView.annotationImageView sd_setImageWithURL:[NSURL URLWithString:ALStringFormat(@"%@",model.icon)] placeholderImage:[UIImage imageNamed:@"touxiang_weidenglu"]];
+            }
+        }
+        return  annotationView;
+    } else {
+        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
+        
+        //设置标注的颜色
+        newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
+        
+        //设置标注的动画效果
+        newAnnotationView.animatesDrop = NO;
+        newAnnotationView.selected = YES;
+        //自定义标注的图像
+        newAnnotationView.image = [UIImage imageNamed:@"dizhi"];
+        
+        newAnnotationView.annotation = annotation;
+        
+        UIView *paopaoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 316/2.0, 92/2.0)];
+        UIImageView *xuanfuIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"xuanfu"]];
+        [paopaoView addSubview:xuanfuIV];
+        
+        UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 316/2.0 - 10, 92/2.0 - 10)];
+        timeLab.text = @"已等候 00:02:26";
+        timeLab.font = ALThemeFont(15);
+        timeLab.textAlignment = NSTextAlignmentCenter;
+        timeLab.textColor = [UIColor blueColor];
+        [paopaoView addSubview:timeLab];
+        
+        BMKActionPaopaoView *pView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
+        pView.frame = CGRectMake(0, 0, 316/2.0, 92/2.0);
+        
+        ((BMKPinAnnotationView *)newAnnotationView).paopaoView = pView;
+        return newAnnotationView;
+    }
+
+    return nil;
 }
 
 - (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view {
-    
+//    if([view isKindOfClass:[ALRealTImePositionAnnotationView class]]) {
+//        for (ALSecurityLocationModel *model in self.refreshOrderDetailApi.poiListArray) {
+//            if([model.securityId isEqualToString:view.annotation.subtitle]) {
+//                ALSecurityInfoViewController *securityInfoVC = [[ALSecurityInfoViewController alloc] init];
+//                securityInfoVC.securityId = view.annotation.subtitle;
+//                [self.navigationController pushViewController:securityInfoVC animated:YES];
+//                break;
+//            }
+//        }
+//    }
 }
 
 #pragma mark ALRedEnvelopeDelegate

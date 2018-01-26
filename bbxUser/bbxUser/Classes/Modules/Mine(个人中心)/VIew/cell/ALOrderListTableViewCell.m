@@ -46,7 +46,7 @@
         money = _model.firstPrice;
     } else if([model.orderStatus isEqualToString:OrderStatusFinished]) {
         moneyType = @"总金额";
-        money = [NSString stringWithFormat:@"%lf",[_model.firstPrice doubleValue] + [_model.secondPrice doubleValue]];
+        money = [NSString stringWithFormat:@"%.2lf",[_model.firstPrice doubleValue] + [_model.secondPrice doubleValue]];
         self.actionButton.hidden = NO;
         if([model.isCommented integerValue] == 0) {
             [self.actionButton setBackgroundImage:[UIImage imageNamed:@"btn_pingjia"] forState:UIControlStateNormal];

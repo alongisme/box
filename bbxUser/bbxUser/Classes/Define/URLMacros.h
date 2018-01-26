@@ -142,6 +142,8 @@
 #pragma mark 付尾款页面初始化接口
 #define URL_SencondPayInit @"/mobile/api/client/v2/sencondPayInit.sec"
 
+#pragma mark 检测版本
+#define URL_CheckVersion @"/mobile/api/client/v2/checkVersion"
 
 //增加
 //#pragma 订单创建初始化接口

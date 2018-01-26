@@ -50,6 +50,18 @@
         ALOrderModel *model = self.finishedTableView.dataArray[index];
         model.isCommented = @"1";
         [self.finishedTableView.tableView reloadData];
+    } else if([commond isEqualToString:@"secondPaySuccess"]) {
+        ALOrderModel *model = self.unfinishedTableView.dataArray[index];
+        model.orderStatus = OrderStatusFinished;
+        model.orderStatus = @"已完成";
+        [self.finishedTableView.dataArray insertObject:model atIndex:0];
+        [self.finishedTableView.tableView reloadData];
+        
+        [self.unfinishedTableView.dataArray removeObjectAtIndex:index];
+        [self.unfinishedTableView.tableView reloadData];
+        
+        [self selectedIndex:1];
+        
     } else {
         ALOrderModel *model = self.unfinishedTableView.dataArray[index];
         if([commond isEqualToString:@"orderToCancel"]) {

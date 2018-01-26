@@ -227,6 +227,10 @@
 		3DE024292018754200A4E921 /* ALDynamicsBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE02427201871E600A4E921 /* ALDynamicsBottomView.m */; };
 		3DE0242C20187FED00A4E921 /* ALSencondPayInitApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0242B20187FED00A4E921 /* ALSencondPayInitApi.m */; };
 		3DE0242D20187FED00A4E921 /* ALSencondPayInitApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0242B20187FED00A4E921 /* ALSencondPayInitApi.m */; };
+		3DE0243020198D6E00A4E921 /* ALNewManySecutityListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0242F20198D6E00A4E921 /* ALNewManySecutityListView.m */; };
+		3DE0243120198D6E00A4E921 /* ALNewManySecutityListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0242F20198D6E00A4E921 /* ALNewManySecutityListView.m */; };
+		3DE02434201AFD4500A4E921 /* ALCheckVersionApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE02433201AFD4500A4E921 /* ALCheckVersionApi.m */; };
+		3DE02435201AFD4500A4E921 /* ALCheckVersionApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE02433201AFD4500A4E921 /* ALCheckVersionApi.m */; };
 		3DEEDD361FD7C477000DDA5C /* ALOpenPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088ED1FD692FF001DCEFA /* ALOpenPageView.m */; };
 		3DEEDD371FD7C491000DDA5C /* ALQueryOpenPageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088EA1FD63916001DCEFA /* ALQueryOpenPageApi.m */; };
 		3DF088E31FD4FC21001DCEFA /* ALPushInfomationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088E21FD4FC21001DCEFA /* ALPushInfomationViewController.m */; };
@@ -487,6 +491,10 @@
 		3DE02427201871E600A4E921 /* ALDynamicsBottomView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALDynamicsBottomView.m; sourceTree = "<group>"; };
 		3DE0242A20187FED00A4E921 /* ALSencondPayInitApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALSencondPayInitApi.h; sourceTree = "<group>"; };
 		3DE0242B20187FED00A4E921 /* ALSencondPayInitApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALSencondPayInitApi.m; sourceTree = "<group>"; };
+		3DE0242E20198D6E00A4E921 /* ALNewManySecutityListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALNewManySecutityListView.h; sourceTree = "<group>"; };
+		3DE0242F20198D6E00A4E921 /* ALNewManySecutityListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALNewManySecutityListView.m; sourceTree = "<group>"; };
+		3DE02432201AFD4500A4E921 /* ALCheckVersionApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALCheckVersionApi.h; sourceTree = "<group>"; };
+		3DE02433201AFD4500A4E921 /* ALCheckVersionApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALCheckVersionApi.m; sourceTree = "<group>"; };
 		3DF088E11FD4FC21001DCEFA /* ALPushInfomationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALPushInfomationViewController.h; sourceTree = "<group>"; };
 		3DF088E21FD4FC21001DCEFA /* ALPushInfomationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALPushInfomationViewController.m; sourceTree = "<group>"; };
 		3DF088E91FD63916001DCEFA /* ALQueryOpenPageApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALQueryOpenPageApi.h; sourceTree = "<group>"; };
@@ -986,6 +994,8 @@
 				3DFF97A72015F1C3005E1FC6 /* ALPayPresentView.m */,
 				3DE0242220185D6100A4E921 /* ALNewSecurityLListView.h */,
 				3DE0242320185D6100A4E921 /* ALNewSecurityLListView.m */,
+				3DE0242E20198D6E00A4E921 /* ALNewManySecutityListView.h */,
+				3DE0242F20198D6E00A4E921 /* ALNewManySecutityListView.m */,
 				3DE02426201871E600A4E921 /* ALDynamicsBottomView.h */,
 				3DE02427201871E600A4E921 /* ALDynamicsBottomView.m */,
 			);
@@ -999,6 +1009,8 @@
 				3DFF97AB20171864005E1FC6 /* ALRefreshOrderDetailApi.m */,
 				3DE0242A20187FED00A4E921 /* ALSencondPayInitApi.h */,
 				3DE0242B20187FED00A4E921 /* ALSencondPayInitApi.m */,
+				3DE02432201AFD4500A4E921 /* ALCheckVersionApi.h */,
+				3DE02433201AFD4500A4E921 /* ALCheckVersionApi.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -2365,6 +2377,7 @@
 				3DB71C481FCE88EF00BB129D /* ALBaseViewController.m in Sources */,
 				3DB71C491FCE88EF00BB129D /* ALOptionListModel.m in Sources */,
 				3DB71C4A1FCE88EF00BB129D /* NSDataEx.m in Sources */,
+				3DE0243120198D6E00A4E921 /* ALNewManySecutityListView.m in Sources */,
 				3DB71C4B1FCE88EF00BB129D /* ALRedEnvelopeViewController.m in Sources */,
 				3D22E5B42011E27C00584236 /* ALConsumerInfomationView.m in Sources */,
 				3DB71C4C1FCE88EF00BB129D /* ALServiceLengthModel.m in Sources */,
@@ -2411,6 +2424,7 @@
 				3DB71C731FCE88EF00BB129D /* ALCommentTagModel.m in Sources */,
 				3DFF97AF20172180005E1FC6 /* ALFastCallViewController.m in Sources */,
 				3DB71C741FCE88EF00BB129D /* ALMoneyInfoView.m in Sources */,
+				3DE02435201AFD4500A4E921 /* ALCheckVersionApi.m in Sources */,
 				3DB71C751FCE88EF00BB129D /* ALOrderViewController.m in Sources */,
 				3DB71C761FCE88EF00BB129D /* ALRedEnvelopeTableViewCell.m in Sources */,
 				3DB71C771FCE88EF00BB129D /* ALGetTimelimitCouponApi.m in Sources */,
@@ -2544,6 +2558,7 @@
 				3DD782781F8F58CD0063E626 /* ALOptionListModel.m in Sources */,
 				BFFEB70F1F30660600A022EA /* NSDataEx.m in Sources */,
 				BF0237201F330AB1004BAF37 /* ALRedEnvelopeViewController.m in Sources */,
+				3DE0243020198D6E00A4E921 /* ALNewManySecutityListView.m in Sources */,
 				BF6DFD0A1F41A2B00098AC5B /* ALServiceLengthModel.m in Sources */,
 				3D3698DC2011C70C009E07CA /* ALConsumerInfomationView.m in Sources */,
 				3D23B2261FB5506200EE6A80 /* ALQueryBannerInfoApi.m in Sources */,
@@ -2590,6 +2605,7 @@
 				3D90CA462015CBF9004856F5 /* ALConfirLinkManInfoView.m in Sources */,
 				BFE525541F74A439000BF9D3 /* ALMoneyInfoView.m in Sources */,
 				BF940B2C1F3955F100FC6948 /* ALOrderViewController.m in Sources */,
+				3DE02434201AFD4500A4E921 /* ALCheckVersionApi.m in Sources */,
 				BF0237241F331B86004BAF37 /* ALRedEnvelopeTableViewCell.m in Sources */,
 				3D233DBA1FC54801001BE395 /* ALGetTimelimitCouponApi.m in Sources */,
 				BF6DFD481F43E6790098AC5B /* LJPickerDetailDelegate.m in Sources */,

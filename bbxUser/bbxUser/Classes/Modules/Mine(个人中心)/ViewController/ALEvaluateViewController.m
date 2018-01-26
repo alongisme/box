@@ -141,11 +141,15 @@
 //                }
 //            }
             
-            if([weakSelf.delegate respondsToSelector:@selector(EvaluateFinished)]) {
-                [weakSelf.delegate EvaluateFinished];
+            if(weakSelf.indexPath != 9999) {
+                if([weakSelf.delegate respondsToSelector:@selector(EvaluateFinished)]) {
+                    [weakSelf.delegate EvaluateFinished];
+                }
+                [[NSNotificationCenter defaultCenter] postNotificationName:ChangeListIndexStatus object:@{@"commond" : @"orderToPayEvaSuccess",@"index":@(weakSelf.indexPath)}];
+            } else {
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
             }
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeListIndexStatus object:@{@"commond" : @"orderToPayEvaSuccess",@"index":@(weakSelf.indexPath)}];
             
         } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
             [ALKeyWindow showHudError:@"评价失败～"];
