@@ -186,7 +186,7 @@
             self.scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.evaluateBtn .frame) + 10);
         } else {
             [self.view layoutIfNeeded];
-
+            
             self.scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.orderSecurityView.frame) + 10);
         }
         
@@ -207,56 +207,69 @@
         }];
         
         if(ALScreenWidth == 320) {
-//            [self.payTimeLab mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.centerX.equalTo(self.scrollView);
-//                make.bottom.equalTo(self.orderPayView.mas_bottom).offset(50);
-//            }];
+            //            [self.payTimeLab mas_remakeConstraints:^(MASConstraintMaker *make) {
+            //                make.centerX.equalTo(self.scrollView);
+            //                make.bottom.equalTo(self.orderPayView.mas_bottom).offset(50);
+            //            }];
             
-//            [self.payMsgLab mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.centerX.equalTo(self.scrollView);
-//                make.bottom.equalTo(self.orderPayView.mas_bottom).offset(21);
-//            }];
+            //            [self.payMsgLab mas_remakeConstraints:^(MASConstraintMaker *make) {
+            //                make.centerX.equalTo(self.scrollView);
+            //                make.bottom.equalTo(self.orderPayView.mas_bottom).offset(21);
+            //            }];
             
-//            [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.top.equalTo(self.orderPayView.mas_bottom).offset(8);
-//                make.width.equalTo(self.scrollView).offset(-22);
-//                make.centerX.equalTo(self.scrollView);
-//            }];
+            //            [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            //                make.top.equalTo(self.orderPayView.mas_bottom).offset(8);
+            //                make.width.equalTo(self.scrollView).offset(-22);
+            //                make.centerX.equalTo(self.scrollView);
+            //            }];
         } else {
-//            [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                CGFloat topValue = ALScreenHeight - 45 - 64 - 20;
-//                make.top.mas_equalTo(topValue);
-//                make.width.equalTo(self.scrollView).offset(-22);
-//                make.centerX.equalTo(self.scrollView);
-//            }];
+            //            [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+            //                CGFloat topValue = ALScreenHeight - 45 - 64 - 20;
+            //                make.top.mas_equalTo(topValue);
+            //                make.width.equalTo(self.scrollView).offset(-22);
+            //                make.centerX.equalTo(self.scrollView);
+            //            }];
             
-//            [self.payMsgLab mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.centerX.equalTo(self.scrollView);
-//                make.bottom.equalTo(self.payBtn.mas_top).offset(-5);
-//            }];
+            //            [self.payMsgLab mas_remakeConstraints:^(MASConstraintMaker *make) {
+            //                make.centerX.equalTo(self.scrollView);
+            //                make.bottom.equalTo(self.payBtn.mas_top).offset(-5);
+            //            }];
             
-//            [self.payTimeLab mas_remakeConstraints:^(MASConstraintMaker *make) {
-//                make.centerX.equalTo(self.scrollView);
-//                make.bottom.equalTo(self.payMsgLab.mas_top).offset(-8);
-//            }];
+            //            [self.payTimeLab mas_remakeConstraints:^(MASConstraintMaker *make) {
+            //                make.centerX.equalTo(self.scrollView);
+            //                make.bottom.equalTo(self.payMsgLab.mas_top).offset(-8);
+            //            }];
         }
         
-        [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.equalTo(self.view).multipliedBy(0.5);
-            make.height.equalTo(@44);
-            make.left.bottom.equalTo(@0);
-        }];
+        if([_orderModel.orderType isEqualToString:@"1"]) {
+            [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(self.view);
+                make.height.equalTo(@44);
+                make.left.bottom.equalTo(@0);
+            }];
+            
+            [self.view layoutIfNeeded];
+            self.scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.orderIdView.frame) + 54);
+        } else {
+            [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.equalTo(self.view).multipliedBy(0.5);
+                make.height.equalTo(@44);
+                make.left.bottom.equalTo(@0);
+            }];
+            
+            [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.width.height.bottom.equalTo(self.payBtn);
+                make.right.equalTo(@0);
+                make.left.equalTo(self.payBtn.mas_right);
+            }];
+            
+            [self.view layoutIfNeeded];
+            self.scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.orderPayView.frame) + 54);
+        }
         
-        [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.height.bottom.equalTo(self.payBtn);
-            make.right.equalTo(@0);
-            make.left.equalTo(self.payBtn.mas_right);
-        }];
         
-        [self.view layoutIfNeeded];
-        self.scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.orderPayView.frame) + 54);
     } else if([_orderModel.orderStatus isEqualToString:OrderStatusWorking] || [_orderModel.orderStatus isEqualToString:OrderStatusAllocatingWaitStart]) {
-//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消订单" style:UIBarButtonItemStylePlain target:self action:@selector(cancelOrderAction)];
+        //        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消订单" style:UIBarButtonItemStylePlain target:self action:@selector(cancelOrderAction)];
         [self.orderSecurityView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.orderIdView.mas_bottom).offset(10);
             CGFloat height = self.orderDetailApi.orderModel.securityList.count * (68 + 1) + 28;
@@ -269,7 +282,7 @@
         self.scrollView.contentSize = CGSizeMake(0, CGRectGetMaxY(self.orderSecurityView .frame) + 10);
     } else if([_orderModel.orderStatus isEqualToString:OrderStautsAllocating]) {
         
-//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消订单" style:UIBarButtonItemStylePlain target:self action:@selector(cancelOrderAction)];
+        //        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消订单" style:UIBarButtonItemStylePlain target:self action:@selector(cancelOrderAction)];
         
         [self.reminderLab mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
@@ -340,9 +353,9 @@
             dynamicsVC.orderId = weakSelf.orderModel.orderId;
             dynamicsVC.orderStatus = weakSelf.orderModel.orderStatus;
             [weakSelf.navigationController pushViewController:dynamicsVC animated:YES];
-//            ALRealTimePositionViewController *realTimePositionVC = [[ALRealTimePositionViewController alloc] init];
-//            realTimePositionVC.orderId = weakSelf.orderModel.orderId;
-//            [weakSelf.navigationController pushViewController:realTimePositionVC animated:YES];
+            //            ALRealTimePositionViewController *realTimePositionVC = [[ALRealTimePositionViewController alloc] init];
+            //            realTimePositionVC.orderId = weakSelf.orderModel.orderId;
+            //            [weakSelf.navigationController pushViewController:realTimePositionVC animated:YES];
         } else {
             ALSecurityInfoViewController *securityInfoVC = [[ALSecurityInfoViewController alloc] init];
             ALSecurityModel *securityModel = weakSelf.orderDetailApi.orderModel.securityList[index];
@@ -376,8 +389,8 @@
     [self.scrollView removeAllSubviews];
     self.orderDetailApi = nil;
     self.cancelOrderApi = nil;
-//    [self.timer invalidate];
-//    self.timer = nil;
+    //    [self.timer invalidate];
+    //    self.timer = nil;
     self.stepView = nil;
     self.orderIdView = nil;
     self.orderInfoView = nil;
@@ -385,8 +398,8 @@
     self.orderRedView = nil;
     self.payBtn = nil;
     self.evaluateBtn = nil;
-//    self.payMsgLab = nil;
-//    self.payTimeLab = nil;
+    //    self.payMsgLab = nil;
+    //    self.payTimeLab = nil;
     self.reminderLab = nil;
     [self loadData];
 }
@@ -413,10 +426,10 @@
             [MobClick event:ALMobEventID_F1];
             [weakSelf.navigationController popViewControllerAnimated:YES];
             [weakSelf resetOrderStatusInInfoViewController];
-
+            
             //更新列表取消订单的状态
             [[NSNotificationCenter defaultCenter] postNotificationName:ChangeListIndexStatus object:@{@"index" : @(weakSelf.indexPath),@"commond" : @"orderToCancel"}];
-
+            
         } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
             [ALKeyWindow showHudError:@"取消订单失败～"];
         }];
@@ -424,22 +437,57 @@
 }
 
 - (void)payAction {
-    if([_orderModel.orderStatus isEqualToString:OrderStatusZ]) {
+    if([_orderModel.orderType isEqualToString:@"1"]) {
         AL_WeakSelf(self);
-        weakSelf.sencondPayInitApi = [[ALSencondPayInitApi alloc] initSencondPayInitApi:weakSelf.orderModel.orderId];
-        [weakSelf.sencondPayInitApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
-            weakSelf.sencondPayDic = weakSelf.sencondPayInitApi.data;
-            weakSelf.couponId = @"";
-            weakSelf.selectedIndex = 0;
-            [weakSelf.payPresentView removeFromSuperview];
-            weakSelf.payPresentView = nil;
-            [weakSelf.payPresentView showToViewController:weakSelf];
-        } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+        if(self.orderPayView.payType == ALPayTypeAliPay) {
+            _createAppPayApi = [[ALCreateAppPayApi alloc] initWithCreateAppPayApi:self.orderModel.orderId PayType:@"0" couponId:nil payChannel:@"aliPay"];
             
-        }];
+            [weakSelf.createAppPayApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+                // NOTE: 调用支付结果开始支付
+                [[ALMobilePayService sharedInstance] alipayWithOrderString:weakSelf.createAppPayApi.data[@"aliPayStr"]];
+            } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+                [ALKeyWindow showHudError:@"支付失败～"];
+            }];
+            
+        } else {
+            //微信支付
+            _createAppPayApi = [[ALCreateAppPayApi alloc] initWithCreateAppPayApi:self.orderModel.orderId PayType:@"0" couponId:nil payChannel:@"wxPay"];
+            
+            [weakSelf.createAppPayApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+                [[ALMobilePayService sharedInstance] wechatOayOrderString:weakSelf.createAppPayApi.data[@"wxPayStr"]];
+            } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+                [ALKeyWindow showHudError:@"支付失败～"];
+                
+            }];
+        }
+        [ALMobilePayService sharedInstance].PayCompltedHandleBlock = ^(ALPayHandle handel) {
+            if(handel == ALPayHandleSuceess) {
+                [weakSelf.payPresentView removeFromSuperview];
+                weakSelf.payPresentView = nil;
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+                [[NSNotificationCenter defaultCenter] postNotificationName:ChangeListIndexStatus object:@{@"index" : @(weakSelf.indexPath),@"commond" : @"secondPaySuccess"}];
+            }
+        };
+        
     } else {
-        [self.payPresentView show];
+        if([_orderModel.orderStatus isEqualToString:OrderStatusZ]) {
+            AL_WeakSelf(self);
+            weakSelf.sencondPayInitApi = [[ALSencondPayInitApi alloc] initSencondPayInitApi:weakSelf.orderModel.orderId];
+            [weakSelf.sencondPayInitApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+                weakSelf.sencondPayDic = weakSelf.sencondPayInitApi.data;
+                weakSelf.couponId = @"";
+                weakSelf.selectedIndex = 0;
+                [weakSelf.payPresentView removeFromSuperview];
+                weakSelf.payPresentView = nil;
+                [weakSelf.payPresentView showToViewController:weakSelf];
+            } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+                
+            }];
+        } else {
+            [self.payPresentView show];
+        }
     }
+    
 }
 
 //- (void)startTimeWithSecound:(int)secound {
@@ -605,7 +653,7 @@
 - (ALPayPresentView *)payPresentView {
     if(!_payPresentView) {
         AL_WeakSelf(self);
-
+        
         if([_orderModel.orderStatus isEqualToString:OrderStatusZ]) {
             _payPresentView = [[ALPayPresentView alloc] initWithFrame:CGRectZero orderModel:_orderModel first:NO dic:self.sencondPayDic];
             
@@ -624,7 +672,7 @@
         _payPresentView.toPayBlock = ^(ALPayType payType) {
             if(payType == ALPayTypeAliPay) {
                 
-                _createAppPayApi = [[ALCreateAppPayApi alloc] initWithCreateAppPayApi:self.orderModel.orderId PayType:@"0" couponId:nil payChannel:@"aliPay"];
+                _createAppPayApi = [[ALCreateAppPayApi alloc] initWithCreateAppPayApi:self.orderModel.orderId PayType:@"3" couponId:self.couponId payChannel:@"aliPay"];
                 
                 [weakSelf.createAppPayApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
                     // NOTE: 调用支付结果开始支付
@@ -636,7 +684,7 @@
                 
             } else {
                 //微信支付
-                _createAppPayApi = [[ALCreateAppPayApi alloc] initWithCreateAppPayApi:self.orderModel.orderId PayType:@"0" couponId:nil payChannel:@"wxPay"];
+                _createAppPayApi = [[ALCreateAppPayApi alloc] initWithCreateAppPayApi:self.orderModel.orderId PayType:@"3" couponId:self.couponId payChannel:@"wxPay"];
                 
                 [weakSelf.createAppPayApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
                     [[ALMobilePayService sharedInstance] wechatOayOrderString:weakSelf.createAppPayApi.data[@"wxPayStr"]];
@@ -649,10 +697,8 @@
         
         [ALMobilePayService sharedInstance].PayCompltedHandleBlock = ^(ALPayHandle handel) {
             if(handel == ALPayHandleSuceess) {
-                [weakSelf.payPresentView removeFromSuperview];
-                weakSelf.payPresentView = nil;
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-                [[NSNotificationCenter defaultCenter] postNotificationName:ChangeListIndexStatus object:@{@"index" : @(weakSelf.indexPath),@"commond" : @"secondPaySuccess"}];
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+//                [[NSNotificationCenter defaultCenter] postNotificationName:ChangeListIndexStatus object:@{@"index" : @(weakSelf.indexPath),@"commond" : @"secondPaySuccess"}];
             }
         };
     }

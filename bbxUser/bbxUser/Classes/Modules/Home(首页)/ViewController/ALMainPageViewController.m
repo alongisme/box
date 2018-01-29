@@ -79,20 +79,20 @@
 
 - (void)startUpInterfaceSequence {
     //首次启动显示提示图片
-    if(![[NSObject AL_localObjWithKey:@"ALMainPageFistLaunch"] isEqualToString:@"1"]) {
-        [@"1" AL_saveLocalWithLocalKey:@"ALMainPageFistLaunch"];
-        ALMainPageBootPicView *mainPageBootPicView = [[ALMainPageBootPicView alloc] init];
-        [ALKeyWindow addSubview:mainPageBootPicView];
-        [mainPageBootPicView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(@0);
-        }];
-        AL_WeakSelf(self);
-        mainPageBootPicView.viewClickRemove = ^{
-            [weakSelf queryOpenPage];
-        };
-    } else {
+//    if(![[NSObject AL_localObjWithKey:@"ALMainPageFistLaunch"] isEqualToString:@"1"]) {
+//        [@"1" AL_saveLocalWithLocalKey:@"ALMainPageFistLaunch"];
+//        ALMainPageBootPicView *mainPageBootPicView = [[ALMainPageBootPicView alloc] init];
+//        [ALKeyWindow addSubview:mainPageBootPicView];
+//        [mainPageBootPicView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.edges.equalTo(@0);
+//        }];
+//        AL_WeakSelf(self);
+//        mainPageBootPicView.viewClickRemove = ^{
+//            [weakSelf queryOpenPage];
+//        };
+//    } else {
         [self queryOpenPage];
-    }
+//    }
 }
 
 //使用优惠券事件

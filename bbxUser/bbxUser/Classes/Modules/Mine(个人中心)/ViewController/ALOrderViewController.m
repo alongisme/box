@@ -15,6 +15,7 @@
 #import "ALMyUndoneOrderListApi.h"
 #import "ALMyDoneOrderList.h"
 #import "ALNoReusltTableView.h"
+#import "ALDynamicsViewController.h"
 
 @interface ALOrderViewController () <ALNoResultTableViewDelegate>
 @property (nonatomic, strong) ALSegmentedView *segmentedView;
@@ -283,8 +284,15 @@
 
 #pragma mark ALNoResultTableViewDelegate
 - (void)didActionButtonSelectedAtIndexPath:(NSUInteger)indexPath model:(ALOrderModel *)model type:(NSUInteger)type {
-    //type 1 待支付  2 评价
-    [self didSelectedAtIndexPath:indexPath model:model];
+    //type 1 待支付  2 评价 3镖师动态
+    if(type == 3) {
+        ALDynamicsViewController *dynamicsVC = [ALDynamicsViewController new];
+        dynamicsVC.orderId = model.orderId;
+        dynamicsVC.orderStatus = model.orderStatus;
+        [self.navigationController pushViewController:dynamicsVC animated:YES];
+    } else {
+        [self didSelectedAtIndexPath:indexPath model:model];
+    }
 }
 
 - (void)didSelectedAtIndexPath:(NSUInteger)indexPath model:(ALOrderModel *)model {

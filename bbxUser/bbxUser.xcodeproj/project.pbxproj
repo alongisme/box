@@ -231,6 +231,8 @@
 		3DE0243120198D6E00A4E921 /* ALNewManySecutityListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0242F20198D6E00A4E921 /* ALNewManySecutityListView.m */; };
 		3DE02434201AFD4500A4E921 /* ALCheckVersionApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE02433201AFD4500A4E921 /* ALCheckVersionApi.m */; };
 		3DE02435201AFD4500A4E921 /* ALCheckVersionApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE02433201AFD4500A4E921 /* ALCheckVersionApi.m */; };
+		3DE02438201B369500A4E921 /* MyAnimatedAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE02436201B369400A4E921 /* MyAnimatedAnnotationView.m */; };
+		3DE02439201B369500A4E921 /* MyAnimatedAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DE02436201B369400A4E921 /* MyAnimatedAnnotationView.m */; };
 		3DEEDD361FD7C477000DDA5C /* ALOpenPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088ED1FD692FF001DCEFA /* ALOpenPageView.m */; };
 		3DEEDD371FD7C491000DDA5C /* ALQueryOpenPageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088EA1FD63916001DCEFA /* ALQueryOpenPageApi.m */; };
 		3DF088E31FD4FC21001DCEFA /* ALPushInfomationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088E21FD4FC21001DCEFA /* ALPushInfomationViewController.m */; };
@@ -495,6 +497,8 @@
 		3DE0242F20198D6E00A4E921 /* ALNewManySecutityListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALNewManySecutityListView.m; sourceTree = "<group>"; };
 		3DE02432201AFD4500A4E921 /* ALCheckVersionApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALCheckVersionApi.h; sourceTree = "<group>"; };
 		3DE02433201AFD4500A4E921 /* ALCheckVersionApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALCheckVersionApi.m; sourceTree = "<group>"; };
+		3DE02436201B369400A4E921 /* MyAnimatedAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyAnimatedAnnotationView.m; path = View/MyAnimatedAnnotationView.m; sourceTree = "<group>"; };
+		3DE02437201B369400A4E921 /* MyAnimatedAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyAnimatedAnnotationView.h; path = View/MyAnimatedAnnotationView.h; sourceTree = "<group>"; };
 		3DF088E11FD4FC21001DCEFA /* ALPushInfomationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALPushInfomationViewController.h; sourceTree = "<group>"; };
 		3DF088E21FD4FC21001DCEFA /* ALPushInfomationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALPushInfomationViewController.m; sourceTree = "<group>"; };
 		3DF088E91FD63916001DCEFA /* ALQueryOpenPageApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALQueryOpenPageApi.h; sourceTree = "<group>"; };
@@ -965,6 +969,8 @@
 		3D3698D52011BD2F009E07CA /* 1-2新增 */ = {
 			isa = PBXGroup;
 			children = (
+				3DE02437201B369400A4E921 /* MyAnimatedAnnotationView.h */,
+				3DE02436201B369400A4E921 /* MyAnimatedAnnotationView.m */,
 				3D3698D22011BD2A009E07CA /* ALCallBBXViewController.h */,
 				3D3698D32011BD2A009E07CA /* ALCallBBXViewController.m */,
 				3D90CA3C2015B975004856F5 /* ALConfirmationOrderViewController.h */,
@@ -2387,6 +2393,7 @@
 				3DB71C501FCE88EF00BB129D /* ALMyUndoneOrderListApi.m in Sources */,
 				3DB71C511FCE88EF00BB129D /* ALUserInfoModel.m in Sources */,
 				3DB71C521FCE88EF00BB129D /* ALTimeCouponListModel.m in Sources */,
+				3DE02439201B369500A4E921 /* MyAnimatedAnnotationView.m in Sources */,
 				3DB71C531FCE88EF00BB129D /* ALHudMessageView.m in Sources */,
 				3DB71C541FCE88EF00BB129D /* ALUndoneOrderListApi.m in Sources */,
 				3DB71C551FCE88EF00BB129D /* ALLaunchViewController.m in Sources */,
@@ -2568,6 +2575,7 @@
 				BF6DFCF21F3D83490098AC5B /* ALUserInfoModel.m in Sources */,
 				3D233DBD1FC55502001BE395 /* ALTimeCouponListModel.m in Sources */,
 				3D080DFF1FB2A846009676BA /* ALHudMessageView.m in Sources */,
+				3DE02438201B369500A4E921 /* MyAnimatedAnnotationView.m in Sources */,
 				BFFEB6FB1F30660600A022EA /* ALUndoneOrderListApi.m in Sources */,
 				BF8F84871F6BCAB500151BFE /* ALLaunchViewController.m in Sources */,
 				BFFEB6EF1F30660600A022EA /* ALQueryOrderNumApi.m in Sources */,

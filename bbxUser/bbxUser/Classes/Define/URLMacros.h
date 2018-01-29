@@ -166,9 +166,9 @@
 //1.2修改
 #define URL_Two_CreateOrder @"/mobile/api/client/v2/createOrder.sec"
 
-//增加
+//增加 //1.2修改
 #pragma 个性定制确认
-#define URL_Three_ConfirmCustomOrder @"/mobile/api/client/v2-1/confirmCustomOrder.sec"
+#define URL_Three_ConfirmCustomOrder @"/mobile/api/client/v2/confirmCustomOrder.sec"
 
 #pragma 查询首页轮播图
 #define URL_Three_QueryBannerList @"/mobile/api/client/v2/queryBannerList"

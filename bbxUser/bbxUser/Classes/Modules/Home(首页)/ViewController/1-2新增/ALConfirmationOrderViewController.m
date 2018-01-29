@@ -226,7 +226,7 @@
                 [weakSelf.payPresentView removeFromSuperview];
                 weakSelf.payPresentView = nil;
                 [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"paySuccessToDynamics" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"paySuccessToDynamics" object:@{@"orderId" :weakSelf.orderModel.orderId}];
             }
         };
     }

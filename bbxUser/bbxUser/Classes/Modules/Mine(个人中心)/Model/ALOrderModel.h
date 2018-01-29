@@ -12,6 +12,8 @@
 @end
 
 @interface ALOrderModel : JSONModel
+@property (nonatomic, copy) NSString<Optional> *payPrice;
+@property (nonatomic, copy) NSString<Optional> *estimatedPrice;
 @property (nonatomic, copy) NSString<Optional> *content;
 @property (nonatomic, copy) NSString<Optional> *firstPrice;
 @property (nonatomic, copy) NSString<Optional> *secondPrice;

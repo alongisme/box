@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UIButton *actionButton;
 
 @property (nonatomic, assign) ALOrderModel *model;
+@property (nonatomic, assign) BOOL doing;
 @end
 
 @implementation ALOrderListTableViewCell
@@ -33,6 +34,25 @@
     self.jjOrderLab.text = _model.orderTypeDes;
     NSString *moneyType = @"金额";
     NSString *money = @"";
+    
+    if(!([_model.orderStatus isEqualToString:OrderStatusWaitPay] || [_model.orderStatus isEqualToString:OrderStatusZ] || [_model.orderStatus isEqualToString:OrderStautsNew] || [_model.orderStatus isEqualToString:OrderStatusFinished] || [_model.orderStatus isEqualToString:OrderStatusTimeOut] || [_model.orderStatus isEqualToString:OrderStatusCancel])) {
+        self.doing = YES;
+        self.actionButton.hidden = NO;
+        [self.actionButton setTitleColor:[UIColor colorWithRGBA:ALThemeColor] forState:UIControlStateNormal];
+        self.actionButton.titleLabel.font = ALThemeFont(14);
+        [self.actionButton setTitle:@"镖师动态" forState:UIControlStateNormal];
+        self.actionButton.layer.masksToBounds = YES;
+        self.actionButton.layer.cornerRadius = 28/2;
+        self.actionButton.layer.borderWidth = 1;
+        self.actionButton.layer.borderColor = [UIColor colorWithRGBA:ALThemeColor].CGColor;
+        [self.actionButton.layer setLayerShadow:[UIColor colorWithRGBA:ALViewShadowColor] offset:CGSizeMake(0, 4) radius:1];
+        [self.actionButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.priceLab);
+            make.right.equalTo(@-18);
+            make.size.mas_equalTo(CGSizeMake(90, 28));
+        }];
+    }
+    
     if([model.orderStatus isEqualToString:OrderStatusWaitPay] || [model.orderStatus isEqualToString:OrderStatusCancel] || [model.orderStatus isEqualToString:OrderStatusTimeOut]) {
         if([model.orderStatus isEqualToString:OrderStatusWaitPay]) {
             self.actionButton.hidden = NO;
@@ -42,8 +62,13 @@
                 make.right.equalTo(@-18);
             }];
         }
-        moneyType = @"预支付";
-        money = _model.firstPrice;
+        if([model.orderType isEqualToString:@"1"]) {
+            moneyType = @"总金额";
+            money = _model.payPrice;
+        } else {
+            moneyType = @"预支付";
+            money = _model.firstPrice;
+        }
     } else if([model.orderStatus isEqualToString:OrderStatusFinished]) {
         moneyType = @"总金额";
         money = [NSString stringWithFormat:@"%.2lf",[_model.firstPrice doubleValue] + [_model.secondPrice doubleValue]];
@@ -71,6 +96,11 @@
         moneyType = @"预支付";
         money = _model.firstPrice;
         self.actionButton.hidden = YES;
+    }
+    
+    if([model.orderType isEqualToString:@"1"]) {
+        moneyType = @"总金额";
+        money = _model.payPrice;
     }
     
     self.timeLab.text = model.preStartTime;
@@ -148,15 +178,22 @@
 
 #pragma mark Action
 - (void)actionButtonAction {
-    if([_model.orderStatus isEqualToString:OrderStatusWaitPay]) {
+    if(self.doing) {
         if(_actionBlock) {
-            _actionBlock(1);
+            _actionBlock(3);
         }
-    } else if ([_model.orderStatus isEqualToString:OrderStatusFinished]) {
-        if(_actionBlock) {
-            _actionBlock(2);
+    } else {
+        if([_model.orderStatus isEqualToString:OrderStatusWaitPay] || [_model.orderStatus isEqualToString:OrderStatusZ]) {
+            if(_actionBlock) {
+                _actionBlock(1);
+            }
+        } else if ([_model.orderStatus isEqualToString:OrderStatusFinished]) {
+            if(_actionBlock) {
+                _actionBlock(2);
+            }
         }
     }
+
 }
 
 #pragma mark lazy load

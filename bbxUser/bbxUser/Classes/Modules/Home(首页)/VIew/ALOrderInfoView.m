@@ -483,13 +483,20 @@
     if(!_payMoneyLab) {
         _payMoneyLab = [[ALLabel alloc] init];
         if([_model.orderStatus isEqualToString:OrderStatusWaitPay] || [_model.orderStatus isEqualToString:OrderStatusCancel] || [_model.orderStatus isEqualToString:OrderStatusTimeOut]) {
-            _payMoneyLab.text = @"预支付";
+            if([_model.orderType isEqualToString:@"1"]) {
+                _payMoneyLab.text = @"总金额";
+            } else {
+                _payMoneyLab.text = @"预支付";
+            }
         } else if([_model.orderStatus isEqualToString:OrderStatusFinished]) {
             _payMoneyLab.text = @"总金额";
         } else if([_model.orderStatus isEqualToString:OrderStatusZ]) {
             _payMoneyLab.text = @"余额支付";
         } else {
             _payMoneyLab.text = @"预支付";
+            if([_model.orderType isEqualToString:@"1"]) {
+                _payMoneyLab.text = @"总金额";
+            }
         }
         [self addSubview:_payMoneyLab];
     }
@@ -501,14 +508,21 @@
         _moneyLab = [[ALLabel alloc] init];
         [self addSubview:_moneyLab];
         if([_model.orderStatus isEqualToString:OrderStatusWaitPay] || [_model.orderStatus isEqualToString:OrderStatusCancel] || [_model.orderStatus isEqualToString:OrderStatusTimeOut]) {
-            [self initMoney:_model.firstPrice];
+            if([_model.orderType isEqualToString:@"1"]) {
+                [self initMoney:[NSString stringWithFormat:@"%.2lf",[_model.payPrice doubleValue]]];
+            } else {
+                [self initMoney:_model.firstPrice];
+            }
         } else if([_model.orderStatus isEqualToString:OrderStatusFinished]) {
             _payMoneyLab.text = @"总金额";
-            [self initMoney:[NSString stringWithFormat:@"%lf",[_model.firstPrice doubleValue] + [_model.secondPrice doubleValue]]];
+            [self initMoney:[NSString stringWithFormat:@"%@",_model.payPrice]];
         } else if([_model.orderStatus isEqualToString:OrderStatusZ]) {
             [self initMoney:_model.secondPrice];
         } else {
             [self initMoney:_model.firstPrice];
+            if([_model.orderType isEqualToString:@"1"]) {
+                [self initMoney:_model.payPrice];
+            }
         }
     }
     return _moneyLab;

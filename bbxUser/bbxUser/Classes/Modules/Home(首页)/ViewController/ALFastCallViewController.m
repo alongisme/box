@@ -48,7 +48,7 @@
     [self customLocationAccuracyCircle:YES];
     //初始化子界面
     [self initSubviews];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccessToDynamics) name:@"paySuccessToDynamics" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccessToDynamics:) name:@"paySuccessToDynamics" object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -110,8 +110,13 @@
     }];
 }
 
-- (void)paySuccessToDynamics {
-    [self orderWorkingNumButtonAction];
+- (void)paySuccessToDynamics:(NSNotification *)notification {
+    if([notification.object[@"orderId"] isVaild]) {
+        ALDynamicsViewController *dynamicsVC = [ALDynamicsViewController new];
+        dynamicsVC.orderId = notification.object[@"orderId"];
+        dynamicsVC.orderStatus = OrderStatusPS;
+        [self.navigationController pushViewController:dynamicsVC animated:YES];
+    }
 }
 
 - (void)loadBannerData {
@@ -203,7 +208,7 @@
     if(AL_MyAppDelegate.userModel.idModel.userId) {
         if([self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWaitAllocating] ||[self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusPS] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusAllocatingWaitStart] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWorking] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusZ]) {
             [ALAlertViewController showAlertOnlyCancelButton:self title:nil message:self.lastOrderDic[@"tips"] style:UIAlertControllerStyleAlert Destructive:@"查看镖师动态" clickBlock:^{
-                [weakSelf paySuccessToDynamics];
+                [weakSelf orderWorkingNumButtonAction];
             }];
         } else if([self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWaitPay]) {
             [ALAlertViewController showAlertOnlyCancelButton:self title:nil message:self.lastOrderDic[@"tips"] style:UIAlertControllerStyleAlert Destructive:@"前往" clickBlock:^{

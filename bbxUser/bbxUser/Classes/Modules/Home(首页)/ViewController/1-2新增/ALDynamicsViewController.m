@@ -21,8 +21,13 @@
 #import "ALRealTImePositionAnnotationView.h"
 #import "ALSecurityInfoViewController.h"
 #import "ALEvaluateViewController.h"
+#import "MyAnimatedAnnotationView.h"
 
-@interface ALDynamicsViewController ()<ALRedEnvelopeDelegate>
+@interface ALDynamicsViewController ()<ALRedEnvelopeDelegate> {
+    BMKPointAnnotation *animatedAnnotation;
+    BMKPointAnnotation *locationPointAnnotation;
+    BMKPinAnnotationView *paopaoAnnotationView;
+}
 @property (nonatomic, strong) UIButton *orderStatusView;
 @property (nonatomic, strong) UIButton *orderStatusDesBtn;
 @property (nonatomic, strong) ALDynamicsBottomView *dynamicsBottomView;
@@ -38,6 +43,10 @@
 @property (nonatomic, assign) int selectedIndex;
 @property (nonatomic, strong) ALNewManySecutityListView *neManySecutityListView;
 @property (nonatomic, strong) ALNewManySecutityListView *windowManySecutityListView;
+
+@property (nonatomic, assign) NSUInteger timerValue;
+@property (nonatomic, strong) UILabel *timeLab;
+@property (nonatomic, strong) NSTimer *taskTimer;
 @end
 
 @implementation ALDynamicsViewController
@@ -54,20 +63,12 @@
     AL_WeakSelf(self);
     [_refreshOrderDetailApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         ALOrderModel *model = weakSelf.refreshOrderDetailApi.orderModel;
-        if([model.orderStatus isEqualToString:OrderStatusFinished]) {
-            weakSelf.dynamicsBottomView = [[ALDynamicsBottomView alloc] initWithFrame:CGRectZero flag:300 expireInterval:model.expireInterval];
-            
-            weakSelf.dynamicsBottomView.toEvaluateBlock = ^{
-                [weakSelf.dynamicsBottomView removeFromSuperview];
-                weakSelf.dynamicsBottomView = nil;
-                ALEvaluateViewController *evaluateVC = [[ALEvaluateViewController alloc] init];
-                ALOrderModel *evaOrderModel = [[ALOrderModel alloc] init];
-                evaOrderModel.orderId = weakSelf.orderId;
-                evaOrderModel.securityList = model.securityList;
-                evaluateVC.orderModel = evaOrderModel;
-                evaluateVC.indexPath = 9999;
-                [weakSelf.navigationController pushViewController:evaluateVC animated:YES];
-            };
+        
+        if([model.orderStatus isEqualToString:OrderStatusWaitAllocating]) {
+            if(locationPointAnnotation) {
+                [weakSelf.mapView removeAnnotation:locationPointAnnotation];
+                [weakSelf.mapView addAnnotation:locationPointAnnotation];
+            }
         }
         
         if([model.orderStatus isEqualToString:OrderStatusWorking] || [model.orderStatus isEqualToString:OrderStatusZ] || [model.orderStatus isEqualToString:OrderStatusAllocatingWaitStart]) {
@@ -81,13 +82,14 @@
                 [weakSelf.mapView addAnnotation:animatedAnnotation];
             }
             
-            if([model.orderStatus isEqualToString:OrderStatusAllocatingWaitStart]) {
-                weakSelf.dynamicsBottomView = [[ALDynamicsBottomView alloc] initWithFrame:CGRectZero flag:100 expireInterval:model.expireInterval];
+            if([model.orderStatus isEqualToString:OrderStatusAllocatingWaitStart] || [model.orderStatus isEqualToString:OrderStatusWorking]) {
+                weakSelf.dynamicsBottomView = [[ALDynamicsBottomView alloc] initWithFrame:CGRectZero flag: [model.orderStatus isEqualToString:OrderStatusWorking] ? 0 : 100 expireInterval:model.expireInterval];
                 [weakSelf.mapView addSubview:weakSelf.dynamicsBottomView];
                 [weakSelf.dynamicsBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.right.left.bottom.equalTo(@0);
                     make.height.equalTo(@155);
                 }];
+                weakSelf.dynamicsBottomView.waitFinished.enabled = NO;
             } else if([model.orderStatus isEqualToString:OrderStatusZ]) {
                 weakSelf.dynamicsBottomView = [[ALDynamicsBottomView alloc] initWithFrame:CGRectZero flag:200 expireInterval:model.expireInterval];
                 [weakSelf.mapView addSubview:weakSelf.dynamicsBottomView];
@@ -102,12 +104,6 @@
                     make.right.left.bottom.equalTo(@0);
                     make.height.equalTo(@155);
                 }];
-            }
-            
-            if([weakSelf.orderStatus isEqualToString:OrderStatusZ]) {
-                weakSelf.dynamicsBottomView.waitFinished.enabled = NO;
-            } else {
-                weakSelf.dynamicsBottomView.waitFinished.enabled = YES;
             }
         
             weakSelf.dynamicsBottomView.payBlock = ^{
@@ -125,68 +121,68 @@
                 
             };
             
-            if(model.securityList.count == 1) {
-                weakSelf.neSecurityListOnlyOneView = [[ALNewSecurityLListView alloc] initWithFrame:CGRectZero onlyOne:model.securityList.lastObject];
-                [weakSelf.mapView addSubview:weakSelf.neSecurityListOnlyOneView];
-                [weakSelf.neSecurityListOnlyOneView mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(@14);
-                    make.top.equalTo(@10);
-                    make.right.equalTo(@-14);
-                    make.height.equalTo(@94);
-                }];
-                
+            if(![weakSelf.orderStatus isEqualToString:OrderStatusZ]) {
+                if(model.securityList.count == 1) {
+                    weakSelf.neSecurityListOnlyOneView = [[ALNewSecurityLListView alloc] initWithFrame:CGRectZero onlyOne:model.securityList.lastObject];
+                    [weakSelf.mapView addSubview:weakSelf.neSecurityListOnlyOneView];
+                    [weakSelf.neSecurityListOnlyOneView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.left.equalTo(@14);
+                        make.top.equalTo(@10);
+                        make.right.equalTo(@-14);
+                        make.height.equalTo(@94);
+                    }];
+                    
+                } else {
+                    weakSelf.neManySecutityListView = [[ALNewManySecutityListView alloc] initWithFrame:CGRectZero arr:model.securityList];
+                    [self.mapView addSubview:weakSelf.neManySecutityListView];
+                    
+                    [weakSelf.neManySecutityListView mas_makeConstraints:^(MASConstraintMaker *make) {
+                        make.top.equalTo(@10);
+                        make.left.equalTo(@14);
+                        make.right.equalTo(@-14);
+                        make.height.equalTo(@(85 + 45));
+                    }];
+                    
+                    weakSelf.neManySecutityListView.itemDidSelectedAtIndex = ^(NSUInteger index) {
+                        if(index == 0) {
+                            weakSelf.windowManySecutityListView = [[ALNewManySecutityListView alloc] initWithFrame:CGRectZero arr:model.securityList];
+                            UIView *bgView = [[UIView alloc] init];
+                            [ALKeyWindow addSubview:bgView];
+                            
+                            [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+                                make.edges.equalTo(@0);
+                            }];
+                            
+                            [bgView addSubview:weakSelf.windowManySecutityListView];
+                            
+                            [weakSelf.windowManySecutityListView mas_makeConstraints:^(MASConstraintMaker *make) {
+                                make.top.equalTo(@(ALNavigationBarHeight + 10));
+                                make.left.equalTo(@14);
+                                make.right.equalTo(@-14);
+                                make.height.equalTo(@(85 * model.securityList.count + 45));
+                            }];
+                            
+                            [UIView animateWithDuration:0.3 animations:^{
+                                bgView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+                            }];
+                            
+                            [ALKeyWindow layoutIfNeeded];
+                            [weakSelf.windowManySecutityListView lookManyAction];
+                            weakSelf.windowManySecutityListView.itemDidSelectedAtIndex = ^(NSUInteger index) {
+                                if(index == 1) {
+                                    [weakSelf.neManySecutityListView lookManyAction];
+                                    [UIView animateWithDuration:0.3 animations:^{
+                                        bgView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.0];
+                                    } completion:^(BOOL finished) {
+                                        [bgView removeFromSuperview];
+                                    }];
+                                }
+                            };
+                        }
+                    };
+                }
             } else {
-                weakSelf.neManySecutityListView = [[ALNewManySecutityListView alloc] initWithFrame:CGRectZero arr:model.securityList];
-                [self.mapView addSubview:weakSelf.neManySecutityListView];
-                
-                [weakSelf.neManySecutityListView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.top.equalTo(@10);
-                    make.left.equalTo(@14);
-                    make.right.equalTo(@-14);
-                    make.height.equalTo(@(85 + 45));
-                }];
-                
-                weakSelf.neManySecutityListView.itemDidSelectedAtIndex = ^(NSUInteger index) {
-                    if(index == 0) {
-                        
-                        weakSelf.windowManySecutityListView = [[ALNewManySecutityListView alloc] initWithFrame:CGRectZero arr:model.securityList];
-                        UIView *bgView = [[UIView alloc] init];
-                        [ALKeyWindow addSubview:bgView];
-                        
-                        [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-                            make.edges.equalTo(@0);
-                        }];
-                        
-                        [bgView addSubview:weakSelf.windowManySecutityListView];
-                        
-                        [weakSelf.windowManySecutityListView mas_makeConstraints:^(MASConstraintMaker *make) {
-                            make.top.equalTo(@(ALNavigationBarHeight + 10));
-                            make.left.equalTo(@14);
-                            make.right.equalTo(@-14);
-                            make.height.equalTo(@(85 * model.securityList.count + 45));
-                        }];
-                        
-                        [UIView animateWithDuration:0.3 animations:^{
-                            bgView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
-                        }];
-                        
-                        [ALKeyWindow layoutIfNeeded];
-                        
-                        [weakSelf.windowManySecutityListView lookManyAction];
-                        
-                        weakSelf.windowManySecutityListView.itemDidSelectedAtIndex = ^(NSUInteger index) {
-                            if(index == 1) {
-                                [weakSelf.neManySecutityListView lookManyAction];
-                                [UIView animateWithDuration:0.3 animations:^{
-                                    bgView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.0];
-                                } completion:^(BOOL finished) {
-                                    [bgView removeFromSuperview];
-                                }];
-                            }
-                        };
-                        
-                    }
-                };
+                weakSelf.dynamicsBottomView.waitFinished.enabled = YES;
             }
         }
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
@@ -237,18 +233,85 @@
 }
 
 - (void)loacationStopWithcoor:(CLLocationCoordinate2D)coor {
-    if([self.orderStatus isEqualToString:OrderStatusPS] || [self.orderStatus isEqualToString:OrderStatusWaitAllocating]) {
-        BMKPointAnnotation * pointAnnotation = [[BMKPointAnnotation alloc]init];
-        
-        pointAnnotation.coordinate = coor;
-        
-        [self.mapView addAnnotation:pointAnnotation];
+    if([self.orderStatus isEqualToString:OrderStatusPS] || [self.orderStatus isEqualToString:OrderStatusWaitAllocating] || [self.orderStatus isEqualToString:OrderStautsAllocating]) {
+        if([self.orderStatus isEqualToString:OrderStatusPS]) {
+            animatedAnnotation = [[BMKPointAnnotation alloc]init];
+            animatedAnnotation.coordinate = coor;
+            [self.mapView addAnnotation:animatedAnnotation];
+        }
+        locationPointAnnotation = [[BMKPointAnnotation alloc]init];
+        locationPointAnnotation.coordinate = coor;
+        [self.mapView addAnnotation:locationPointAnnotation];
     }
+}
+
+- (void)mapView:(BMKMapView *)mapView onClickedMapBlank:(CLLocationCoordinate2D)coordinate {
+    
 }
 
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation {
     
-    if([annotation isKindOfClass:[BMKPointAnnotation class]]) {
+    if(annotation == locationPointAnnotation) {
+        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
+        
+        //设置标注的颜色
+        newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
+        
+        //设置标注的动画效果
+        newAnnotationView.animatesDrop = NO;
+        newAnnotationView.selected = YES;
+        //自定义标注的图像
+        newAnnotationView.image = [UIImage imageNamed:@"blue_dingwei"];
+        
+        if([self.orderStatus isEqualToString:OrderStatusWaitAllocating]) {
+            
+            paopaoAnnotationView = newAnnotationView;
+            newAnnotationView.annotation = annotation;
+            
+            UIView *paopaoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 316/2.0, 92/2.0)];
+            UIImageView *xuanfuIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"xuanfu"]];
+            [paopaoView addSubview:xuanfuIV];
+            
+            self.timeLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 316/2.0 - 10, 92/2.0 - 10)];
+            
+            self.timerValue = [self.refreshOrderDetailApi.data[@"acceptSeconds"] integerValue];
+            
+            NSString *currentValue = ALStringFormat(@"%02lu:%02lu:%02lu",self.timerValue / 3600,self.timerValue / 60 % 60,self.timerValue % 60);
+
+            if(self.taskTimer) {
+                [self.taskTimer invalidate];
+                self.taskTimer = nil;
+            }
+            self.taskTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(taskTimerAction) userInfo:nil repeats:YES];
+            [[NSRunLoop currentRunLoop] addTimer:self.taskTimer forMode:NSRunLoopCommonModes];
+            
+            self.timeLab.text = ALStringFormat(@"已等候 %@",currentValue);
+            self.timeLab.font = ALThemeFont(15);
+            self.timeLab.textAlignment = NSTextAlignmentCenter;
+            self.timeLab.textColor = [UIColor blueColor];
+            [paopaoView addSubview:self.timeLab];
+            
+            BMKActionPaopaoView *pView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
+            pView.frame = CGRectMake(0, 0, 316/2.0, 92/2.0);
+            
+            ((BMKPinAnnotationView *)newAnnotationView).paopaoView = pView;
+        }
+        
+        return newAnnotationView;
+    } else if(annotation == animatedAnnotation) {
+        NSString *AnnotationViewID = @"AnimatedAnnotation";
+        MyAnimatedAnnotationView *annotationView = nil;
+        if (annotationView == nil) {
+            annotationView = [[MyAnimatedAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationViewID];
+        }
+        NSMutableArray *images = [NSMutableArray array];
+        for (int i = 2; i < 22; i++) {
+            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"en%d.png", i]];
+            [images addObject:image];
+        }
+        annotationView.annotationImages = images;
+        return annotationView;
+    } else {
         NSString *AnnotationViewID = @"AnimatedAnnotation";
         ALRealTImePositionAnnotationView *annotationView = nil;
         if (annotationView == nil) {
@@ -261,39 +324,14 @@
             }
         }
         return  annotationView;
-    } else {
-        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
-        
-        //设置标注的颜色
-        newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
-        
-        //设置标注的动画效果
-        newAnnotationView.animatesDrop = NO;
-        newAnnotationView.selected = YES;
-        //自定义标注的图像
-        newAnnotationView.image = [UIImage imageNamed:@"dizhi"];
-        
-        newAnnotationView.annotation = annotation;
-        
-        UIView *paopaoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 316/2.0, 92/2.0)];
-        UIImageView *xuanfuIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"xuanfu"]];
-        [paopaoView addSubview:xuanfuIV];
-        
-        UILabel *timeLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 316/2.0 - 10, 92/2.0 - 10)];
-        timeLab.text = @"已等候 00:02:26";
-        timeLab.font = ALThemeFont(15);
-        timeLab.textAlignment = NSTextAlignmentCenter;
-        timeLab.textColor = [UIColor blueColor];
-        [paopaoView addSubview:timeLab];
-        
-        BMKActionPaopaoView *pView = [[BMKActionPaopaoView alloc] initWithCustomView:paopaoView];
-        pView.frame = CGRectMake(0, 0, 316/2.0, 92/2.0);
-        
-        ((BMKPinAnnotationView *)newAnnotationView).paopaoView = pView;
-        return newAnnotationView;
     }
-
     return nil;
+}
+
+- (void)taskTimerAction {
+    self.timerValue++;
+    NSString *currentValue = ALStringFormat(@"已等候 %02lu:%02lu:%02lu",self.timerValue / 3600,self.timerValue / 60 % 60,self.timerValue % 60);
+    self.timeLab.text = currentValue;
 }
 
 - (void)mapView:(BMKMapView *)mapView didSelectAnnotationView:(BMKAnnotationView *)view {
@@ -398,6 +436,23 @@
                 [weakSelf.payPresentView removeFromSuperview];
                 weakSelf.payPresentView = nil;
                 
+                [weakSelf.dynamicsBottomView removeFromSuperview];
+                weakSelf.dynamicsBottomView = nil;
+                
+                weakSelf.dynamicsBottomView = [[ALDynamicsBottomView alloc] initWithFrame:CGRectZero flag:300 expireInterval:@0];
+                [weakSelf.dynamicsBottomView show];
+                
+                weakSelf.dynamicsBottomView.toEvaluateBlock = ^{
+                    [weakSelf.dynamicsBottomView removeFromSuperview];
+                    weakSelf.dynamicsBottomView = nil;
+                    ALEvaluateViewController *evaluateVC = [[ALEvaluateViewController alloc] init];
+                    ALOrderModel *evaOrderModel = [[ALOrderModel alloc] init];
+                    evaOrderModel.orderId = weakSelf.orderId;
+                    evaOrderModel.securityList = weakSelf.refreshOrderDetailApi.orderModel.securityList;
+                    evaluateVC.orderModel = evaOrderModel;
+                    evaluateVC.indexPath = 9999;
+                    [weakSelf.navigationController pushViewController:evaluateVC animated:YES];
+                };
             }
         };
     }

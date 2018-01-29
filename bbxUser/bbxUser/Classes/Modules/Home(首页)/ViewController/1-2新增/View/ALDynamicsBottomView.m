@@ -189,7 +189,6 @@
     [waitFinished setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     waitFinished.layer.cornerRadius = 5;
     waitFinished.layer.masksToBounds = YES;
-    waitFinished.enabled = NO;
     [self addSubview:waitFinished];
     self.waitFinished = waitFinished;
     AL_WeakSelf(self);
