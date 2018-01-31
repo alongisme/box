@@ -27,6 +27,9 @@
 		3D23B22C1FB553CB00EE6A80 /* ALBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D23B22B1FB553CB00EE6A80 /* ALBannerViewController.m */; };
 		3D3698D42011BD2A009E07CA /* ALCallBBXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3698D32011BD2A009E07CA /* ALCallBBXViewController.m */; };
 		3D3698DC2011C70C009E07CA /* ALConsumerInfomationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3698DB2011C70C009E07CA /* ALConsumerInfomationView.m */; };
+		3D6C9BAD202064BD00AA371E /* ALWebSocketObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA1EE120204451003380E0 /* ALWebSocketObject.m */; };
+		3D6C9BB0202073AF00AA371E /* ALMyPaoPaoAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6C9BAF202073AF00AA371E /* ALMyPaoPaoAnnotationView.m */; };
+		3D6C9BB12020754500AA371E /* ALMyPaoPaoAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6C9BAF202073AF00AA371E /* ALMyPaoPaoAnnotationView.m */; };
 		3D77FA031FBEB7D70049856B /* ALWXShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D77FA021FBEB7D70049856B /* ALWXShareView.m */; };
 		3D90CA3A2015B1E8004856F5 /* ALDynamicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D90CA392015B1E8004856F5 /* ALDynamicsViewController.m */; };
 		3D90CA3B2015B43F004856F5 /* ALDynamicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D90CA392015B1E8004856F5 /* ALDynamicsViewController.m */; };
@@ -199,7 +202,6 @@
 		3DB71CB11FCE88EF00BB129D /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFEB65C1F30660600A022EA /* AlipaySDK.framework */; };
 		3DB71CB21FCE88EF00BB129D /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFEB6BC1F30660600A022EA /* libWeChatSDK.a */; };
 		3DB71CB31FCE88EF00BB129D /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFEB6601F30660600A022EA /* libssl.a */; };
-		3DB71CB41FCE88EF00BB129D /* libPods-bbxUser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 801A7A039A548A05A1E2F02D /* libPods-bbxUser.a */; };
 		3DB71CB61FCE88EF00BB129D /* wode-Star-y@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF648BB41F7B9E9F00F2DB5C /* wode-Star-y@2x.png */; };
 		3DB71CB71FCE88EF00BB129D /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BFFEB65B1F30660600A022EA /* AlipaySDK.bundle */; };
 		3DB71CB81FCE88EF00BB129D /* pingjia-Star-nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF648BB01F7B9E9F00F2DB5C /* pingjia-Star-nor@2x.png */; };
@@ -239,6 +241,7 @@
 		3DF088E71FD528B3001DCEFA /* ALPushInfomationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088E21FD4FC21001DCEFA /* ALPushInfomationViewController.m */; };
 		3DF088EB1FD63916001DCEFA /* ALQueryOpenPageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088EA1FD63916001DCEFA /* ALQueryOpenPageApi.m */; };
 		3DF088EE1FD692FF001DCEFA /* ALOpenPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088ED1FD692FF001DCEFA /* ALOpenPageView.m */; };
+		3DFA1EE220204451003380E0 /* ALWebSocketObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA1EE120204451003380E0 /* ALWebSocketObject.m */; };
 		3DFF97A42015D91B005E1FC6 /* ALConfirContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97A32015D91B005E1FC6 /* ALConfirContentView.m */; };
 		3DFF97A52015DF99005E1FC6 /* ALConfirContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97A32015D91B005E1FC6 /* ALConfirContentView.m */; };
 		3DFF97A82015F1C3005E1FC6 /* ALPayPresentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97A72015F1C3005E1FC6 /* ALPayPresentView.m */; };
@@ -246,7 +249,8 @@
 		3DFF97AC20171864005E1FC6 /* ALRefreshOrderDetailApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97AB20171864005E1FC6 /* ALRefreshOrderDetailApi.m */; };
 		3DFF97AE20171E47005E1FC6 /* ALRefreshOrderDetailApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97AB20171864005E1FC6 /* ALRefreshOrderDetailApi.m */; };
 		3DFF97AF20172180005E1FC6 /* ALFastCallViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D080DEF1FB003A9009676BA /* ALFastCallViewController.m */; };
-		B5C64018CCEA22267958CF0C /* libPods-bbxUserTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A678BD03AB4504D931DB6E78 /* libPods-bbxUserTests.a */; };
+		562A9BCBE37156260E51A578 /* libPods-bbxUser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 801A7A039A548A05A1E2F02D /* libPods-bbxUser.a */; };
+		5C15A6F9565420419B7EF7E1 /* libPods-bbxUser_Test.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC62988FB1EADAC50E376771 /* libPods-bbxUser_Test.a */; };
 		BF02371A1F319EEA004BAF37 /* ALBDMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0237191F319EEA004BAF37 /* ALBDMapViewController.m */; };
 		BF02371D1F32E53B004BAF37 /* ALChoseToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF02371C1F32E53B004BAF37 /* ALChoseToolView.m */; };
 		BF0237201F330AB1004BAF37 /* ALRedEnvelopeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF02371F1F330AB1004BAF37 /* ALRedEnvelopeViewController.m */; };
@@ -411,7 +415,6 @@
 		BFFEB71F1F30677A00A022EA /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFEB71E1F30677A00A022EA /* libc++.tbd */; };
 		BFFEB7211F30677F00A022EA /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = BFFEB7201F30677F00A022EA /* libz.tbd */; };
 		BFFF1D981F5FFAF000F2632C /* ALProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFFF1D971F5FFAF000F2632C /* ALProtocolViewController.m */; };
-		FFC0A617ED8C0BABC2BD111C /* libPods-bbxUserUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A81E15AA6B3134689361A3 /* libPods-bbxUserUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -433,8 +436,7 @@
 
 /* Begin PBXFileReference section */
 		09A81E15AA6B3134689361A3 /* libPods-bbxUserUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bbxUserUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1EA11BFB12DA5E797593FE55 /* Pods-bbxUser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbxUser.release.xcconfig"; path = "Pods/Target Support Files/Pods-bbxUser/Pods-bbxUser.release.xcconfig"; sourceTree = "<group>"; };
-		31885540A0501B6B85BCC058 /* Pods-bbxUserUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbxUserUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bbxUserUITests/Pods-bbxUserUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		0C20143AFC8303EE9364EF04 /* Pods-bbxUser_Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbxUser_Test.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bbxUser_Test/Pods-bbxUser_Test.debug.xcconfig"; sourceTree = "<group>"; };
 		3D080DEE1FB003A9009676BA /* ALFastCallViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALFastCallViewController.h; sourceTree = "<group>"; };
 		3D080DEF1FB003A9009676BA /* ALFastCallViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALFastCallViewController.m; sourceTree = "<group>"; };
 		3D080DF11FB003E1009676BA /* ALCustomizationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALCustomizationViewController.h; sourceTree = "<group>"; };
@@ -467,6 +469,8 @@
 		3D3698D32011BD2A009E07CA /* ALCallBBXViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALCallBBXViewController.m; sourceTree = "<group>"; };
 		3D3698DA2011C70C009E07CA /* ALConsumerInfomationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALConsumerInfomationView.h; sourceTree = "<group>"; };
 		3D3698DB2011C70C009E07CA /* ALConsumerInfomationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALConsumerInfomationView.m; sourceTree = "<group>"; };
+		3D6C9BAE202073AF00AA371E /* ALMyPaoPaoAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALMyPaoPaoAnnotationView.h; sourceTree = "<group>"; };
+		3D6C9BAF202073AF00AA371E /* ALMyPaoPaoAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALMyPaoPaoAnnotationView.m; sourceTree = "<group>"; };
 		3D77FA011FBEB7D70049856B /* ALWXShareView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALWXShareView.h; sourceTree = "<group>"; };
 		3D77FA021FBEB7D70049856B /* ALWXShareView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALWXShareView.m; sourceTree = "<group>"; };
 		3D90CA382015B1E8004856F5 /* ALDynamicsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALDynamicsViewController.h; sourceTree = "<group>"; };
@@ -505,18 +509,18 @@
 		3DF088EA1FD63916001DCEFA /* ALQueryOpenPageApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALQueryOpenPageApi.m; sourceTree = "<group>"; };
 		3DF088EC1FD692FF001DCEFA /* ALOpenPageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALOpenPageView.h; sourceTree = "<group>"; };
 		3DF088ED1FD692FF001DCEFA /* ALOpenPageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALOpenPageView.m; sourceTree = "<group>"; };
+		3DFA1EE020204451003380E0 /* ALWebSocketObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALWebSocketObject.h; sourceTree = "<group>"; };
+		3DFA1EE120204451003380E0 /* ALWebSocketObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALWebSocketObject.m; sourceTree = "<group>"; };
 		3DFF97A22015D91B005E1FC6 /* ALConfirContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALConfirContentView.h; sourceTree = "<group>"; };
 		3DFF97A32015D91B005E1FC6 /* ALConfirContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALConfirContentView.m; sourceTree = "<group>"; };
 		3DFF97A62015F1C3005E1FC6 /* ALPayPresentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALPayPresentView.h; sourceTree = "<group>"; };
 		3DFF97A72015F1C3005E1FC6 /* ALPayPresentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALPayPresentView.m; sourceTree = "<group>"; };
 		3DFF97AA20171864005E1FC6 /* ALRefreshOrderDetailApi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALRefreshOrderDetailApi.h; sourceTree = "<group>"; };
 		3DFF97AB20171864005E1FC6 /* ALRefreshOrderDetailApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALRefreshOrderDetailApi.m; sourceTree = "<group>"; };
-		6E252167642AFA858A526F74 /* Pods-bbxUserTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbxUserTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bbxUserTests/Pods-bbxUserTests.debug.xcconfig"; sourceTree = "<group>"; };
+		44BCE0D1461C0AF11AECD075 /* Pods-bbxUser_Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbxUser_Test.release.xcconfig"; path = "Pods/Target Support Files/Pods-bbxUser_Test/Pods-bbxUser_Test.release.xcconfig"; sourceTree = "<group>"; };
+		50204C925B636820827D2098 /* Pods-bbxUser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbxUser.release.xcconfig"; path = "Pods/Target Support Files/Pods-bbxUser/Pods-bbxUser.release.xcconfig"; sourceTree = "<group>"; };
 		801A7A039A548A05A1E2F02D /* libPods-bbxUser.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bbxUser.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8091C481F26C931B0E8FABF6 /* Pods-bbxUserTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbxUserTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-bbxUserTests/Pods-bbxUserTests.release.xcconfig"; sourceTree = "<group>"; };
-		93F600D4F623A68107FE8590 /* Pods-bbxUser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbxUser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bbxUser/Pods-bbxUser.debug.xcconfig"; sourceTree = "<group>"; };
 		A678BD03AB4504D931DB6E78 /* libPods-bbxUserTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bbxUserTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BD3F6C554F167605541F5FA0 /* Pods-bbxUserUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbxUserUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-bbxUserUITests/Pods-bbxUserUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF0237181F319EEA004BAF37 /* ALBDMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALBDMapViewController.h; sourceTree = "<group>"; };
 		BF0237191F319EEA004BAF37 /* ALBDMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALBDMapViewController.m; sourceTree = "<group>"; };
 		BF02371B1F32E53B004BAF37 /* ALChoseToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALChoseToolView.h; sourceTree = "<group>"; };
@@ -912,6 +916,8 @@
 		BFFEB7201F30677F00A022EA /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		BFFF1D961F5FFAF000F2632C /* ALProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALProtocolViewController.h; sourceTree = "<group>"; };
 		BFFF1D971F5FFAF000F2632C /* ALProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALProtocolViewController.m; sourceTree = "<group>"; };
+		EC62988FB1EADAC50E376771 /* libPods-bbxUser_Test.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bbxUser_Test.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD0039E2B2A97FC2DE52850A /* Pods-bbxUser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbxUser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bbxUser/Pods-bbxUser.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -927,7 +933,7 @@
 				3DB71CB11FCE88EF00BB129D /* AlipaySDK.framework in Frameworks */,
 				3DB71CB21FCE88EF00BB129D /* libWeChatSDK.a in Frameworks */,
 				3DB71CB31FCE88EF00BB129D /* libssl.a in Frameworks */,
-				3DB71CB41FCE88EF00BB129D /* libPods-bbxUser.a in Frameworks */,
+				5C15A6F9565420419B7EF7E1 /* libPods-bbxUser_Test.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -944,6 +950,7 @@
 				BFFEB7131F30660600A022EA /* libWeChatSDK.a in Frameworks */,
 				BFFEB70C1F30660600A022EA /* libssl.a in Frameworks */,
 				0C7A2316111C5F5EA7E6A1B3 /* libPods-bbxUser.a in Frameworks */,
+				562A9BCBE37156260E51A578 /* libPods-bbxUser.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -951,7 +958,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5C64018CCEA22267958CF0C /* libPods-bbxUserTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -959,7 +965,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFC0A617ED8C0BABC2BD111C /* libPods-bbxUserUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -971,6 +976,8 @@
 			children = (
 				3DE02437201B369400A4E921 /* MyAnimatedAnnotationView.h */,
 				3DE02436201B369400A4E921 /* MyAnimatedAnnotationView.m */,
+				3D6C9BAE202073AF00AA371E /* ALMyPaoPaoAnnotationView.h */,
+				3D6C9BAF202073AF00AA371E /* ALMyPaoPaoAnnotationView.m */,
 				3D3698D22011BD2A009E07CA /* ALCallBBXViewController.h */,
 				3D3698D32011BD2A009E07CA /* ALCallBBXViewController.m */,
 				3D90CA3C2015B975004856F5 /* ALConfirmationOrderViewController.h */,
@@ -1008,6 +1015,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		3DFA1EDF20204436003380E0 /* ALWebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				3DFA1EE020204451003380E0 /* ALWebSocketObject.h */,
+				3DFA1EE120204451003380E0 /* ALWebSocketObject.m */,
+			);
+			path = ALWebSocket;
+			sourceTree = "<group>";
+		};
 		3DFF97AD20171868005E1FC6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -1031,6 +1047,7 @@
 				801A7A039A548A05A1E2F02D /* libPods-bbxUser.a */,
 				A678BD03AB4504D931DB6E78 /* libPods-bbxUserTests.a */,
 				09A81E15AA6B3134689361A3 /* libPods-bbxUserUITests.a */,
+				EC62988FB1EADAC50E376771 /* libPods-bbxUser_Test.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1698,6 +1715,7 @@
 		BFFEB6581F30660600A022EA /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				3DFA1EDF20204436003380E0 /* ALWebSocket */,
 				BFFEB6591F30660600A022EA /* PaySDK */,
 			);
 			path = ThirdParty;
@@ -1890,12 +1908,10 @@
 		CC4827627260334D6AA14BCA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				93F600D4F623A68107FE8590 /* Pods-bbxUser.debug.xcconfig */,
-				1EA11BFB12DA5E797593FE55 /* Pods-bbxUser.release.xcconfig */,
-				6E252167642AFA858A526F74 /* Pods-bbxUserTests.debug.xcconfig */,
-				8091C481F26C931B0E8FABF6 /* Pods-bbxUserTests.release.xcconfig */,
-				31885540A0501B6B85BCC058 /* Pods-bbxUserUITests.debug.xcconfig */,
-				BD3F6C554F167605541F5FA0 /* Pods-bbxUserUITests.release.xcconfig */,
+				FD0039E2B2A97FC2DE52850A /* Pods-bbxUser.debug.xcconfig */,
+				50204C925B636820827D2098 /* Pods-bbxUser.release.xcconfig */,
+				0C20143AFC8303EE9364EF04 /* Pods-bbxUser_Test.debug.xcconfig */,
+				44BCE0D1461C0AF11AECD075 /* Pods-bbxUser_Test.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1907,12 +1923,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3DB71CC81FCE88EF00BB129D /* Build configuration list for PBXNativeTarget "bbxUser_Test" */;
 			buildPhases = (
-				3DB71C0D1FCE88EF00BB129D /* [CP] Check Pods Manifest.lock */,
+				7B7EA17B0F5B477FE67B169D /* [CP] Check Pods Manifest.lock */,
 				3DB71C0E1FCE88EF00BB129D /* Sources */,
 				3DB71CAB1FCE88EF00BB129D /* Frameworks */,
 				3DB71CB51FCE88EF00BB129D /* Resources */,
-				3DB71CC61FCE88EF00BB129D /* [CP] Embed Pods Frameworks */,
-				3DB71CC71FCE88EF00BB129D /* [CP] Copy Pods Resources */,
+				07B35CE09C7A6C27F74982CB /* [CP] Embed Pods Frameworks */,
+				BB7ADEF353337A4FF501BFF3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1947,12 +1963,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFFEB5BF1F3065CA00A022EA /* Build configuration list for PBXNativeTarget "bbxUserTests" */;
 			buildPhases = (
-				1F354838ABEF516BA75D8E39 /* [CP] Check Pods Manifest.lock */,
 				BFFEB5A41F3065CA00A022EA /* Sources */,
 				BFFEB5A51F3065CA00A022EA /* Frameworks */,
 				BFFEB5A61F3065CA00A022EA /* Resources */,
-				6648DD148310A4CDEA97CCD6 /* [CP] Embed Pods Frameworks */,
-				08C94182BDF223C4D83AFE01 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1968,12 +1981,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BFFEB5C21F3065CA00A022EA /* Build configuration list for PBXNativeTarget "bbxUserUITests" */;
 			buildPhases = (
-				17359183D9156B8BEA885984 /* [CP] Check Pods Manifest.lock */,
 				BFFEB5AF1F3065CA00A022EA /* Sources */,
 				BFFEB5B01F3065CA00A022EA /* Frameworks */,
 				BFFEB5B11F3065CA00A022EA /* Resources */,
-				ADA5C37BA0A1623C6ACDE131 /* [CP] Embed Pods Frameworks */,
-				9B322AFD4C876F437BC6E538 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2108,37 +2118,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		08C94182BDF223C4D83AFE01 /* [CP] Copy Pods Resources */ = {
+		07B35CE09C7A6C27F74982CB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bbxUserTests/Pods-bbxUserTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		17359183D9156B8BEA885984 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-bbxUserUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bbxUser_Test/Pods-bbxUser_Test-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		175B5E1ED39197532E38C31F /* [CP] Check Pods Manifest.lock */ = {
@@ -2159,92 +2151,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1F354838ABEF516BA75D8E39 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-bbxUserTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3DB71C0D1FCE88EF00BB129D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-bbxUser-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3DB71CC61FCE88EF00BB129D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bbxUser/Pods-bbxUser-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3DB71CC71FCE88EF00BB129D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-bbxUser/Pods-bbxUser-resources.sh",
-				"${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle",
-				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
-				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bbxUser/Pods-bbxUser-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6648DD148310A4CDEA97CCD6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bbxUserTests/Pods-bbxUserTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		78EDB004AA5F7FD49E403190 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2260,34 +2166,42 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bbxUser/Pods-bbxUser-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9B322AFD4C876F437BC6E538 /* [CP] Copy Pods Resources */ = {
+		7B7EA17B0F5B477FE67B169D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-bbxUser_Test-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB7ADEF353337A4FF501BFF3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-bbxUser_Test/Pods-bbxUser_Test-resources.sh",
+				"${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/Resources/mapapi.bundle",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bbxUserUITests/Pods-bbxUserUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ADA5C37BA0A1623C6ACDE131 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bbxUserUITests/Pods-bbxUserUITests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bbxUser_Test/Pods-bbxUser_Test-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D6B4E6E15CBF2AE714BC0593 /* [CP] Copy Pods Resources */ = {
@@ -2399,6 +2313,7 @@
 				3DB71C551FCE88EF00BB129D /* ALLaunchViewController.m in Sources */,
 				3DB71C561FCE88EF00BB129D /* ALQueryOrderNumApi.m in Sources */,
 				3DB71C571FCE88EF00BB129D /* ALExchangeCouponViewController.m in Sources */,
+				3D6C9BB12020754500AA371E /* ALMyPaoPaoAnnotationView.m in Sources */,
 				3DB71C581FCE88EF00BB129D /* ALRedEnvlopeViewController.m in Sources */,
 				3DB71C591FCE88EF00BB129D /* ALMultiImageUploadApi.m in Sources */,
 				3DB71C5A1FCE88EF00BB129D /* ALLoginViewController.m in Sources */,
@@ -2486,6 +2401,7 @@
 				3DB71CA21FCE88EF00BB129D /* ALUserIDModel.m in Sources */,
 				3DB71CA31FCE88EF00BB129D /* ALSecurityLocationModel.m in Sources */,
 				3DB71CA41FCE88EF00BB129D /* ALOrderModel.m in Sources */,
+				3D6C9BAD202064BD00AA371E /* ALWebSocketObject.m in Sources */,
 				3DB71CA51FCE88EF00BB129D /* ALBannerViewController.m in Sources */,
 				3DB71CA61FCE88EF00BB129D /* ALChoseSeverCollectionViewCell.m in Sources */,
 				3DB71CA71FCE88EF00BB129D /* ALAppDelegate+ALJPush.m in Sources */,
@@ -2581,6 +2497,7 @@
 				BFFEB6EF1F30660600A022EA /* ALQueryOrderNumApi.m in Sources */,
 				BF4FE30D1F3406FA00B933AC /* ALExchangeCouponViewController.m in Sources */,
 				BF6DFD4E1F4438A80098AC5B /* ALRedEnvlopeViewController.m in Sources */,
+				3D6C9BB0202073AF00AA371E /* ALMyPaoPaoAnnotationView.m in Sources */,
 				BF6DFCFE1F41438D0098AC5B /* ALMultiImageUploadApi.m in Sources */,
 				BFFEB6F11F30660600A022EA /* ALLoginViewController.m in Sources */,
 				BFFEB6F01F30660600A022EA /* ALAccountInfoView.m in Sources */,
@@ -2652,6 +2569,7 @@
 				3D23B2231FB54D0E00EE6A80 /* ALBannerListModel.m in Sources */,
 				3D90CA422015BD0B004856F5 /* ALConfirmationInfoView.m in Sources */,
 				BF6DFCEC1F3D43B20098AC5B /* ALRealTimePositionViewController.m in Sources */,
+				3DFA1EE220204451003380E0 /* ALWebSocketObject.m in Sources */,
 				3D22E5B22011DB7400584236 /* ALSafeProtectView.m in Sources */,
 				BFFEB6F71F30660600A022EA /* ALSecurityCommentListApi.m in Sources */,
 				3DD782CF1F90B0370063E626 /* ALMainPageBootPicView.m in Sources */,
@@ -2711,7 +2629,7 @@
 /* Begin XCBuildConfiguration section */
 		3DB71CC91FCE88EF00BB129D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 93F600D4F623A68107FE8590 /* Pods-bbxUser.debug.xcconfig */;
+			baseConfigurationReference = 0C20143AFC8303EE9364EF04 /* Pods-bbxUser_Test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
@@ -2771,7 +2689,7 @@
 		};
 		3DB71CCA1FCE88EF00BB129D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1EA11BFB12DA5E797593FE55 /* Pods-bbxUser.release.xcconfig */;
+			baseConfigurationReference = 44BCE0D1461C0AF11AECD075 /* Pods-bbxUser_Test.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
@@ -2935,7 +2853,7 @@
 		};
 		BFFEB5BD1F3065CA00A022EA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 93F600D4F623A68107FE8590 /* Pods-bbxUser.debug.xcconfig */;
+			baseConfigurationReference = FD0039E2B2A97FC2DE52850A /* Pods-bbxUser.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
@@ -2995,7 +2913,7 @@
 		};
 		BFFEB5BE1F3065CA00A022EA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1EA11BFB12DA5E797593FE55 /* Pods-bbxUser.release.xcconfig */;
+			baseConfigurationReference = 50204C925B636820827D2098 /* Pods-bbxUser.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
@@ -3057,7 +2975,6 @@
 		};
 		BFFEB5C01F3065CA00A022EA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E252167642AFA858A526F74 /* Pods-bbxUserTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = bbxUserTests/Info.plist;
@@ -3070,7 +2987,6 @@
 		};
 		BFFEB5C11F3065CA00A022EA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8091C481F26C931B0E8FABF6 /* Pods-bbxUserTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = bbxUserTests/Info.plist;
@@ -3083,7 +2999,6 @@
 		};
 		BFFEB5C31F3065CA00A022EA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31885540A0501B6B85BCC058 /* Pods-bbxUserUITests.debug.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = bbxUserUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -3095,7 +3010,6 @@
 		};
 		BFFEB5C41F3065CA00A022EA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD3F6C554F167605541F5FA0 /* Pods-bbxUserUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = bbxUserUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

@@ -21,9 +21,13 @@
 }
 
 - (id)requestArgument {
-    return @{
-             UserID_CommonParams
+    if([AL_MyAppDelegate.userModel.idModel.userId isVaild]) {
+        return @{
+                 UserID_CommonParams
              };
+    } else {
+        return @{};
+    }
 }
 
 - (NSArray<ALTimeCouponListModel *> *)timeCouponList {

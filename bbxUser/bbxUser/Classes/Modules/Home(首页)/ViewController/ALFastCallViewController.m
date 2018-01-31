@@ -19,8 +19,11 @@
 #import "ALBannerViewController.h"
 #import "ALDynamicsViewController.h"
 #import "ALCheckVersionApi.h"
+#import "ALOrderInfoViewController.h"
 
-@interface ALFastCallViewController ()
+@interface ALFastCallViewController () {
+    BMKPointAnnotation *locationPointAnnotation;
+}
 @property (nonatomic, strong) UIButton *orderWorkingNumBtn;
 //@property (nonatomic, strong) UIButton *orderWorkingNumTopBtn;
 @property (nonatomic, strong) ALActionButton *emergencyCallBtn;
@@ -185,6 +188,30 @@
 //停止定位后获取定位信息
 - (void)loacationStopWithcoor:(CLLocationCoordinate2D)coor {;
     [self startReverseGeoCodeWithGeoPoint:coor];
+    if(locationPointAnnotation) {
+        [self.mapView removeAnnotation:locationPointAnnotation];
+    }
+    locationPointAnnotation = [[BMKPointAnnotation alloc]init];
+    locationPointAnnotation.coordinate = coor;
+    [self.mapView addAnnotation:locationPointAnnotation];
+}
+
+- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation {
+    if(annotation == locationPointAnnotation) {
+        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
+        
+        //设置标注的颜色
+        newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
+        
+        //设置标注的动画效果
+        newAnnotationView.animatesDrop = NO;
+        newAnnotationView.selected = YES;
+        //自定义标注的图像
+        newAnnotationView.image = [UIImage imageNamed:@"blue_dingwei"];
+        
+        return newAnnotationView;
+    }
+    return nil;
 }
 
 #pragma mark BMKGeoCodeSearchDelegate
@@ -206,17 +233,22 @@
 - (void)emergencyCallAction {
     AL_WeakSelf(self);
     if(AL_MyAppDelegate.userModel.idModel.userId) {
-        if([self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWaitAllocating] ||[self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusPS] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusAllocatingWaitStart] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWorking] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusZ]) {
+        if([self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWaitAllocating] ||[self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusPS] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusAllocatingWaitStart] || [self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWorking]) {
             [ALAlertViewController showAlertOnlyCancelButton:self title:nil message:self.lastOrderDic[@"tips"] style:UIAlertControllerStyleAlert Destructive:@"查看镖师动态" clickBlock:^{
                 [weakSelf orderWorkingNumButtonAction];
             }];
         } else if([self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusWaitPay]) {
             [ALAlertViewController showAlertOnlyCancelButton:self title:nil message:self.lastOrderDic[@"tips"] style:UIAlertControllerStyleAlert Destructive:@"前往" clickBlock:^{
-                
+                ALOrderInfoViewController *orderInfoVC = [[ALOrderInfoViewController alloc] init];
+                orderInfoVC.indexPath = 9999;
+                ALOrderModel *model = [ALOrderModel new];
+                model.orderId = weakSelf.lastOrderDic[@"orderId"];
+                orderInfoVC.orderModel = model;
+                [weakSelf.navigationController pushViewController:orderInfoVC animated:YES];
             }];
         } else if([self.lastOrderDic[@"lastOrderStatus"] isEqualToString:OrderStatusZ]) {
             [ALAlertViewController showAlertOnlyCancelButton:self title:nil message:self.lastOrderDic[@"tips"] style:UIAlertControllerStyleAlert Destructive:@"去支付" clickBlock:^{
-                
+                [weakSelf orderWorkingNumButtonAction];
             }];
         } else {
             [MobClick event:ALMobEventID_B2];

@@ -17,7 +17,7 @@
 #import "ALAppDelegate+ALJPush.h"
 #import "ALMobilePayService.h"
 #import "ALLaunchViewController.h"
-#import "ALStepOneViewController.h"
+#import "ALCallBBXViewController.h"
 
 @interface ALAppDelegate () <BMKGeneralDelegate,WXApiDelegate>
 @property (nonatomic, strong) BMKMapManager *mapManager;
@@ -67,9 +67,9 @@
     if([shortcutItem.localizedTitle isEqualToString:@"呼叫镖镖"]) {
         if(self.userModel.idModel.userId) {
             [MobClick event:ALMobEventID_B2];
-            ALStepOneViewController *stepOneVC = [[ALStepOneViewController alloc] init];
-            stepOneVC.poiInfoModel = self.poiInfoModel;
-            [self.window.currentViewController.navigationController pushViewController:stepOneVC animated:YES];
+            ALCallBBXViewController *callBBXViewController = [[ALCallBBXViewController alloc] init];
+            callBBXViewController.poiInfoModel = self.poiInfoModel;
+            [self.window.currentViewController.navigationController pushViewController:callBBXViewController animated:YES];
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:ReSetToLoginModule object:nil];
         }
@@ -95,7 +95,13 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    if(self.backPayType == ALBackToApp_Pay_Type_WX) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if(!self.normalClickToBackApp) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"checkLastOrderStauts" object:nil];
+            }
+        });
+    }
 }
 
 
@@ -245,6 +251,7 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
     if ([url.host isEqualToString:@"safepay"]) {
+        self.backPayType = ALBackToApp_Pay_Type_ALI;
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"result = %@",resultDic);
@@ -274,6 +281,8 @@
             NSLog(@"授权结果 authCode = %@", authCode?:@"");
         }];
     }else if([url.host isEqualToString:@"pay"]){
+        self.backPayType = ALBackToApp_Pay_Type_WX;
+        self.normalClickToBackApp = YES;
         return [WXApi handleOpenURL:url delegate:[WXApiManager shareInstance]];
     }else{
         return [WXApi handleOpenURL:url delegate:self];
@@ -284,6 +293,7 @@
 // NOTE: 9.0以后使用新API接口
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options {
     if ([url.host isEqualToString:@"safepay"]) {
+        self.backPayType = ALBackToApp_Pay_Type_ALI;
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             if (resultDic) {
@@ -310,6 +320,7 @@
             NSLog(@"授权结果 authCode = %@", authCode?:@"");
         }];
     } else if ([url.host isEqualToString:@"pay"]) {
+        self.backPayType = ALBackToApp_Pay_Type_WX;
         return  [WXApi handleOpenURL:url delegate:[WXApiManager shareInstance]];
     } else {
         return [WXApi handleOpenURL:url delegate:self];

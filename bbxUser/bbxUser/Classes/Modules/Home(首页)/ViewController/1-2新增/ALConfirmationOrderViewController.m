@@ -14,6 +14,7 @@
 #import "ALPayPresentView.h"
 #import "ALCreateAppPayApi.h"
 #import "ALMobilePayService.h"
+#import "ALQueryOrderNumApi.h"
 
 @interface ALConfirmationOrderViewController ()
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -30,6 +31,7 @@
 
 @property (nonatomic, strong) ALCancelOrderApi *cancelOrderApi;
 @property (nonatomic, strong) ALCreateAppPayApi *createAppPayApi;
+@property (nonatomic, strong) ALQueryOrderNumApi *queryLastOrderApi;
 @end
 
 @implementation ALConfirmationOrderViewController
@@ -39,6 +41,24 @@
     self.title = @"确认订单";
     [self initSubviews];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkLastOrderStauts) name:@"checkLastOrderStauts" object:nil];
+}
+
+- (void)checkLastOrderStauts {
+    
+    self.queryLastOrderApi = [[ALQueryOrderNumApi alloc] initWithOrderNumApi];
+    AL_WeakSelf(self)
+    [self.queryLastOrderApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+        NSString *lastOrderStatus = weakSelf.queryLastOrderApi.data[@"lastOrderStatus"];
+        if([lastOrderStatus isEqualToString:OrderStatusPS]) {
+            [weakSelf.payPresentView removeFromSuperview];
+            weakSelf.payPresentView = nil;
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"paySuccessToDynamics" object:@{@"orderId" :weakSelf.orderModel.orderId}];
+        }
+    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+        
+    }];
 }
 
 - (void)backAction {
@@ -197,7 +217,7 @@
         AL_WeakSelf(self);
         _payPresentView.toPayBlock = ^(ALPayType payType) {
             if(payType == ALPayTypeAliPay) {
-                
+                AL_MyAppDelegate.backPayType = ALBackToApp_Pay_Type_ALI;
                 _createAppPayApi = [[ALCreateAppPayApi alloc] initWithCreateAppPayApi:self.orderModel.orderId PayType:@"0" couponId:nil payChannel:@"aliPay"];
                 
                 [weakSelf.createAppPayApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
@@ -209,6 +229,7 @@
                                                                    }];
                 
             } else {
+                AL_MyAppDelegate.backPayType = ALBackToApp_Pay_Type_WX;
                 //微信支付
                 _createAppPayApi = [[ALCreateAppPayApi alloc] initWithCreateAppPayApi:self.orderModel.orderId PayType:@"0" couponId:nil payChannel:@"wxPay"];
                 

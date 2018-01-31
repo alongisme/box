@@ -88,7 +88,7 @@ static ALMobilePayService *_instance = nil;
 }
 
 - (void)wechatOayOrderString:(NSString *)orderString {
-    
+    AL_MyAppDelegate.normalClickToBackApp = NO;
     NSData *data = [orderString dataUsingEncoding:NSUTF8StringEncoding];
     
     NSDictionary *params = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];

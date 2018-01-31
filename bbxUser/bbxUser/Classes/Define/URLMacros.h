@@ -140,7 +140,7 @@
 #define URL_RefreshOrderDetail @"/mobile/api/client/v2/refreshOrderDetail.sec"
 
 #pragma mark 付尾款页面初始化接口
-#define URL_SencondPayInit @"/mobile/api/client/v2/sencondPayInit.sec"
+#define URL_SecondPayInit @"/mobile/api/client/v2/secondPayInit.sec"
 
 #pragma mark 检测版本
 #define URL_CheckVersion @"/mobile/api/client/v2/checkVersion"

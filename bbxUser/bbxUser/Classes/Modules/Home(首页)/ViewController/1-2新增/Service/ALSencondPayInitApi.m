@@ -19,7 +19,7 @@
 }
 
 - (NSString *)requestUrl {
-    return URL_SencondPayInit;
+    return URL_SecondPayInit;
 }
 
 - (id)requestArgument {

@@ -6,7 +6,6 @@ target 'bbxUser' do
   # use_frameworks!
 
   # Pods for bbxUser
-
 pod 'Masonry'
 pod 'YTKNetwork'
 pod 'IQKeyboardManager'
@@ -23,15 +22,27 @@ pod 'YYText'
 pod 'UMengAnalytics-NO-IDFA'
 pod 'SDCycleScrollView'
 pod 'WechatOpenSDK'
-
-  target 'bbxUserTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'bbxUserUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
+pod 'SocketRocket', '~> 0.5.1'
 end
+
+target 'bbxUser_Test' do
+pod 'Masonry'
+pod 'YTKNetwork'
+pod 'IQKeyboardManager'
+pod 'SDWebImage'
+pod 'JSONModel'
+pod 'MJRefresh'
+pod 'SDCycleScrollView'
+pod 'DZNEmptyDataSet'
+pod 'MBProgressHUD'
+pod 'YYCategories'
+pod 'JPush'
+pod 'BaiduMapKit'
+pod 'YYText'
+pod 'UMengAnalytics-NO-IDFA'
+pod 'SDCycleScrollView'
+pod 'WechatOpenSDK'
+pod 'SocketRocket', '~> 0.5.1'
+end
+
+

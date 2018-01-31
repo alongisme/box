@@ -12,6 +12,7 @@
 #import "ALSearchResultCell.h"
 
 @interface ALChoseAddressViewController ()<ALSearchResultDelegate,UITableViewDelegate,UITableViewDataSource,BMKPoiSearchDelegate> {
+    BMKPointAnnotation *locationPointAnnotation;
 }
 @property (nonatomic, strong) ALNoResultView *noResultView;
 @property (nonatomic, strong) ALSearchBarView *searchBarView;
@@ -41,8 +42,6 @@
 
     //初始化控件
     [self initsubviews];
-    
-    [self customLocationAccuracyCircle:NO];
     
     [self initFooterFrefresh];
 }
@@ -118,6 +117,12 @@
 
 - (void)loacationStopWithcoor:(CLLocationCoordinate2D)coor {;
     [self startReverseGeoCodeWithGeoPoint:coor];
+    if(locationPointAnnotation) {
+        [self.mapView removeAnnotation:locationPointAnnotation];
+    }
+    locationPointAnnotation = [[BMKPointAnnotation alloc]init];
+    locationPointAnnotation.coordinate = coor;
+    [self.mapView addAnnotation:locationPointAnnotation];
 }
 
 #pragma mark BMKGeoCodeSearchDelegate
@@ -165,6 +170,24 @@
             [self.poiTV reloadData];
         }
     }
+}
+
+- (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id<BMKAnnotation>)annotation {
+    if(annotation == locationPointAnnotation) {
+        BMKPinAnnotationView *newAnnotationView = [[BMKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"myAnnotation"];
+        
+        //设置标注的颜色
+        newAnnotationView.pinColor = BMKPinAnnotationColorPurple;
+        
+        //设置标注的动画效果
+        newAnnotationView.animatesDrop = NO;
+        newAnnotationView.selected = YES;
+        //自定义标注的图像
+        newAnnotationView.image = [UIImage imageNamed:@"dangqianweizhi"];
+        newAnnotationView.centerOffset = CGPointMake(0, 3);
+        return newAnnotationView;
+    }
+    return nil;
 }
 
 #pragma mark UITableViewDelegate

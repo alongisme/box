@@ -61,7 +61,7 @@
     }
     [_locationService startUserLocationService];
     _mapView.userTrackingMode = BMKUserTrackingModeNone;
-    _mapView.showsUserLocation = YES;
+    _mapView.showsUserLocation = NO;
 }
 
 - (void)locationBtnAction {
@@ -81,10 +81,10 @@
 
 //自定义精度圈
 - (void)customLocationAccuracyCircle:(BOOL)isMainPage {
-    BMKLocationViewDisplayParam *param = [[BMKLocationViewDisplayParam alloc] init];
-    param.isAccuracyCircleShow = NO;
-    param.locationViewImgName = isMainPage ? @"shouye-dangqianweizhi" : @"dangqianweizhi";//mapapi.bundle/Image/xxx
-    [_mapView updateLocationViewWithParam:param];
+//    BMKLocationViewDisplayParam *param = [[BMKLocationViewDisplayParam alloc] init];
+//    param.isAccuracyCircleShow = NO;
+//    param.locationViewImgName = isMainPage ? @"shouye-dangqianweizhi" : @"dangqianweizhi";//mapapi.bundle/Image/xxx
+//    [self.mapView updateLocationViewWithParam:param];
 }
 
 - (void)loacationStopWithcoor:(CLLocationCoordinate2D)coor {}

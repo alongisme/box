@@ -35,24 +35,6 @@
     NSString *moneyType = @"金额";
     NSString *money = @"";
     
-    if(!([_model.orderStatus isEqualToString:OrderStatusWaitPay] || [_model.orderStatus isEqualToString:OrderStatusZ] || [_model.orderStatus isEqualToString:OrderStautsNew] || [_model.orderStatus isEqualToString:OrderStatusFinished] || [_model.orderStatus isEqualToString:OrderStatusTimeOut] || [_model.orderStatus isEqualToString:OrderStatusCancel])) {
-        self.doing = YES;
-        self.actionButton.hidden = NO;
-        [self.actionButton setTitleColor:[UIColor colorWithRGBA:ALThemeColor] forState:UIControlStateNormal];
-        self.actionButton.titleLabel.font = ALThemeFont(14);
-        [self.actionButton setTitle:@"镖师动态" forState:UIControlStateNormal];
-        self.actionButton.layer.masksToBounds = YES;
-        self.actionButton.layer.cornerRadius = 28/2;
-        self.actionButton.layer.borderWidth = 1;
-        self.actionButton.layer.borderColor = [UIColor colorWithRGBA:ALThemeColor].CGColor;
-        [self.actionButton.layer setLayerShadow:[UIColor colorWithRGBA:ALViewShadowColor] offset:CGSizeMake(0, 4) radius:1];
-        [self.actionButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.priceLab);
-            make.right.equalTo(@-18);
-            make.size.mas_equalTo(CGSizeMake(90, 28));
-        }];
-    }
-    
     if([model.orderStatus isEqualToString:OrderStatusWaitPay] || [model.orderStatus isEqualToString:OrderStatusCancel] || [model.orderStatus isEqualToString:OrderStatusTimeOut]) {
         if([model.orderStatus isEqualToString:OrderStatusWaitPay]) {
             self.actionButton.hidden = NO;
@@ -105,6 +87,24 @@
     
     self.timeLab.text = model.preStartTime;
     self.addressLab.text = model.seviceAddress;
+    
+    if(!([_model.orderStatus isEqualToString:OrderStatusWaitPay] || [_model.orderStatus isEqualToString:OrderStatusZ] || [_model.orderStatus isEqualToString:OrderStautsNew] || [_model.orderStatus isEqualToString:OrderStatusFinished] || [_model.orderStatus isEqualToString:OrderStatusTimeOut] || [_model.orderStatus isEqualToString:OrderStatusCancel])) {
+        self.doing = YES;
+        self.actionButton.hidden = NO;
+        [self.actionButton setTitleColor:[UIColor colorWithRGBA:ALThemeColor] forState:UIControlStateNormal];
+        self.actionButton.titleLabel.font = ALThemeFont(14);
+        [self.actionButton setTitle:@"镖师动态" forState:UIControlStateNormal];
+        self.actionButton.layer.masksToBounds = YES;
+        self.actionButton.layer.cornerRadius = 28/2;
+        self.actionButton.layer.borderWidth = 1;
+        self.actionButton.layer.borderColor = [UIColor colorWithRGBA:ALThemeColor].CGColor;
+        [self.actionButton.layer setLayerShadow:[UIColor colorWithRGBA:ALViewShadowColor] offset:CGSizeMake(0, 4) radius:1];
+        [self.actionButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.priceLab);
+            make.right.equalTo(@-18);
+            make.size.mas_equalTo(CGSizeMake(90, 28));
+        }];
+    }
     
     NSMutableAttributedString *priceAttString = [[NSMutableAttributedString alloc] initWithString:ALStringFormat(@"%@：¥%@",moneyType,money)];
     priceAttString.yy_font = ALThemeFont(14);

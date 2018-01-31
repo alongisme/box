@@ -38,18 +38,18 @@
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if([viewController isKindOfClass:NSClassFromString(@"ALMainPageViewController")]) {
         [self showCustomView];
-    } else if([viewController isKindOfClass:NSClassFromString(@"ALStepOneViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALInstructionsViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALOrderViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALCallBBXViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALDynamicsViewController")]) {
+    } else if([viewController isKindOfClass:NSClassFromString(@"ALStepOneViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALInstructionsViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALOrderViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALCallBBXViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALDynamicsViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALOrderInfoViewController")]) {
         [self hideCustomView];
     }
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if([viewController isKindOfClass:NSClassFromString(@"ALBaseWebViewController")]) {
+    if([viewController isKindOfClass:NSClassFromString(@"ALBaseWebViewController")] || [viewController isKindOfClass:NSClassFromString(@"ALConfirmationOrderViewController")]) {
         self.interactivePopGestureRecognizer.enabled = NO;
     } else if([viewController isKindOfClass:NSClassFromString(@"ALOrderViewController")]) {
         ALOrderViewController *orderViewController = (ALOrderViewController *)viewController;
         self.interactivePopGestureRecognizer.enabled = !orderViewController.closePopGestureRecognizerEnabled;
-    } else {
+    } else{
         self.interactivePopGestureRecognizer.enabled = YES;
         if(viewController == [self.viewControllers firstObject]) {
             self.interactivePopGestureRecognizer.delegate = self.popDelegate;

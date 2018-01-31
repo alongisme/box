@@ -21,6 +21,7 @@
 #import "ALPayPresentView.h"
 #import "ALDynamicsViewController.h"
 #import "ALSencondPayInitApi.h"
+#import "ALQueryOrderNumApi.h"
 
 @interface ALOrderInfoViewController () <ALRedEnvelopeDelegate, ALPaySuccessDelegate, ALEvaluateDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -59,6 +60,7 @@
 @property (nonatomic, strong) ALCancelOrderApi *cancelOrderApi;
 //创建支付接口
 @property (nonatomic, strong) ALCreateAppPayApi *createAppPayApi;
+@property (nonatomic, strong) ALQueryOrderNumApi *queryLastOrderApi;
 //时间计时器
 //@property (nonatomic, strong) NSTimer *timer;
 //当前选择的红包数据模型
@@ -91,6 +93,25 @@
         self.title = @"订单详情";
         [self loadData];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkLastOrderStauts) name:@"checkLastOrderStauts" object:nil];
+}
+
+- (void)checkLastOrderStauts {
+    
+    self.queryLastOrderApi = [[ALQueryOrderNumApi alloc] initWithOrderNumApi];
+    AL_WeakSelf(self)
+    [self.queryLastOrderApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
+        NSString *lastOrderStatus = weakSelf.queryLastOrderApi.data[@"lastOrderStatus"];
+        if([lastOrderStatus isEqualToString:OrderStatusPS]) {
+            [weakSelf.payPresentView removeFromSuperview];
+            weakSelf.payPresentView = nil;
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:ChangeListIndexStatus object:@{@"index" : @(weakSelf.indexPath),@"commond" : @"secondPaySuccess"}];
+        }
+    } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
+        
+    }];
 }
 
 - (void)addCloseLeftItem {
@@ -205,41 +226,6 @@
             else
                 make.height.equalTo(@45);
         }];
-        
-        if(ALScreenWidth == 320) {
-            //            [self.payTimeLab mas_remakeConstraints:^(MASConstraintMaker *make) {
-            //                make.centerX.equalTo(self.scrollView);
-            //                make.bottom.equalTo(self.orderPayView.mas_bottom).offset(50);
-            //            }];
-            
-            //            [self.payMsgLab mas_remakeConstraints:^(MASConstraintMaker *make) {
-            //                make.centerX.equalTo(self.scrollView);
-            //                make.bottom.equalTo(self.orderPayView.mas_bottom).offset(21);
-            //            }];
-            
-            //            [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            //                make.top.equalTo(self.orderPayView.mas_bottom).offset(8);
-            //                make.width.equalTo(self.scrollView).offset(-22);
-            //                make.centerX.equalTo(self.scrollView);
-            //            }];
-        } else {
-            //            [self.payBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-            //                CGFloat topValue = ALScreenHeight - 45 - 64 - 20;
-            //                make.top.mas_equalTo(topValue);
-            //                make.width.equalTo(self.scrollView).offset(-22);
-            //                make.centerX.equalTo(self.scrollView);
-            //            }];
-            
-            //            [self.payMsgLab mas_remakeConstraints:^(MASConstraintMaker *make) {
-            //                make.centerX.equalTo(self.scrollView);
-            //                make.bottom.equalTo(self.payBtn.mas_top).offset(-5);
-            //            }];
-            
-            //            [self.payTimeLab mas_remakeConstraints:^(MASConstraintMaker *make) {
-            //                make.centerX.equalTo(self.scrollView);
-            //                make.bottom.equalTo(self.payMsgLab.mas_top).offset(-8);
-            //            }];
-        }
         
         if([_orderModel.orderType isEqualToString:@"1"]) {
             [self.payBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -440,6 +426,7 @@
     if([_orderModel.orderType isEqualToString:@"1"]) {
         AL_WeakSelf(self);
         if(self.orderPayView.payType == ALPayTypeAliPay) {
+            AL_MyAppDelegate.backPayType = ALBackToApp_Pay_Type_ALI;
             _createAppPayApi = [[ALCreateAppPayApi alloc] initWithCreateAppPayApi:self.orderModel.orderId PayType:@"0" couponId:nil payChannel:@"aliPay"];
             
             [weakSelf.createAppPayApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
@@ -450,6 +437,7 @@
             }];
             
         } else {
+            AL_MyAppDelegate.backPayType = ALBackToApp_Pay_Type_WX;
             //微信支付
             _createAppPayApi = [[ALCreateAppPayApi alloc] initWithCreateAppPayApi:self.orderModel.orderId PayType:@"0" couponId:nil payChannel:@"wxPay"];
             
@@ -464,8 +452,14 @@
             if(handel == ALPayHandleSuceess) {
                 [weakSelf.payPresentView removeFromSuperview];
                 weakSelf.payPresentView = nil;
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-                [[NSNotificationCenter defaultCenter] postNotificationName:ChangeListIndexStatus object:@{@"index" : @(weakSelf.indexPath),@"commond" : @"secondPaySuccess"}];
+                if(weakSelf
+                   .indexPath == 9999) {
+                    [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"paySuccessToDynamics" object:@{@"orderId" :weakSelf.orderModel.orderId}];
+                } else {
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:ChangeListIndexStatus object:@{@"index" : @(weakSelf.indexPath),@"commond" : @"secondPaySuccess"}];
+                }
             }
         };
         
@@ -671,7 +665,7 @@
         
         _payPresentView.toPayBlock = ^(ALPayType payType) {
             if(payType == ALPayTypeAliPay) {
-                
+                AL_MyAppDelegate.backPayType = ALBackToApp_Pay_Type_ALI;
                 _createAppPayApi = [[ALCreateAppPayApi alloc] initWithCreateAppPayApi:self.orderModel.orderId PayType:@"3" couponId:self.couponId payChannel:@"aliPay"];
                 
                 [weakSelf.createAppPayApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
@@ -683,6 +677,7 @@
                                                                            }];
                 
             } else {
+                AL_MyAppDelegate.backPayType = ALBackToApp_Pay_Type_WX;
                 //微信支付
                 _createAppPayApi = [[ALCreateAppPayApi alloc] initWithCreateAppPayApi:self.orderModel.orderId PayType:@"3" couponId:self.couponId payChannel:@"wxPay"];
                 
@@ -697,8 +692,15 @@
         
         [ALMobilePayService sharedInstance].PayCompltedHandleBlock = ^(ALPayHandle handel) {
             if(handel == ALPayHandleSuceess) {
-                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
-//                [[NSNotificationCenter defaultCenter] postNotificationName:ChangeListIndexStatus object:@{@"index" : @(weakSelf.indexPath),@"commond" : @"secondPaySuccess"}];
+                [weakSelf.payPresentView removeFromSuperview];
+                weakSelf.payPresentView = nil;
+                if(weakSelf.indexPath == 9999) {
+                    [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"paySuccessToDynamics" object:@{@"orderId" :weakSelf.orderModel.orderId}];
+                } else {
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:ChangeListIndexStatus object:@{@"index" : @(weakSelf.indexPath),@"commond" : @"secondPaySuccess"}];
+                }
             }
         };
     }
