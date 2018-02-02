@@ -35,8 +35,14 @@
     }
     self.orderId = orderId;
     //SRWebSocketUrlString 就是websocket的地址 写入自己后台的地址
-    self.socket = [[SRWebSocket alloc] initWithURLRequest:
-                   [NSURLRequest requestWithURL:[NSURL URLWithString:ALStringFormat(@"ws://test.biaobiaoxia.com/mobile/websocket/client?userId=%@&&socketType=orderDetailInfo&&orderId=%@",AL_MyAppDelegate.userModel.idModel.userId,orderId)]]];
+    if([URL_Domain isEqualToString:@"http://test.biaobiaoxia.com/"]) {
+        self.socket = [[SRWebSocket alloc] initWithURLRequest:
+                       [NSURLRequest requestWithURL:[NSURL URLWithString:ALStringFormat(@"ws://test.biaobiaoxia.com/mobile/websocket/client?userId=%@&&socketType=orderDetailInfo&&orderId=%@",AL_MyAppDelegate.userModel.idModel.userId,orderId)]]];
+    } else {
+        self.socket = [[SRWebSocket alloc] initWithURLRequest:
+                       [NSURLRequest requestWithURL:[NSURL URLWithString:ALStringFormat(@"ws://www.biaobiaoxia.com/mobile/websocket/client?userId=%@&&socketType=orderDetailInfo&&orderId=%@",AL_MyAppDelegate.userModel.idModel.userId,orderId)]]];
+    }
+    
     
     self.socket.delegate = self;   //SRWebSocketDelegate 协议
     
@@ -81,6 +87,10 @@
     NSLog(@"被关闭连接，code:%ld,reason:%@,wasClean:%d",code,reason,wasClean);
     //断开连接 同时销毁心跳
     [self SRWebSocketClose];
+    
+    if(_SRWebSocketdidClose) {
+        _SRWebSocketdidClose();
+    }
 }
 
 /*
@@ -132,7 +142,7 @@
     //    dispatch_main_async_safe(^{
     [self destoryHeartBeat];
     //心跳设置为3分钟，NAT超时一般为5分钟
-    heartBeat = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(heartBeatAction) userInfo:nil repeats:YES];
+    heartBeat = [NSTimer scheduledTimerWithTimeInterval:3 * 60 target:self selector:@selector(heartBeatAction) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop]addTimer:heartBeat forMode:NSRunLoopCommonModes];
     //    });
 }

@@ -12,6 +12,7 @@
 @property (nonatomic, weak) UIButton *waitFinished;
 @property (nonatomic, copy) void (^payBlock)();
 @property (nonatomic, copy) void (^toEvaluateBlock)();
+@property (nonatomic, copy) void (^closeEvaluateBlock)();
 - (instancetype)initWithFrame:(CGRect)frame flag:(int)flag expireInterval:(NSNumber *)expireInterval;
 - (void)show;
 @end

@@ -30,6 +30,7 @@
 		3D6C9BAD202064BD00AA371E /* ALWebSocketObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA1EE120204451003380E0 /* ALWebSocketObject.m */; };
 		3D6C9BB0202073AF00AA371E /* ALMyPaoPaoAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6C9BAF202073AF00AA371E /* ALMyPaoPaoAnnotationView.m */; };
 		3D6C9BB12020754500AA371E /* ALMyPaoPaoAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6C9BAF202073AF00AA371E /* ALMyPaoPaoAnnotationView.m */; };
+		3D6C9BB420219F3C00AA371E /* UIButton+JKTouchAreaInsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D6C9BB220219F3C00AA371E /* UIButton+JKTouchAreaInsets.m */; };
 		3D77FA031FBEB7D70049856B /* ALWXShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D77FA021FBEB7D70049856B /* ALWXShareView.m */; };
 		3D90CA3A2015B1E8004856F5 /* ALDynamicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D90CA392015B1E8004856F5 /* ALDynamicsViewController.m */; };
 		3D90CA3B2015B43F004856F5 /* ALDynamicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D90CA392015B1E8004856F5 /* ALDynamicsViewController.m */; };
@@ -241,6 +242,10 @@
 		3DF088E71FD528B3001DCEFA /* ALPushInfomationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088E21FD4FC21001DCEFA /* ALPushInfomationViewController.m */; };
 		3DF088EB1FD63916001DCEFA /* ALQueryOpenPageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088EA1FD63916001DCEFA /* ALQueryOpenPageApi.m */; };
 		3DF088EE1FD692FF001DCEFA /* ALOpenPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF088ED1FD692FF001DCEFA /* ALOpenPageView.m */; };
+		3DF74E092022B1B4002AEAF3 /* Axc_ActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF74E052022B1B3002AEAF3 /* Axc_ActivityIndicator.m */; };
+		3DF74E0A2022B1B4002AEAF3 /* Axc_ActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF74E052022B1B3002AEAF3 /* Axc_ActivityIndicator.m */; };
+		3DF74E0B2022B1B4002AEAF3 /* AxcUI_ActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF74E082022B1B3002AEAF3 /* AxcUI_ActivityIndicatorView.m */; };
+		3DF74E0C2022B1B4002AEAF3 /* AxcUI_ActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DF74E082022B1B3002AEAF3 /* AxcUI_ActivityIndicatorView.m */; };
 		3DFA1EE220204451003380E0 /* ALWebSocketObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFA1EE120204451003380E0 /* ALWebSocketObject.m */; };
 		3DFF97A42015D91B005E1FC6 /* ALConfirContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97A32015D91B005E1FC6 /* ALConfirContentView.m */; };
 		3DFF97A52015DF99005E1FC6 /* ALConfirContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFF97A32015D91B005E1FC6 /* ALConfirContentView.m */; };
@@ -471,6 +476,8 @@
 		3D3698DB2011C70C009E07CA /* ALConsumerInfomationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALConsumerInfomationView.m; sourceTree = "<group>"; };
 		3D6C9BAE202073AF00AA371E /* ALMyPaoPaoAnnotationView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALMyPaoPaoAnnotationView.h; sourceTree = "<group>"; };
 		3D6C9BAF202073AF00AA371E /* ALMyPaoPaoAnnotationView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALMyPaoPaoAnnotationView.m; sourceTree = "<group>"; };
+		3D6C9BB220219F3C00AA371E /* UIButton+JKTouchAreaInsets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+JKTouchAreaInsets.m"; sourceTree = "<group>"; };
+		3D6C9BB320219F3C00AA371E /* UIButton+JKTouchAreaInsets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+JKTouchAreaInsets.h"; sourceTree = "<group>"; };
 		3D77FA011FBEB7D70049856B /* ALWXShareView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALWXShareView.h; sourceTree = "<group>"; };
 		3D77FA021FBEB7D70049856B /* ALWXShareView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALWXShareView.m; sourceTree = "<group>"; };
 		3D90CA382015B1E8004856F5 /* ALDynamicsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALDynamicsViewController.h; sourceTree = "<group>"; };
@@ -509,6 +516,10 @@
 		3DF088EA1FD63916001DCEFA /* ALQueryOpenPageApi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALQueryOpenPageApi.m; sourceTree = "<group>"; };
 		3DF088EC1FD692FF001DCEFA /* ALOpenPageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALOpenPageView.h; sourceTree = "<group>"; };
 		3DF088ED1FD692FF001DCEFA /* ALOpenPageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALOpenPageView.m; sourceTree = "<group>"; };
+		3DF74E052022B1B3002AEAF3 /* Axc_ActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Axc_ActivityIndicator.m; sourceTree = "<group>"; };
+		3DF74E062022B1B3002AEAF3 /* AxcUI_ActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxcUI_ActivityIndicatorView.h; sourceTree = "<group>"; };
+		3DF74E072022B1B3002AEAF3 /* Axc_ActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Axc_ActivityIndicator.h; sourceTree = "<group>"; };
+		3DF74E082022B1B3002AEAF3 /* AxcUI_ActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AxcUI_ActivityIndicatorView.m; sourceTree = "<group>"; };
 		3DFA1EE020204451003380E0 /* ALWebSocketObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALWebSocketObject.h; sourceTree = "<group>"; };
 		3DFA1EE120204451003380E0 /* ALWebSocketObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ALWebSocketObject.m; sourceTree = "<group>"; };
 		3DFF97A22015D91B005E1FC6 /* ALConfirContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ALConfirContentView.h; sourceTree = "<group>"; };
@@ -1013,6 +1024,17 @@
 				3DE02427201871E600A4E921 /* ALDynamicsBottomView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		3DF74E042022B1B3002AEAF3 /* AxcUI_ActivityIndicatorView */ = {
+			isa = PBXGroup;
+			children = (
+				3DF74E052022B1B3002AEAF3 /* Axc_ActivityIndicator.m */,
+				3DF74E062022B1B3002AEAF3 /* AxcUI_ActivityIndicatorView.h */,
+				3DF74E072022B1B3002AEAF3 /* Axc_ActivityIndicator.h */,
+				3DF74E082022B1B3002AEAF3 /* AxcUI_ActivityIndicatorView.m */,
+			);
+			path = AxcUI_ActivityIndicatorView;
 			sourceTree = "<group>";
 		};
 		3DFA1EDF20204436003380E0 /* ALWebSocket */ = {
@@ -1715,6 +1737,7 @@
 		BFFEB6581F30660600A022EA /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				3DF74E042022B1B3002AEAF3 /* AxcUI_ActivityIndicatorView */,
 				3DFA1EDF20204436003380E0 /* ALWebSocket */,
 				BFFEB6591F30660600A022EA /* PaySDK */,
 			);
@@ -1891,6 +1914,8 @@
 			isa = PBXGroup;
 			children = (
 				BFFEB6C81F30660600A022EA /* ALCategory.h */,
+				3D6C9BB320219F3C00AA371E /* UIButton+JKTouchAreaInsets.h */,
+				3D6C9BB220219F3C00AA371E /* UIButton+JKTouchAreaInsets.m */,
 				BFFEB6C91F30660600A022EA /* NSObject+ALUserDefault.h */,
 				BFFEB6CA1F30660600A022EA /* NSObject+ALUserDefault.m */,
 				BF6DFCF61F3DAF7E0098AC5B /* NSObject+CheckOutSomething.h */,
@@ -2242,6 +2267,7 @@
 				3DB71C171FCE88EF00BB129D /* ALHttpRequest.m in Sources */,
 				3DB71C181FCE88EF00BB129D /* ALEvaluateView.m in Sources */,
 				3DB71C191FCE88EF00BB129D /* WechatPayManager.m in Sources */,
+				3DF74E0A2022B1B4002AEAF3 /* Axc_ActivityIndicator.m in Sources */,
 				3DB71C1A1FCE88EF00BB129D /* ALProtocolViewController.m in Sources */,
 				3DB71C1B1FCE88EF00BB129D /* ALCreateOrderInitApi.m in Sources */,
 				3DB71C1C1FCE88EF00BB129D /* ALNewsDetailViewController.m in Sources */,
@@ -2401,6 +2427,7 @@
 				3DB71CA21FCE88EF00BB129D /* ALUserIDModel.m in Sources */,
 				3DB71CA31FCE88EF00BB129D /* ALSecurityLocationModel.m in Sources */,
 				3DB71CA41FCE88EF00BB129D /* ALOrderModel.m in Sources */,
+				3DF74E0C2022B1B4002AEAF3 /* AxcUI_ActivityIndicatorView.m in Sources */,
 				3D6C9BAD202064BD00AA371E /* ALWebSocketObject.m in Sources */,
 				3DB71CA51FCE88EF00BB129D /* ALBannerViewController.m in Sources */,
 				3DB71CA61FCE88EF00BB129D /* ALChoseSeverCollectionViewCell.m in Sources */,
@@ -2473,6 +2500,7 @@
 				BFD18C671F3C092100D00293 /* ALSecurityInfoViewController.m in Sources */,
 				BFFEB6FC1F30660600A022EA /* ALUpdateMyInfoApi.m in Sources */,
 				BFD18C8B1F3C5EC400D00293 /* ALCommentContentView.m in Sources */,
+				3DF74E0B2022B1B4002AEAF3 /* AxcUI_ActivityIndicatorView.m in Sources */,
 				BFA048CC1F37FA360002927B /* ALAccountInfoViewController.m in Sources */,
 				3DE02428201871E600A4E921 /* ALDynamicsBottomView.m in Sources */,
 				3D3698D42011BD2A009E07CA /* ALCallBBXViewController.m in Sources */,
@@ -2488,6 +2516,7 @@
 				BF4FE3101F34582B00B933AC /* ALMineViewController.m in Sources */,
 				BF6DFD471F43E6790098AC5B /* LJPerson.m in Sources */,
 				BF6DFD0D1F429CF00098AC5B /* ALMyUndoneOrderListApi.m in Sources */,
+				3DF74E092022B1B4002AEAF3 /* Axc_ActivityIndicator.m in Sources */,
 				BF6DFCF21F3D83490098AC5B /* ALUserInfoModel.m in Sources */,
 				3D233DBD1FC55502001BE395 /* ALTimeCouponListModel.m in Sources */,
 				3D080DFF1FB2A846009676BA /* ALHudMessageView.m in Sources */,
@@ -2510,6 +2539,7 @@
 				3D080DF01FB003A9009676BA /* ALFastCallViewController.m in Sources */,
 				BFF3DE841F381FF900E81E6E /* ALMyMessageModel.m in Sources */,
 				3D23B2291FB5510500EE6A80 /* ALBaseWebViewController.m in Sources */,
+				3D6C9BB420219F3C00AA371E /* UIButton+JKTouchAreaInsets.m in Sources */,
 				BF02371D1F32E53B004BAF37 /* ALChoseToolView.m in Sources */,
 				BFFEB6F21F30660600A022EA /* ALAboutUsApi.m in Sources */,
 				BF29B2D51F385AEC009CC1BB /* ALFeedBackViewController.m in Sources */,

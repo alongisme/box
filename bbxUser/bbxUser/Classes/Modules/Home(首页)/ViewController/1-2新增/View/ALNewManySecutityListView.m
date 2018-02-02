@@ -41,8 +41,31 @@
             
             //每一行的view
             UIView *itemView = [[UIView alloc] init];
-            itemView.backgroundColor = AL_RandomColor;
             [_bgView addSubview:itemView];
+            
+            UIView *lineView = [UIView new];
+            lineView.backgroundColor = [UIColor colorWithRGB:0xf5f6fa];
+            [itemView addSubview:lineView];
+            
+            [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(@14);
+                make.right.equalTo(@-14);
+                make.height.equalTo(@1);
+                make.bottom.equalTo(@0);
+            }];
+            
+            UIImageView *itemIV = [[UIImageView alloc] init];
+            [itemView addSubview:itemIV];
+            
+            [itemIV mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(@0);
+            }];
+            
+            if(i == 0) {
+                itemIV.image = [UIImage imageNamed:@"shang"];
+            } else {
+                itemIV.image = [UIImage imageNamed:@"zhong"];
+            }
             
             UIImageView *headIV = [[UIImageView alloc] init];
             headIV.contentMode = UIViewContentModeScaleAspectFill;
@@ -136,9 +159,16 @@
             
             if(i == arr.count - 1) {
                 _bottomView = [[UIView alloc] init];
-                _bottomView.backgroundColor = AL_RandomColor;
                 _bottomView.userInteractionEnabled = YES;
                 [self addSubview:_bottomView];
+                
+                UIImageView *bottomIV = [[UIImageView alloc] init];
+                bottomIV.image = [UIImage imageNamed:@"xia"];
+                [_bottomView addSubview:bottomIV];
+                
+                [bottomIV mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.equalTo(@0);
+                }];
                 
                 [_bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.height.equalTo(@45);

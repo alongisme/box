@@ -45,7 +45,7 @@
 }
 
 - (void)checkLastOrderStauts {
-    
+    AL_MyAppDelegate.normalClickToBackApp = YES;
     self.queryLastOrderApi = [[ALQueryOrderNumApi alloc] initWithOrderNumApi];
     AL_WeakSelf(self)
     [self.queryLastOrderApi ALHudStartWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
@@ -255,6 +255,7 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_cancelOrderApi stop];
     _createAppPayApi = nil;
     [_createAppPayApi stop];

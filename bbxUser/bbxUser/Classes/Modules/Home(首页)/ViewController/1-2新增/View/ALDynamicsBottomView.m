@@ -62,6 +62,9 @@
         }];
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
+        if(self.closeEvaluateBlock) {
+            self.closeEvaluateBlock();
+        }
         [self removeFromSuperview];
     }];
 }

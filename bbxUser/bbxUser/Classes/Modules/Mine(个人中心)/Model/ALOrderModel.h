@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol ALSecurityLocationModel
+@end
+
 @protocol ALSecurityModel
 @end
 
 @interface ALOrderModel : JSONModel
+@property (nonatomic, copy) NSString<Optional> *acceptSeconds;
 @property (nonatomic, copy) NSString<Optional> *payPrice;
 @property (nonatomic, copy) NSString<Optional> *estimatedPrice;
 @property (nonatomic, copy) NSString<Optional> *content;
@@ -35,6 +39,7 @@
 @property (nonatomic, copy) NSString<Optional> *contactsName;
 @property (nonatomic, copy) NSString<Optional> *contactsPhone;
 @property (nonatomic, strong) NSArray<Optional,ALSecurityModel> *securityList;
+@property (nonatomic, strong) NSArray<Optional,ALSecurityLocationModel> *poiList;
 @end
 
 @interface ALSecurityModel : JSONModel

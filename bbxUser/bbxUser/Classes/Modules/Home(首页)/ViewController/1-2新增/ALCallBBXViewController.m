@@ -70,10 +70,6 @@
     [super viewDidLoad];
     self.extendedLayoutIncludesOpaqueBars = NO;
     self.title = @"呼叫镖镖";
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
     [self loadData];
 }
 

@@ -115,10 +115,13 @@
 
 - (void)paySuccessToDynamics:(NSNotification *)notification {
     if([notification.object[@"orderId"] isVaild]) {
-        ALDynamicsViewController *dynamicsVC = [ALDynamicsViewController new];
-        dynamicsVC.orderId = notification.object[@"orderId"];
-        dynamicsVC.orderStatus = OrderStatusPS;
-        [self.navigationController pushViewController:dynamicsVC animated:YES];
+        NSLog(@"zzzzzzzzzzzzzzzz");
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            ALDynamicsViewController *dynamicsVC = [ALDynamicsViewController new];
+            dynamicsVC.orderId = notification.object[@"orderId"];
+            dynamicsVC.orderStatus = OrderStatusPS;
+            [self.navigationController pushViewController:dynamicsVC animated:YES];
+        });
     }
 }
 

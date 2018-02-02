@@ -89,7 +89,6 @@
         [self.estimateProtocolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.estimateMoneyLab);
             make.left.equalTo(self.estimateMoneyLab.mas_right).offset(10);
-            make.size.mas_equalTo(CGSizeMake(14, 14));
         }];
         
         [self.estimateMoney mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -228,17 +227,14 @@
 - (UIButton *)estimateProtocolBtn {
     if(!_estimateProtocolBtn) {
         _estimateProtocolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _estimateProtocolBtn.titleLabel.font = ALThemeFont(9);
-        [_estimateProtocolBtn setTitle:@"?" forState:UIControlStateNormal];
-        [_estimateProtocolBtn setTitleColor:[UIColor colorWithRGB:0x999999] forState:UIControlStateNormal];
+        [_estimateProtocolBtn setBackgroundImage:[UIImage imageNamed:@"wenhao"] forState:UIControlStateNormal];
         [self addSubview:_estimateProtocolBtn];
-        _estimateProtocolBtn.layer.masksToBounds = YES;
-        _estimateProtocolBtn.layer.cornerRadius = 14/2.0;
-        _estimateProtocolBtn.layer.borderColor = [UIColor colorWithRGB:0x999999].CGColor;
-        _estimateProtocolBtn.layer.borderWidth = 1.0;
         
         [_estimateProtocolBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-            NSLog(@"安全保协议");
+            ALBaseWebViewController *wbvc = [[ALBaseWebViewController alloc] init];
+            wbvc.title = @"预付款金额说明";
+            wbvc.requestUrl = ALStringFormat(@"%@/resources/protocol/first-pay-specification.html",URL_Domain);
+            [ALKeyWindow.currentViewController.navigationController pushViewController:wbvc animated:YES];
         }];
     }
     return _estimateProtocolBtn;

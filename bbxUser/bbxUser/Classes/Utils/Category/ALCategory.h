@@ -14,5 +14,6 @@
 #import "NSObject+CheckOutSomething.h"
 #import "UITableViewCell+ALBindModel.h"
 #import "UIFont+ALFontSize.h"
+#import "UIButton+JKTouchAreaInsets.h"
 
 #endif /* ALCategory_h */

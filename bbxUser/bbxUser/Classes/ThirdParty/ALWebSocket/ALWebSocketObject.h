@@ -11,6 +11,7 @@
 @interface ALWebSocketObject : NSObject
 @property (nonatomic, copy) void (^didReceiveMessage)(id message);
 @property (nonatomic, copy) void (^webSocketDidOpen)(void);
+@property (nonatomic, copy) void (^SRWebSocketdidClose)(void);
 
 + (ALWebSocketObject *)instance;
 //开启连接

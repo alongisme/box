@@ -7,6 +7,7 @@
 //
 
 #import "ALSafeProtectView.h"
+#import "ALBaseWebViewController.h"
 
 @interface ALSafeProtectView()
 @property (nonatomic, strong) ALLabel *titleLab;
@@ -43,7 +44,6 @@
     [self.safeProtocolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.titleLab);
         make.left.equalTo(self.titleLab.mas_right).offset(10);
-        make.size.mas_equalTo(CGSizeMake(14, 14));
     }];
 }
 
@@ -72,21 +72,19 @@
     return _subTitleLab;
 }
 
+- (void)safeProtocolAction {
+    ALBaseWebViewController *wbvc = [[ALBaseWebViewController alloc] init];
+    wbvc.title = @"安全保服务协议";
+    wbvc.requestUrl = ALStringFormat(@"%@/resources/protocol/insurance-protocol.html",URL_Domain);
+    [ALKeyWindow.currentViewController.navigationController pushViewController:wbvc animated:YES];
+}
+
 - (UIButton *)safeProtocolBtn {
     if(!_safeProtocolBtn) {
         _safeProtocolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _safeProtocolBtn.titleLabel.font = ALThemeFont(9);
-        [_safeProtocolBtn setTitle:@"?" forState:UIControlStateNormal];
-        [_safeProtocolBtn setTitleColor:[UIColor colorWithRGB:0x999999] forState:UIControlStateNormal];
+        [_safeProtocolBtn setBackgroundImage:[UIImage imageNamed:@"wenhao"] forState:UIControlStateNormal];
         [self addSubview:_safeProtocolBtn];
-        _safeProtocolBtn.layer.masksToBounds = YES;
-        _safeProtocolBtn.layer.cornerRadius = 14/2.0;
-        _safeProtocolBtn.layer.borderColor = [UIColor colorWithRGB:0x999999].CGColor;
-        _safeProtocolBtn.layer.borderWidth = 1.0;
-        
-        [_safeProtocolBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-            NSLog(@"安全保协议");
-        }];
+        [_safeProtocolBtn addTarget:self action:@selector(safeProtocolAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _safeProtocolBtn;
 }

@@ -321,6 +321,7 @@
         }];
     } else if ([url.host isEqualToString:@"pay"]) {
         self.backPayType = ALBackToApp_Pay_Type_WX;
+        self.normalClickToBackApp = YES;
         return  [WXApi handleOpenURL:url delegate:[WXApiManager shareInstance]];
     } else {
         return [WXApi handleOpenURL:url delegate:self];
